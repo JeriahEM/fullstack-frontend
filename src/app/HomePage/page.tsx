@@ -1,12 +1,17 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
+
 import React from 'react'
 
 const HomePage = () => {
+
+    const router = useRouter();
   return (
     <>
-      <div className=" text-center h-10 w-full bg-slate-500 items-center">
-        <h1>TEMP NAVBAR</h1>
+      <div className="flex flex-row text-center h-10 w-full bg-slate-500 items-center">
+        <h1 className="px-4">TEMP NAVBAR</h1>
+        <button onClick={()=> router.push('/profile')}>PROFILE</button>
       </div>
 
 
