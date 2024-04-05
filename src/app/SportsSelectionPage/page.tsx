@@ -51,7 +51,7 @@ const SportsSelectionPage = () => {
     // };
     return sports.map((sport, index) => (
       <div key={index} className=" flex justify-center py-4">
-        <button className={` bg-Tennis bg-center bg-cover h-44 w-[90%] rounded-lg text-5xl font-bold `}>
+        <button className={` bg-Golf bg-center bg-cover h-44 w-[90%] rounded-lg text-5xl font-bold `}>
           {sport}
         </button>
       </div>
