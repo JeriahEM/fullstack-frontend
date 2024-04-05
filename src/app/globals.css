@@ -2,9 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-.Bg{
-  background-image: url("../../public/assets/images/marianna-smiley-Y4YeUSYLFsw-unsplash\ 1.png");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
