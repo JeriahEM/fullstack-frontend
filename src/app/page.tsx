@@ -58,6 +58,7 @@ export default function Home() {
 
   }
   
+  
   return (
     <div className="min-h-screen w-full Bg">
       <div className="grid grid-flow-row justify-center">
@@ -79,7 +80,8 @@ export default function Home() {
       <div className="flex items-center gap-2">
       <Button className="light" onClick={handleSwtich}>{switchBool ? 'Already have an Account?' : 'Sign up'}</Button>
       </div>
-      <Button onClick={handleSubmit}>Submit</Button>
+      {/* <Button onClick={handleSubmit}>Submit</Button> */}
+      <Button onClick={()=> router.push('/HomePage')}>Submit</Button>
     </form>
         </div>
 
