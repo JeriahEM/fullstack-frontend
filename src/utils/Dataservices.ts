@@ -1,7 +1,7 @@
 import { IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 
 
-const url = "https://myblogapi.azurewebsites.net"
+const url = "https://apicourtmonitor.azurewebsites.net"
 
 let userData: IUserdata
 
