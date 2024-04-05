@@ -25,40 +25,40 @@ const NavbarComponent = () => {
               }
             >
               <Dropdown.Item onClick={()=> router.push('/HomePage')}>
-                <div className='flex flex-row'>
+                <div className='flex flex-row items-center'>
                     <HomeOutlinedIcon/>
-                    <p>Home</p>
-                </div>
+                    <p className='pl-2'>Home</p>
+                </div >
               </Dropdown.Item>
               <Dropdown.Item onClick={()=> router.push('/ProfilePage')}>
-                <div className='flex flex-row'>
+                <div className='flex flex-row items-center'>
                     <PersonOutlineOutlinedIcon/>
-                    <p>Profile</p>
+                    <p className='pl-2'>Profile</p>
                 </div>
               </Dropdown.Item>
               <Dropdown.Item onClick={()=> router.push('/NotificationsPage')}>
-              <div className='flex flex-row'>
+              <div className='flex flex-row items-center'>
                     <EmailOutlinedIcon/>
-                    <p>Notifications</p>
+                    <p className='pl-2'>Notifications</p>
                 </div>
               </Dropdown.Item>
               <Dropdown.Item onClick={()=> router.push('/UserDirectoryPage')}>
-              <div className='flex flex-row'>
+              <div className='flex flex-row items-center'>
                     <PersonSearchOutlinedIcon/>
-                    <p>User Directory</p>
+                    <p className='pl-2'>User Directory</p>
                 </div>
               </Dropdown.Item>
               <Dropdown.Item onClick={()=> router.push('/SportsSelectionPage')}>
-              <div className='flex flex-row'>
+              <div className='flex flex-row items-center'>
                     <SportsBaseballOutlinedIcon/>
-                    <p>Sports Selection</p>
+                    <p className='pl-2'>Sports Selection</p>
                 </div>
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>
-              <div className='flex flex-row'>
+              <Dropdown.Item onClick={()=> router.push('/')}>
+              <div className='flex flex-row items-center'>
                     <LogoutOutlinedIcon/>
-                    <p>Sign out</p>
+                    <p className='pl-2'>Sign out</p>
                 </div>
               </Dropdown.Item>
             </Dropdown>
