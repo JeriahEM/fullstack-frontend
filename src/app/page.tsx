@@ -59,7 +59,8 @@ export default function Home() {
   }
   
   return (
-      <div className="grid grid-flow-row justify-center mt-20">
+    <div className="min-h-screen w-full Bg">
+      <div className="grid grid-flow-row justify-center">
         <div className="bg bg-slate-400 min-w-96 p-8 rounded-lg">
           <h1 className="text-3xl">{switchBool ? 'Create Account' : 'Login'}</h1>
         <form className="flex max-w-md flex-col gap-4">
@@ -82,6 +83,7 @@ export default function Home() {
     </form>
         </div>
 
+      </div>
       </div>
   );
 }
