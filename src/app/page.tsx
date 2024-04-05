@@ -47,7 +47,7 @@ export default function Home() {
       if(token.token != null){
         localStorage.setItem("Token", token.token)
         getLoggedInUserData(username);
-        router.push('/Dashboard');
+        router.push('/HomePage');
       }else{
         alert("Login failed");
       }
@@ -80,8 +80,8 @@ export default function Home() {
       <div className="flex items-center gap-2">
       <Button className="light" onClick={handleSwtich}>{switchBool ? 'Already have an Account?' : 'Sign up'}</Button>
       </div>
-      {/* <Button onClick={handleSubmit}>Submit</Button> */}
-      <Button onClick={()=> router.push('/HomePage')}>Submit</Button>
+      <Button onClick={handleSubmit}>Submit</Button>
+      {/* <Button onClick={()=> router.push('/HomePage')}>Submit</Button> */}
     </form>
         </div>
 
