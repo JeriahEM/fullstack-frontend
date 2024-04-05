@@ -29,8 +29,8 @@ const SportsSelectionPage = () => {
     "Swimming",
     "Hockey",
     "Gymnastics",
-    "Track and Field",
-    "Water Polo",
+    "Track-and-Field",
+    "Water-Polo",
   ];
 
   const SportsList = ({ sports: [] }) => {
