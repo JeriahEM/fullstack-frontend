@@ -5,12 +5,10 @@ import Image from "next/image";
 import image1 from "../assets/images/image1.png";
 import phUser from "../assets/images/Group13.png";
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap')
-</style>
+
 // For this page we will need to call users id, pfp, username, status
 
-const programOwner = ["Roger Ffederer"];
+const programOwner = ["Roger Federer"];
 
 const coaches = ["Kyle Yok Eyh Ma"];
 
@@ -46,6 +44,10 @@ const UserDirectoryPage = () => {
           <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <Image src={phUser} alt={""} />
             <p>LeBron James</p>
+          </div>
+          <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+            <Image src={phUser} alt={""} />
+            <p>Billy Willy</p>
           </div>
         </div>
         <br />

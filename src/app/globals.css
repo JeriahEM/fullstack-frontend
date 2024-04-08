@@ -15,6 +15,14 @@
       }
   }
 
+  .header {
+    letter-spacing: .15em;
+  }
+
+  .inputbg{
+    background-color: transparent!important;
+  }
+
 .Tennis{
     background-image: url(./assets/images/Tennis.jpg);
     background-position: center;

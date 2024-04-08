@@ -60,27 +60,35 @@ export default function Home() {
   
   
   return (
-    <div className="min-h-screen w-full Bg">
+    <div className="min-h-screen w-full Tennis">
+      <div className="flex flex-col items-center text-5xl text-white font-bebas header pt-14 ">
+        <p>Court Monitor</p>
+      </div>
       <div className="grid grid-flow-row justify-center">
-        <div className="bg bg-slate-400 min-w-96 p-8 rounded-lg">
-          <h1 className="text-3xl">{switchBool ? 'Create Account' : 'Login'}</h1>
+        <div className="bg  min-w-96 p-8 rounded-lg">
+          <div className="items-center pb-8 pl-24 ml-6">
+          <h1 className="text-3xl font-titillium text-white">{switchBool ? 'New User' : 'Login'}</h1>
+          </div>
         <form className="flex max-w-md flex-col gap-4">
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="username" value="username" />
+      <div className="flex flex-row gap-3">
+        <div className="mb-2 block pt-2 text-3xl font-titillium text-white">
+          <p>UserName:</p>
         </div>
-        <TextInput id="username" type="text" placeholder="Enter username" required onChange={(e) => setUsername(e.target.value)} />
+        <input id="username" type="text" className="inputbg border-transparent" required onChange={(e) => setUsername(e.target.value)} />
       </div>
-      <div>
+      <div className="flex flex-row gap-3">
         <div className="mb-2 block">
-          <Label htmlFor="password1" value="Your password" />
+        <div className="mb-2 block pt-2 text-3xl font-titillium text-white pl-2">
+          <p>Password:</p>
         </div>
-        <TextInput id="password1" type="password" required onChange={(e) => setPassword(e.target.value)} />
+        </div>
+        <input id="password1" type="password" className="inputbg border-transparent" required onChange={(e) => setPassword(e.target.value)} />
       </div>
-      <div className="flex items-center gap-2">
-      <Button className="light" onClick={handleSwtich}>{switchBool ? 'Already have an Account?' : 'Sign up'}</Button>
+
+      <Button onClick={handleSubmit} className="bg-white text-black font-titillium">{switchBool ? 'Next' : 'Enter'}</Button>
+      <div className="flex items-center place-content-center gap-2">
+      <button className="text-3xl font-titillium text-white" onClick={handleSwtich}>{switchBool ? 'Already have an Account?' : 'Sign up'}</button>
       </div>
-      <Button onClick={handleSubmit}>Submit</Button>
       {/* <Button onClick={()=> router.push('/HomePage')}>Submit</Button> */}
     </form>
         </div>

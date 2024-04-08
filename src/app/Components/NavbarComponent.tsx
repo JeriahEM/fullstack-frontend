@@ -7,6 +7,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
+import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 
 const NavbarComponent = () => {
     const router = useRouter();
@@ -48,6 +49,12 @@ const NavbarComponent = () => {
                     <p className='pl-2'>User Directory</p>
                 </div>
               </Dropdown.Item>
+              <Dropdown.Item onClick={()=> router.push('/AllProgramsPage')}>
+              <div className='flex flex-row items-center'>
+                    <ListOutlinedIcon/>
+                    <p className='pl-2 font-titillium'>All Programs</p>
+                </div>
+              </Dropdown.Item>
               <Dropdown.Item onClick={()=> router.push('/SportsSelectionPage')}>
               <div className='flex flex-row items-center'>
                     <SportsBaseballOutlinedIcon/>
@@ -64,7 +71,7 @@ const NavbarComponent = () => {
             </Dropdown>
             <Navbar.Toggle />
           </div>
-          <Dropdown  label="Manteca Future Stars" inline>
+          <Dropdown className='font-bebas' label="Manteca Future Stars" inline>
       <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
       <Dropdown.Item>US Open</Dropdown.Item>
     </Dropdown>
