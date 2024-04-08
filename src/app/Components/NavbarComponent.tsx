@@ -13,7 +13,7 @@ const NavbarComponent = () => {
     return (
         <Navbar fluid rounded>
           <Navbar.Brand>
-            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Court Monitor</span>
+            <span className="self-center whitespace-nowrap text-xl font-bebas font-semibold dark:text-white">Court Monitor</span>
           </Navbar.Brand>
           <div className="flex md:order-2">
             <p className='pt-2 pr-2'>Billy Willy</p>
@@ -64,7 +64,7 @@ const NavbarComponent = () => {
             </Dropdown>
             <Navbar.Toggle />
           </div>
-          <Dropdown label="Manteca Future Stars" inline>
+          <Dropdown  label="Manteca Future Stars" inline>
       <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
       <Dropdown.Item>US Open</Dropdown.Item>
     </Dropdown>
