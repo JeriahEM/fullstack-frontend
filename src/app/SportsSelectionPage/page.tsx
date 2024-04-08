@@ -2,7 +2,7 @@
 
 import React from "react";
 import NavbarComponent from "../Components/NavbarComponent";
-// import golf from "../assets/images/golf.jpg";
+import golf from "../assets/images/golf.jpg";
 // import basketball from "../assets/images/basketball.jpg";
 // import football from "../assets/images/football.jpg";
 // import baseball from "../assets/images/baseball.jpg";
@@ -34,31 +34,17 @@ const SportsSelectionPage = () => {
   ];
 
   const SportsList = ({ sports: [] }) => {
-    // const images = {
-    //   Tennis: tennis,
-    //   Football: football,
-    //   Basketball: basketball,
-    //   Soccer: soccer,
-    //   Baseball: baseball,
-    //   Volleyball: volleyball,
-    //   Wrestling: wrestling,
-    //   Golf: golf,
-    //   Swimming: swimming,
-    //   Hockey: hockey,
-    //   Gymnastics: gymnastics,
-    //   "Track and Field": track,
-    //   bg-${sport}"Water Polo": waterpolo,
-    // };
+    
     return sports.map((sport, index) => (
       <div key={index} className=" flex justify-center py-4">
-        <button className={` bg-Golf bg-center bg-cover h-44 w-[90%] rounded-lg text-5xl font-bold `}>
-          {sport}
+        <button className={`${sport} h-44 w-[90%] rounded-lg text-5xl font-bold `}>
+          <p className="textShadow">{sport}</p>
         </button>
       </div>
     ));
   };
   return (
-    <>
+    <div className="">
       <NavbarComponent />
       <h1 className="text-center text-6xl font-bold py-4">Select a Sport</h1>
       <div className="mx-7">
@@ -66,7 +52,7 @@ const SportsSelectionPage = () => {
           <SportsList sports={sports} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

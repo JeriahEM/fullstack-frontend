@@ -3,16 +3,14 @@
 import { useRouter } from 'next/navigation';
 
 import React from 'react'
+import NavbarComponent from '../Components/NavbarComponent';
 
 const page = () => {
 
     const router = useRouter();
   return (
     <>
-    <div className="flex flex-row text-center h-10 w-full bg-slate-500 items-center">
-        <h1 className="px-4">TEMP NAVBAR</h1>
-        <button onClick={() => router.push('/HomePage')}>HOME</button>
-    </div>
+    <NavbarComponent/>
 
 
     <div className="grid grid-cols-6 mx-7 py-8">
