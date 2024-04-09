@@ -20,7 +20,7 @@ const UserDirectoryPage = () => {
 
   const createUser = () => {
     return dummyUsers.map((user, idx) => (
-      <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+      <div key={idx} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <Image src={phUser} alt={""} />
             <p>{user.Username}</p>
           </div>
