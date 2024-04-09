@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "userID": "1",
+    "title": "Tennis Match",
+    "date": "now",
+    "startTime": "5:00",
+    "endTime": "7:00",
+    "color": "red",
+    "sport": "tennis",
+    "isDeleted": true,
+    "isPublished": true
+  },
+  {
+    "id": 2,
+    "userID": "2",
+    "title": "Basketball Game",
+    "date": "2024-04-10",
+    "startTime": "10:00",
+    "endTime": "12:00",
+    "color": "blue",
+    "sport": "basketball",
+    "isDeleted": false,
+    "isPublished": true
+  },
+  {
+    "id": 3,
+    "userID": "3",
+    "title": "Swimming Session",
+    "date": "2024-04-12",
+    "startTime": "18:00",
+    "endTime": "19:00",
+    "color": "green",
+    "sport": "swimming",
+    "isDeleted": false,
+    "isPublished": true
+  },
+  {
+    "id": 4,
+    "userID": "4",
+    "title": "Soccer Match",
+    "date": "2024-04-15",
+    "startTime": "13:00",
+    "endTime": "17:00",
+    "color": "yellow",
+    "sport": "soccer",
+    "isDeleted": false,
+    "isPublished": true
+  }
+]

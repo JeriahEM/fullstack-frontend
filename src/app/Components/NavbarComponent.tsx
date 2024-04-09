@@ -14,7 +14,7 @@ const NavbarComponent = () => {
     return (
         <Navbar fluid rounded>
           <Navbar.Brand>
-            <span className="self-center whitespace-nowrap text-xl font-bebas font-semibold dark:text-white">Court Monitor</span>
+            <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]">Court Monitor</span>
           </Navbar.Brand>
           <div className="flex md:order-2">
             <p className='pt-2 pr-2'>Billy Willy</p>
