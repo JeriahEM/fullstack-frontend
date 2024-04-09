@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
 @layer components {
@@ -87,7 +88,7 @@
 
 .textShadow{
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.55);
--webkit-text-stroke-width: 0.8px;
+-webkit-text-stroke-width: 0.75px;
 -webkit-text-stroke-color: #000;
 color: white;
 }
