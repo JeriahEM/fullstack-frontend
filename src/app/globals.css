@@ -20,74 +20,81 @@
   }
 
 .Tennis{
-    background-image: url(./assets/images/Tennis.jpg);
+    background-image: url(assets/images/Tennis.jpg);
     background-position: center;
     background-size: cover;
 }
 .Football{
-    background-image: url(./assets/images/Football.jpg);
+    background-image: url(assets/images/Football.jpg);
     background-position: center;
     background-size: cover;
 }
 .Basketball{
-    background-image: url(./assets/images/Basketball.jpg);
+    background-image: url(assets/images/Basketball.jpg);
     background-position: center;
     background-size: cover;
 }
 .Soccer{
-    background-image: url(./assets/images/Soccer.jpg);
+    background-image: url(assets/images/Soccer.jpg);
     background-position: center;
     background-size: cover;
 }
 .Baseball{
-    background-image: url(./assets/images/Baseball.jpg);
+    background-image: url(assets/images/Baseball.jpg);
     background-position: center;
     background-size: cover;
 }
 .Volleyball{
-    background-image: url(./assets/images/Volleyball.jpg);
+    background-image: url(assets/images/Volleyball.jpg);
     background-position: center;
     background-size: cover;
 }
 .Wrestling{
-    background-image: url(./assets/images/Wrestling.jpg);
+    background-image: url(assets/images/Wrestling.jpg);
     background-position: center;
     background-size: cover;
 }
 .Golf{
-    background-image: url(./assets/images/Golf.jpg);
+    background-image: url(assets/images/Golf.jpg);
     background-position: center;
     background-size: cover;
 }
 .Swimming{
-    background-image: url(./assets/images/Swimming.jpg);
+    background-image: url(assets/images/Swimming.jpg);
     background-position: center;
     background-size: cover;
 }
 .Hockey{
-    background-image: url(./assets/images/Hockey.jpg);
+    background-image: url(assets/images/Hockey.jpg);
     background-position: center;
     background-size: cover;
 }
 .Gymnastics{
-    background-image: url(./assets/images/Gymnastics.jpg);
+    background-image: url(assets/images/Gymnastics.jpg);
     background-position: center;
     background-size: cover;
 }
 .Track-and-Field{
-    background-image: url(./assets/images/Track-and-Field.jpg);
+    background-image: url(assets/images/Track-and-Field.jpg);
     background-position: center;
     background-size: cover;
 }
 .Water-Polo{
-    background-image: url(./assets/images/Water-Polo.jpg);
+    background-image: url(assets/images/Water-Polo.jpg);
     background-position: center;
     background-size: cover;
 }
 
 .textShadow{
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.55);
--webkit-text-stroke-width: 1px;
+-webkit-text-stroke-width: 0.8px;
 -webkit-text-stroke-color: #000;
 color: white;
 }
+
+.CenterScreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

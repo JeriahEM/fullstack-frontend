@@ -15,7 +15,7 @@ export const createAccount = async (createdUser: IUserInfo) => {
     })
 
     if(!res.ok){
-        const message = "An errot has occured" + res.status;
+        const message = "An error has occured" + res.status;
         throw new Error(message);
     }
 
