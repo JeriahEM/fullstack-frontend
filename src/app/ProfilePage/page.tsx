@@ -115,12 +115,10 @@ const page = () => {
         </div>
       </div>
 
-      <h1 className="text-center text-3xl font-bold py-4 font-titillium">
-        Affiliated Programs
-      </h1>
-      <div className="border-2 border-red-600 h-[40vh] mx-7"></div>
-    </>
-  );
-};
+    <h1 className="text-center text-3xl font-bold py-4 font-titillium">My Programs</h1>
+<div className="border-2 border-red-600 h-[40vh] mx-7"></div>
+</>
+  )
+}
 
 export default page;

@@ -4,6 +4,7 @@ import NavbarComponent from "../Components/NavbarComponent";
 import Image from "next/image";
 import image1 from "../assets/images/image1.png";
 import phUser from "../assets/images/Group13.png";
+import dummyUsers from "@/utils/DummyUser.json"
 
 
 // For this page we will need to call users id, pfp, username, status
@@ -15,6 +16,18 @@ const coaches = ["Kyle Yok Eyh Ma"];
 const user = ["Billy Willy"];
 
 const UserDirectoryPage = () => {
+
+
+  const createUser = () => {
+    return dummyUsers.map((user, idx) => (
+      <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+            <Image src={phUser} alt={""} />
+            <p>{user.Username}</p>
+          </div>
+    ));
+  };
+
+
   return (
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
       <NavbarComponent />
@@ -41,14 +54,15 @@ const UserDirectoryPage = () => {
           </div>
           <p className="mt-4 text-3xl font-titillium">Users</p>
           <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />
-          <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+          {/* <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <Image src={phUser} alt={""} />
             <p>LeBron James</p>
           </div>
           <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <Image src={phUser} alt={""} />
             <p>Billy Willy</p>
-          </div>
+          </div> */}
+          {createUser()}
         </div>
         <br />
         <br />

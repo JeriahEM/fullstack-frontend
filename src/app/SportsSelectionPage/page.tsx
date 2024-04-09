@@ -3,6 +3,7 @@
 import React from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import golf from "../assets/images/golf.jpg";
+import { useRouter } from "next/navigation";
 // import basketball from "../assets/images/basketball.jpg";
 // import football from "../assets/images/football.jpg";
 // import baseball from "../assets/images/baseball.jpg";
@@ -17,6 +18,7 @@ import golf from "../assets/images/golf.jpg";
 // import tennis from "../assets/images/marianna-smiley-Y4YeUSYLFsw-unsplash 1.png";
 
 const SportsSelectionPage = () => {
+  const router = useRouter();
   const sports = [
     "Tennis",
     "Football",
@@ -37,14 +39,15 @@ const SportsSelectionPage = () => {
     
     return sports.map((sport, index) => (
       <div key={index} className=" flex justify-center py-4">
-        <button className={`${sport} h-44 w-[90%] rounded-lg text-5xl font-bold `}>
+        <button className={`${sport} h-44 w-[90%] rounded-lg text-7xl font-bold `} 
+        onClick={()=> router.push('/AllProgramsPage')}>
           <p className="textShadow">{sport}</p>
         </button>
       </div>
     ));
   };
   return (
-    <div className="">
+    <div className=" font-titillium">
       <NavbarComponent />
       <h1 className="text-center text-6xl font-bold py-4">Select a Sport</h1>
       <div className="mx-7">
