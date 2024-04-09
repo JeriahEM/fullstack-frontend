@@ -16,6 +16,8 @@ const page = () => {
     const [email, setEmail] = useState<string>("")
     const [sports, setSports] = useState<string>("")
     const [funFact, setFunFact] = useState<string>("")
+    const [username, setUsername] = useState<string>("")
+    const [name, setName] = useState<string>("")
 
   const router = useRouter();
   return (
@@ -35,7 +37,7 @@ const page = () => {
               <li className="my-3">
                 <div className="flex flex-row text-2xl font-titillium">
                   <p className="pe-3 font-bold">Name:</p>
-                  <p>Kyle Yok Eyh Ma</p>
+                  <p>{name}</p>
                 </div>
               </li>
               <li className="my-3">
@@ -67,41 +69,40 @@ const page = () => {
                   <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                     Edit your account
                   </h3>
+
                   <div>
                     <div className="mb-2 block">
-                      <Label htmlFor="Programs" value="Change Your Programs" />
+                      <Label htmlFor="name" value="Change Your Name" />
                     </div>
-                    <TextInput id="Programs" ref={emailInputRef} />
+                    <TextInput id="name"/>
                   </div>
+
                   <div>
                     <div className="mb-2 block">
-                      <Label htmlFor="password" value="Change Your" />
+                      <Label htmlFor="birthday" value="Change Your Birthday" />
+                    </div>
+                    <TextInput id="birthday"/>
+                  </div>
+
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="funFact" value="Change Your Fun Fact" />
+                    </div>
+                    <TextInput id="funFact"/>
+                  </div>
+
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="username" value="Change Your Username" />
+                    </div>
+                    <TextInput id="username"/>
+                  </div>
+
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="password" value="Change Your Password" />
                     </div>
                     <TextInput id="password" type="password" />
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="email" value="Change Your" />
-                    </div>
-                    <TextInput id="email" ref={emailInputRef} />
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="email" value="Change Your" />
-                    </div>
-                    <TextInput id="email" ref={emailInputRef} />
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="email" value="Change Your" />
-                    </div>
-                    <TextInput id="email" ref={emailInputRef} />
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="email" value="Change Your" />
-                    </div>
-                    <TextInput id="email" ref={emailInputRef} />
                   </div>
                  
                   <div className="w-full">
