@@ -1,12 +1,12 @@
 "use client";
-
 import { useRouter } from "next/navigation";
-
-import React from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
-import { useRef, useState } from "react";
-const page = () => {
+import React, { useRef, useState } from "react";
+
+
+
+const ProfilePage = () => {
   const [openModal, setOpenModal] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -122,4 +122,4 @@ const page = () => {
   )
 }
 
-export default page;
+export default ProfilePage;

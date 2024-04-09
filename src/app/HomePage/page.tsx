@@ -26,7 +26,7 @@ const HomePage = () => {
 
         <div className=" col-span-3 px-16">
           <div className="py-8">
-            <h1 className="text-center text-3xl font-titillium font-bold">THIS IS TODAY'S DATE</h1>
+            <h1 className="text-center text-3xl font-titillium font-bold">THIS IS TODAYS DATE</h1>
             <div className="">
               <ul style={{ listStyleType: 'square' }}>
                 <li className="my-3 font-titillium">EVENT 1</li>
