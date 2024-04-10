@@ -1,23 +1,56 @@
 "use client";
 import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import { Button, Checkbox, Datepicker, Label, Modal, TextInput } from "flowbite-react";
 import React, { useRef, useState } from "react";
 
 
 
 const ProfilePage = () => {
-  const [openModal, setOpenModal] = useState(false);
+interface Iuserprofile{
+  Name: string,
+  Birthday: string,
+  FunFact: string,
+  UserName: string,
+  Passwaord: string,
+}
+ const [user, setUser] = useState<Iuserprofile>({} as Iuserprofile)
+
+   const [openModal, setOpenModal] = useState(false);
+  const [openSaveModal, setOpenSaveModal] = useState(false);
+  const [openCancelModal, setOpenCancelModal] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
     const [programs, setPrograms] = useState<string>("")
-    const [birthday, setBirthday] = useState<string>("")
+    const [birthday, setBirthday] = useState<string>("3/15/20")
     const [image, setImage] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [sports, setSports] = useState<string>("")
-    const [funFact, setFunFact] = useState<string>("")
-    const [username, setUsername] = useState<string>("")
-    const [name, setName] = useState<string>("")
+    const [funFact, setFunFact] = useState<string>("I am in fact locked in")
+    const [username, setUsername] = useState<string>("MrRager")
+    const [name, setName] = useState<string>("Kyle")
+    const [password, setPassword] = useState<string>("Andre3K")
+
+    const handleCloseModals = () => {
+      setOpenModal(false);
+      setOpenSaveModal(false);
+      setOpenCancelModal(false);
+    }
+
+    const handleEditChange = ()=> {
+      const dummy:Iuserprofile = {
+        Name : name,
+        Birthday : birthday,     
+        FunFact : funFact,     
+        UserName : username,     
+        Passwaord : password,     
+      }
+      // alert('Works');
+      setUser(dummy)
+      setOpenModal(false);
+      setOpenSaveModal(false);
+      setOpenCancelModal(false);
+    }
 
   const router = useRouter();
   return (
@@ -37,13 +70,13 @@ const ProfilePage = () => {
               <li className="my-3">
                 <div className="flex flex-row text-2xl font-titillium">
                   <p className="pe-3 font-bold">Name:</p>
-                  <p>{name}</p>
+                  <p>{user.Name}</p>
                 </div>
               </li>
               <li className="my-3">
                 <div className="flex flex-row text-2xl font-titillium">
                   <p className="pe-3 font-bold">Birthday:</p>
-                  <p>03/39</p>
+                  <p>{user.Birthday}</p>
                 </div>
               </li>
               <li className="my-3">
@@ -55,13 +88,19 @@ const ProfilePage = () => {
               <li className="my-3">
                 <div className="flex flex-row text-2xl font-titillium">
                   <p className="pe-3 font-bold">Fun Fact:</p>
-                  <p>Born to nap forced to code</p>
+                  <p>{user.FunFact}</p>
+                </div>
+              </li>
+              <li className="my-3">
+                <div className="flex flex-row text-2xl font-titillium">
+                  <p className="pe-3 font-bold">User Name:</p>
+                  <p>{user.UserName}</p>
                 </div>
               </li>
             </ul>
           </div>
           <div className="mt-auto flex justify-center">
-            <button onClick={() => setOpenModal(true)} className="border-2 border-black rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </button>
+            <button onClick={() => setOpenModal(true)} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </button>
             <Modal show={openModal} size="md" popup onClose={() => setOpenModal(false)} initialFocus={emailInputRef} >
               <Modal.Header />
               <Modal.Body>
@@ -72,41 +111,77 @@ const ProfilePage = () => {
 
                   <div>
                     <div className="mb-2 block">
-                      <Label htmlFor="name" value="Change Your Name" />
+                      <Label htmlFor="name4" value="Edit Name" />
                     </div>
-                    <TextInput id="name"/>
+                    <TextInput onChange={(e)=> setName(e.target.value)} id="name4"/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
-                      <Label htmlFor="birthday" value="Change Your Birthday" />
+                      <Label htmlFor="birthday" value="Edit Birthday" />
                     </div>
-                    <TextInput id="birthday"/>
+                    <Datepicker onChange={(e)=> setBirthday(e.target.value)} id="birthday"/>
+                    {/* <TextInput onChange={(e)=> setBirthday(e.target.value)} id="birthday"/> */}
                   </div>
 
                   <div>
                     <div className="mb-2 block">
-                      <Label htmlFor="funFact" value="Change Your Fun Fact" />
+                      <Label htmlFor="funFact" value="Edit Fun Fact" />
                     </div>
-                    <TextInput id="funFact"/>
+                    <TextInput onChange={(e)=> setFunFact(e.target.value)} id="funFact"/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
-                      <Label htmlFor="username" value="Change Your Username" />
+                      <Label htmlFor="username" value="Edit Username" />
                     </div>
-                    <TextInput id="username"/>
+                    <TextInput onChange={(e)=> setUsername(e.target.value)} id="username"/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
-                      <Label htmlFor="password" value="Change Your Password" />
+                      <Label htmlFor="password" value="Edit Password" />
                     </div>
-                    <TextInput id="password" type="password" />
+                    <TextInput onChange={(e)=> setPassword(e.target.value)} id="password" type="password" />
                   </div>
                  
-                  <div className="w-full">
-                    <Button>Save Changes</Button>
+                  <div className="w-full flex flex-row justify-between">
+                  <Button onClick={() => setOpenCancelModal(true)} className="!bg-red-500">Cancel</Button>
+                    <Modal show={openCancelModal}size="md" >
+                    
+              <Modal.Body>
+                <div className="space-y-6">
+                  <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                    Are you sure you would like to discard these changes?
+                  </h3>
+                 
+                  <div className="w-full flex flex-row justify-between">
+                    <Button  className="!bg-red-500" onClick={() => setOpenCancelModal(false)}>Cancel</Button>
+                    <Button className="!bg-green-500" onClick={handleCloseModals}>Confirm</Button>
+                  </div>
+                  
+                </div>
+              </Modal.Body>
+                    </Modal>
+                    <Button onClick={() => setOpenSaveModal(true)} className="!bg-green-500">Save Changes</Button>
+                    <Modal show={openSaveModal} size="md" popup onClose={() => setOpenSaveModal(false)}>
+                    <Modal.Header />
+              <Modal.Body>
+                <div className="space-y-6">
+                  <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                    Are you sure you would like to save these changes?
+                  </h3>
+                 
+                  <div className="w-full flex flex-row justify-between">
+                    <Button  className="!bg-red-500" onClick={() => setOpenSaveModal(false)}>Cancel</Button>
+                    <Button className="!bg-green-500" onClick={()=>handleEditChange()}>Confirm</Button>
+
+                  </div>
+                  
+                </div>
+              </Modal.Body>
+                    </Modal>
+                    
                   </div>
                   
                 </div>
