@@ -31,12 +31,12 @@ export default function Home() {
 
     const div1 = document.getElementById("div1")
     if (newUserBool) {
-      div2?.classList.remove("hidden")
-      div1?.classList.add("hidden")
-    }
-    else {
       div1?.classList.remove("hidden")
       div2?.classList.add("hidden")
+    }
+    else {
+      div2?.classList.remove("hidden")
+      div1?.classList.add("hidden")
     }
 
 
@@ -75,6 +75,7 @@ export default function Home() {
   }
 
   const handleNewUserSubmit = async () => {
+    console.log(newUserBool)
     if (newUserBool) {
       let userData = {
         username: username,

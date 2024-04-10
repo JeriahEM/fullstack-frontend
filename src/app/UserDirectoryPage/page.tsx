@@ -22,7 +22,7 @@ const UserDirectoryPage = () => {
     return dummyUsers.map((user, idx) => (
       <div key={idx} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <Image src={phUser} alt={""} />
-            <p>{user.Username}</p>
+            <p>{user.RealName}</p>
           </div>
     ));
   };
