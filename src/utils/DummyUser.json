@@ -1,38 +1,66 @@
 [
-    {
-      "Username": "alex_sm",
-      "Birthday": "02/18",
-      "Programs": ["Golf", "Chess", "Hiking", "Yoga", "Skiing"],
-      "FunFact": "I can solve a Rubik's cube in under 1 minute!",
-      "Email": "alex.sm@example.com",
-      "Salt": "jK3IqS0kaa9LwPoi9HlmQqImO8dJwmq9pQ9uiklFhoojwqSlmqanTuiklaLkqos1",
-      "Hash": "5c92e879c62a7c2a90c68ad0b02bb4b6"
-    },
-    {
-      "Username": "jane_smith",
-      "Birthday": "09/10",
-      "Programs": ["Badminton", "Cycling"],
-      "FunFact": "I've traveled to over 20 countries!",
-      "Email": "jane.smith@example.com",
-      "Salt": "LmQqI92kldoa9JqS99Lw0IIJqS9tjKaLkohfwwqSlIqasjD8KpoTqum99Iom8Qw9",
-      "Hash": "2b3c1b58c2c3e4a08ef6a3d17bcbcf65"
-    },
-    {
-      "Username": "john_doe",
-      "Birthday": "11/28",
-      "Programs": ["Basketball", "Football", "Volleyball", "Running"],
-      "FunFact": "I once climbed Mount Everest!",
-      "Email": "john.doe@example.com",
-      "Salt": "PoiH7Cmjw9IIdkjqnXMnO9AuhgaLkqhTtjimQnp9pQwokasdmjqo8sJQw8Ku99Iop",
-      "Hash": "7cf3eef5b34a94d2d0b11b2a5f15de6d"
-    },
-    {
-      "Username": "user123",
-      "Birthday": "05/15",
-      "Programs": ["Soccer", "Swimming", "Tennis"],
-      "FunFact": "I can play the guitar with my toes!",
-      "Email": "user123@example.com",
-      "Salt": "F9jkPqoI83LkjdsmnkXoqpQzIIskwqanTuiklFhooja899HoogjwqSlmQqiTIiOs1",
-      "Hash": "3faeef20a81d2e53b43b22f582ad5cb7"
-    }
-  ]
+  {
+    "ID": 1,
+    "UserName": "john_doe",
+    "RealName": "John Doe",
+    "Image": "profile.jpg",
+    "Birthday": "1990-05-15",
+    "Programs": ["Basketball", "Football"],
+    "Sports": "Basketball, Football",
+    "FunFact": "I once climbed Mount Everest!",
+    "Email": "john.doe@example.com",
+    "Salt": "random_salt_value",
+    "Hash": "hashed_password_value",
+    "IsAdmin": true,
+    "IsCoach": false,
+    "IsUser": true
+  },
+  {
+    "ID": 2,
+    "UserName": "jane_smith",
+    "RealName": "Jane Smith",
+    "Image": "avatar.jpg",
+    "Birthday": "1985-09-20",
+    "Programs": ["Tennis", "Running"],
+    "Sports": "Tennis, Running",
+    "FunFact": "I've traveled to over 20 countries!",
+    "Email": "jane.smith@example.com",
+    "Salt": "random_salt_value_2",
+    "Hash": "hashed_password_value_2",
+    "IsAdmin": false,
+    "IsCoach": true,
+    "IsUser": true
+  },
+  {
+    "ID": 3,
+    "UserName": "sam_jones",
+    "RealName": "Sam Jones",
+    "Image": "sam_profile.jpg",
+    "Birthday": "1992-11-10",
+    "Programs": ["Swimming", "Cycling"],
+    "Sports": "Swimming, Cycling",
+    "FunFact": "I'm a certified scuba diver!",
+    "Email": "sam.jones@example.com",
+    "Salt": "random_salt_value_3",
+    "Hash": "hashed_password_value_3",
+    "IsAdmin": true,
+    "IsCoach": true,
+    "IsUser": true
+  },
+  {
+    "ID": 4,
+    "UserName": "mike_roberts",
+    "RealName": "Mike Roberts",
+    "Image": "mike_profile.jpg",
+    "Birthday": "1988-03-28",
+    "Programs": ["Golf", "Yoga"],
+    "Sports": "Golf, Yoga",
+    "FunFact": "I've run a marathon!",
+    "Email": "mike.roberts@example.com",
+    "Salt": "random_salt_value_4",
+    "Hash": "hashed_password_value_4",
+    "IsAdmin": false,
+    "IsCoach": false,
+    "IsUser": true
+  }
+]
