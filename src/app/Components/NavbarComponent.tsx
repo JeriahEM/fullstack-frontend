@@ -104,10 +104,10 @@ const NavbarComponent = () => {
             </Dropdown>
             <Navbar.Toggle />
           </div>
-          <Dropdown className='font-bebas' label="Manteca Future Stars" inline>
+          {/* <Dropdown className='font-bebas' label="Manteca Future Stars" inline>
       <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
       <Dropdown.Item>US Open</Dropdown.Item>
-    </Dropdown>
+    </Dropdown> */}
 
         </Navbar>
       );
