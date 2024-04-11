@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button, Checkbox, Datepicker, Label, Modal, TextInput } from "flowbite-react";
 import React, { useRef, useState } from "react";
-
+import { updateUserProfile } from "@/utils/Dataservices";
 
 
 const ProfilePage = () => {
@@ -12,7 +12,7 @@ interface Iuserprofile{
   Birthday: string,
   FunFact: string,
   UserName: string,
-  Passwaord: string,
+  Password: string,
 }
  const [user, setUser] = useState<Iuserprofile>({} as Iuserprofile)
 
@@ -43,7 +43,7 @@ interface Iuserprofile{
         Birthday : birthday,     
         FunFact : funFact,     
         UserName : username,     
-        Passwaord : password,     
+        Password : password,     
       }
       // alert('Works');
       setUser(dummy)
@@ -53,6 +53,11 @@ interface Iuserprofile{
     }
 
   const router = useRouter();
+
+
+  // updateUserProfile(username, "string goes here")
+
+
   return (
     <>
       <NavbarComponent />
@@ -143,6 +148,12 @@ interface Iuserprofile{
                       <Label htmlFor="password" value="Edit Password" />
                     </div>
                     <TextInput onChange={(e)=> setPassword(e.target.value)} id="password" type="password" />
+                  </div>
+                  <div>
+                    <div className="mb-2 block">
+                      <Label htmlFor="password" value="Edit Email" />
+                    </div>
+                    <TextInput onChange={(e)=> setEmail(e.target.value)} id="password" type="password" />
                   </div>
                  
                   <div className="w-full flex flex-row justify-between">

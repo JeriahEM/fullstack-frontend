@@ -26,7 +26,7 @@ const UserDirectoryPage = () => {
           <Image src={phUser} alt={""} />
         </div>
         <div className="grow">
-          <p>{user.Username}</p>
+          <p>{user.RealName}</p>
         </div>
         <div className="grow-0">
           <MoreVertOutlinedIcon />

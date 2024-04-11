@@ -79,11 +79,13 @@ export default function Home() {
     if (newUserBool) {
       let userData = {
         username: username,
-        password: password
+        password: password,
+        fullname: fullName,
+        email: email
       }
       console.log(userData)
       console.log(fullName + email)
-      // createAccount(userData);
+      createAccount(userData);
       router.push('/HomePage');
 
     }

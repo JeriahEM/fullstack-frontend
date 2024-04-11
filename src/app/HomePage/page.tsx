@@ -2,10 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent';
 
+
 const HomePage = () => {
+  
+
 
     const router = useRouter();
   return (

@@ -1,11 +1,11 @@
-import { IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { INewUser, IToken, IUserInfo, IUserProfile, IUserdata } from "@/app/Interfaces/Interfaces"
 
 
 const url = "https://apicourtmonitor.azurewebsites.net"
 
 let userData: IUserdata
 
-export const createAccount = async (createdUser: IUserInfo) => {
+export const createAccount = async (createdUser: INewUser) => {
     const res = await fetch(url + '/User/AddUser',  {
         method: "POST",
         headers: {
@@ -60,4 +60,10 @@ export const checkToken = () => {
         result = true
     }
     return result
+}
+
+export const updateUserProfile = async (username:string, inputString:string) => {
+    const res = await fetch(url + '/User/UpdateUser/' + username + "/birthday/image/programs/funfact/email/sports/realname" + inputString);
+    const data = await res.json();
+    console.log(data)
 }
