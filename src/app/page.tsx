@@ -87,9 +87,9 @@ export default function Home() {
       console.log(fullName + email)
       createAccount(userData);
       getLoggedInUserData(username);
-      router.push('/HomePage');
+      
       // change this route to go back to the login screen
-
+      router.push('/');
     }
   }
 
