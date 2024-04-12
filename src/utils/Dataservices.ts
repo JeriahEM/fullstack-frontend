@@ -18,6 +18,9 @@ export const createAccount = async (createdUser: INewUser) => {
         const message = "An error has occured" + res.status;
         throw new Error(message);
     }
+    else{
+        alert("Your Account has been sucessfully created!")
+    }
 
     const data = await res.json();
     console.log(data);

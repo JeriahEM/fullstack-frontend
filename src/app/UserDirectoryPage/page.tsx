@@ -40,6 +40,7 @@ const UserDirectoryPage = () => {
 
   const createCoaches = () => {
     let users = dummyUsers.filter(item => item.IsCoach===true);
+    users = users.filter(item => item.IsAdmin===false);
 
     return users.map((user, idx) => (
       <div

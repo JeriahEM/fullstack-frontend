@@ -17,11 +17,11 @@ const NotificationsPage = () => {
   };
   
   return (
-    <div className=" font-titillium">
+    <div className=" font-titillium bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
       <NavbarComponent />
 
       <div className="grid grid-cols-3">
-        <div className=" border-r-2 border-red-600 h-full">
+        <div className=" border-r-2 border-black h-screen">
           <div className=" flex justify-center py-4">
             <button className={` bg-slate-200 h-32 w-[90%] rounded-lg text-4xl font-bold flex justify-center items-center`}>
               <div className="px-4">
