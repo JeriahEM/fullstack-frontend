@@ -47,7 +47,7 @@ const SportsSelectionPage = () => {
     ));
   };
   return (
-    <div className="Football font-titillium">
+    <div className=" font-titillium">
       <NavbarComponent />
       <h1 className="text-center text-6xl font-bold py-4">Select a Sport</h1>
       <div className="mx-7">

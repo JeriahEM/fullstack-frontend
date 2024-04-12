@@ -16,17 +16,16 @@ export interface INewUser{
 }
 
 export interface IUserdata {
-    id: number
-    username: string
-}
-
-export interface IUserProfile{
-    UsertoUpdate:string,
+    userID: number,
+    username: string,
     birthday:string,
     image:string,
     programs: string,
-    funfact:string,
+    funFact:string,
     email: string,
     sports: string,
     realName: string,
+    isAdmin: boolean,
+    isCoach: boolean,
+    isUser: boolean,
 }

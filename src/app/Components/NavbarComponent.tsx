@@ -10,6 +10,7 @@ import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlin
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 
 
+
 import { checkToken, loggedinData } from '@/utils/Dataservices';
 const NavbarComponent = () => {
 
@@ -19,7 +20,7 @@ const NavbarComponent = () => {
 
     const getLoggedinData = async () => {
       const loggedIn = await loggedinData();
-      console.log(loggedIn.id)
+      console.log(loggedIn.userID)
       console.log(loggedIn.username)
       setUsername(loggedIn.username)
       // let userBlogItems: IBlogItems[] = await getBlogItemsByUserId(loggedIn.userId)
@@ -55,7 +56,7 @@ const NavbarComponent = () => {
               arrowIcon={true}
               inline
               label={
-                <Avatar className='pb-2' alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                <Avatar className='pb-2' alt="User settings" img="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" rounded />
               }
             >
               <Dropdown.Item onClick={()=> router.push('/HomePage')}>
