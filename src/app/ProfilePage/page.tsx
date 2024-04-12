@@ -5,6 +5,7 @@ import { Button, Checkbox, Datepicker, Label, Modal, TextInput } from "flowbite-
 import React, { useEffect, useRef, useState } from "react";
 import { findDifferences, loggedinData, updateUserProfile } from "@/utils/Dataservices";
 import { IUserdata } from "../Interfaces/Interfaces";
+import { encode } from "punycode";
 
 
 const ProfilePage = () => {
@@ -29,6 +30,7 @@ const ProfilePage = () => {
   const [sports, setSports] = useState<string>("")
   const [funFact, setFunFact] = useState<string>(" ")
   const [username, setUsername] = useState<string>(" ")
+  const [trueusername, setTrueUsername] = useState<string>(" ")
   const [name, setName] = useState<string>(" ")
   const [password, setPassword] = useState<string>(" ")
   const [userID, setUserID] = useState<number>(0)
@@ -56,6 +58,7 @@ const ProfilePage = () => {
     isCoach: isCoach,
     isUser: isUser,
   }
+  
 
   const updateDummy = () => {
     dummy.username = username;
@@ -65,25 +68,63 @@ const ProfilePage = () => {
     dummy.funFact = funFact;
     dummy.email = email;
     dummy.sports = sports;
-    console.log(funFact)
+    dummy.realName = name;
   }
 
   const handleEditChange = () => {
     const createString = () => {
-      let imageString = "image="
-      let birthdayString = "birthday="
-      let funFactString = "funfact="
-      let realNameString = "realname="
 
-    const diffs = findDifferences(user, dummy)
-  
+      interface StringObject {
+        [key: string]: string;
+      }
 
+      let stringObj: StringObject = {
+        birthdayString: "",
+        funFactString: "",
+        realNameString: "",
+        imageString: "",
+      }
+
+
+      const diffs = findDifferences(user, dummy)
+      for (const key in diffs) {
+        switch (key) {
+          case "funFact":
+            console.log("fun fact hanged")
+            stringObj.funFactString = ("funfact=" + encodeURIComponent(dummy.funFact))
+            break;
+          case "realName":
+            console.log("real name changed")
+            stringObj.realNameString = ("realname=" + encodeURIComponent(dummy.realName))
+            break;
+          case "image":
+            console.log("image changed")
+            break;
+          case "birthday":
+            console.log("birthday changed")
+            stringObj.birthdayString = ("birthday=" + encodeURIComponent(dummy.birthday))
+            break;
+          default:
+          // code block
+        }
+      }
+      //birthday funfact realname
+      const changedStrings = Object.entries(stringObj).map(([key, value]) => {
+        if (value !== "") {
+          console.log(stringObj[key])
+          return `${stringObj[key]}`;
+        }
+      }).filter(Boolean).join('&');
+
+      console.log(changedStrings)
+      return(changedStrings)
     }
-    
+
     updateDummy()
-    createString()
+   
     setUser(dummy)
-    
+    const urlString = createString()
+    updateUserProfile(trueusername, urlString)
 
     setOpenModal(false);
     setOpenSaveModal(false);
@@ -98,10 +139,10 @@ const ProfilePage = () => {
     const getLoggedinData = async () => {
       const loggedIn = await loggedinData();
       setUsername(loggedIn.username);
+      setTrueUsername(loggedIn.username)
       setBirthday(loggedIn.birthday);
       setImage(loggedIn.image);
       setPrograms(loggedIn.programs);
-      loggedIn.funFact = "Enter a Fun Fact"
       setFunFact(loggedIn.funFact);
       setEmail(loggedIn.email);
       setSports(loggedIn.sports);
@@ -109,14 +150,14 @@ const ProfilePage = () => {
       setUserID(loggedIn.userID);
       setFunFact(loggedIn.funFact)
       // console.log(loggedIn)
-      
+
       dummy = loggedIn;
       setUser(dummy)
       findDifferences(user, dummy)
-    
+
     }
     getLoggedinData()
-    
+
   }, [])
 
   return (

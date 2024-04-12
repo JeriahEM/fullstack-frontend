@@ -64,9 +64,15 @@ export const checkToken = () => {
 }
 
 export const updateUserProfile = async (username:string, inputString:string) => {
-    const res = await fetch(url + '/User/UpdateUser/' + username + "/birthday/image/programs/funfact/email/sports/realname" + inputString);
+    console.log(url + '/User/UpdateUser/' + username + "/birthday/image/programs/funfact/email/sports/realname?" + inputString);
+    const res = await fetch(url + '/User/UpdateUser/' + username + "/birthday/image/programs/funfact/email/sports/realname?" + inputString)
+
+    if(!res.ok){
+        const message = "An error has occured" + res.status;
+        throw new Error(message);
+    }
     const data = await res.json();
-    console.log(data)
+    return data
 }
 
 
