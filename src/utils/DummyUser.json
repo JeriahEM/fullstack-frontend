@@ -11,7 +11,7 @@
     "Email": "john.doe@example.com",
     "Salt": "random_salt_value",
     "Hash": "hashed_password_value",
-    "IsAdmin": true,
+    "IsAdmin": false,
     "IsCoach": false,
     "IsUser": true
   },

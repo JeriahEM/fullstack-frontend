@@ -16,8 +16,54 @@ const coaches = ["Kyle Yok Eyh Ma"];
 const user = ["Billy Willy"];
 
 const UserDirectoryPage = () => {
+
+  const createAdmin = ()  => {
+    let users = dummyUsers.filter(item => item.IsAdmin===true);
+
+    return users.map((user, idx) => (
+      <div
+        key={idx}
+        className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
+      >
+        <div className="grow-0">
+          <Image src={phUser} alt={""} />
+        </div>
+        <div className="grow">
+          <p>{user.RealName}</p>
+        </div>
+        <div className="grow-0">
+          <MoreVertOutlinedIcon />
+        </div>
+      </div>
+    ));
+  }
+
+  const createCoaches = () => {
+    let users = dummyUsers.filter(item => item.IsCoach===true);
+
+    return users.map((user, idx) => (
+      <div
+        key={idx}
+        className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
+      >
+        <div className="grow-0">
+          <Image src={phUser} alt={""} />
+        </div>
+        <div className="grow">
+          <p>{user.RealName}</p>
+        </div>
+        <div className="grow-0">
+          <MoreVertOutlinedIcon />
+        </div>
+      </div>
+    ));
+  }
+
   const createUser = () => {
-    return dummyUsers.map((user, idx) => (
+    let users = dummyUsers.filter(item => item.IsAdmin===false);
+    users = users.filter(item => item.IsCoach===false);
+    
+    return users.map((user, idx) => (
       <div
         key={idx}
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
@@ -52,20 +98,23 @@ const UserDirectoryPage = () => {
             <div className="grow">
               <p>Roger Federer</p>
             </div>
+            
             <div className="grow-0 ">
               <MoreVertOutlinedIcon />
             </div>
           </div>
+          {createAdmin()}
           <p className="mt-4 text-3xl font-titillium">Coaches</p>
           <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />
-          <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+          {/* <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <Image src={phUser} alt={""} />
             <p>Kyle Yok Eyh Ma</p>
           </div>
           <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <Image src={phUser} alt={""} />
             <p>Nick Kyrgios</p>
-          </div>
+          </div> */}
+          {createCoaches()}
           <p className="mt-4 text-3xl font-titillium">Users</p>
           <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />
           {/* <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">

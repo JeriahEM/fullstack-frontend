@@ -1,6 +1,6 @@
-import React from 'react'
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
@@ -9,7 +9,41 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 
+
+
+import { checkToken, loggedinData } from '@/utils/Dataservices';
 const NavbarComponent = () => {
+
+  const [username, setUsername] = useState<string>("")
+
+  useEffect(() => {
+
+    const getLoggedinData = async () => {
+      const loggedIn = await loggedinData();
+      console.log(loggedIn.userID)
+      console.log(loggedIn.username)
+      setUsername(loggedIn.username)
+      // let userBlogItems: IBlogItems[] = await getBlogItemsByUserId(loggedIn.userId)
+
+      // let filiteredBlogItems = userBlogItems.filter(item => item.isDeleted === false);
+      // setBlogUserId(loggedIn.userId)
+      // setPublisherName(loggedIn.publisherName)
+      // setBlogItems(filiteredBlogItems)
+    }
+
+
+    if (checkToken()) {
+      getLoggedinData()
+    }
+    else {
+      router.push('/')
+      alert("error has occuereed")
+    }
+  }, [])
+
+
+
+
     const router = useRouter();
     return (
         <Navbar fluid rounded>
@@ -17,12 +51,12 @@ const NavbarComponent = () => {
             <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={()=> router.push('/HomePage')}>Court Monitor</span>
           </Navbar.Brand>
           <div className="flex md:order-2">
-            <p className='pt-2 pr-2'>Billy Willy</p>
+            <p className='pt-2 pr-2'>{username}</p>
             <Dropdown
               arrowIcon={true}
               inline
               label={
-                <Avatar className='pb-2' alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                <Avatar className='pb-2' alt="User settings" img="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" rounded />
               }
             >
               <Dropdown.Item onClick={()=> router.push('/HomePage')}>
@@ -71,10 +105,10 @@ const NavbarComponent = () => {
             </Dropdown>
             <Navbar.Toggle />
           </div>
-          <Dropdown className='font-bebas' label="Manteca Future Stars" inline>
+          {/* <Dropdown className='font-bebas' label="Manteca Future Stars" inline>
       <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
       <Dropdown.Item>US Open</Dropdown.Item>
-    </Dropdown>
+    </Dropdown> */}
 
         </Navbar>
       );

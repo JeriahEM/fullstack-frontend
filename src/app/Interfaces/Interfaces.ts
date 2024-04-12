@@ -3,11 +3,29 @@ export interface IToken {
 }
 
 export interface IUserInfo {
-    username: string
-    password: string
+    username: string,
+    password: string,
+ 
+}
+
+export interface INewUser{
+    username: string,
+    password: string,
+    fullname: string,
+    email: string
 }
 
 export interface IUserdata {
-    id: number
-    username: string
+    userID: number,
+    username: string,
+    birthday:string,
+    image:string,
+    programs: string,
+    funFact:string,
+    email: string,
+    sports: string,
+    realName: string,
+    isAdmin: boolean,
+    isCoach: boolean,
+    isUser: boolean,
 }
