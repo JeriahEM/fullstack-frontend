@@ -86,10 +86,12 @@ export default function Home() {
       console.log(userData)
       console.log(fullName + email)
       createAccount(userData);
-      getLoggedInUserData(username);
+      // getLoggedInUserData(username);
       
       // change this route to go back to the login screen
-      router.push('/');
+      setSwitchBool(false)
+      setNewUserBool(false)
+      handleNewUserBool();
     }
   }
 
