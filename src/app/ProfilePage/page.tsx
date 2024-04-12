@@ -95,7 +95,7 @@ const ProfilePage = () => {
             break;
           case "realName":
             console.log("real name changed")
-            stringObj.realNameString = ("realname=" + encodeURIComponent(dummy.realName))
+            stringObj.realNameString = ("realName=" + encodeURIComponent(dummy.realName))
             break;
           case "image":
             console.log("image changed")
@@ -168,7 +168,8 @@ const ProfilePage = () => {
         <div className="col-span-2 bg-orange-100 w-full">
           <div className="flex justify-center">
             <div className="my-4 border-2 border-black bg-lime-300 w-[80%] h-[45vh]">
-              <p>notes: Changing your password will not change it in the database so you will still log in using your original username ATM</p>
+              <p>Notes: Changing your password and username will not change it in the database so you will still log in using your original username</p>
+              <p>Adding images to be added</p>
             </div>
           </div>
         </div>
