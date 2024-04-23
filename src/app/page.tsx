@@ -107,7 +107,7 @@ export default function Home() {
           <p>Court Monitor</p>
         </div>
         <div className="grid grid-flow-row justify-center">
-          <div className="min-w-96 p-8 rounded-lg">
+          <div className="bg-white bg-opacity-35">
             <div className="items-center pb-8">
               <h1 className="text-center text-4xl font-titillium text-white textShadow">Fill out your information</h1>
             </div>
@@ -116,15 +116,15 @@ export default function Home() {
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
                   <p>Full Name:</p>
                 </div>
-                <input id="username" type="text" className="inputbg border-transparent" required onChange={(e) => setFullName(e.target.value)} />
+                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black" required onChange={(e) => setFullName(e.target.value)} />
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-row gap-3 ">
                 <div className="mb-2 block">
                   <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
                     <p>E-Mail:</p>
                   </div>
                 </div>
-                <input id="email" type="text" className="inputbg border-transparent" required onChange={(e) => setEmail(e.target.value)} />
+                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black" required onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className=" flex justify-between gap-3">
                 <Button onClick={() => handleNewUserBool()} className=" bg-red-700 text-white font-titillium w-full">
@@ -146,13 +146,13 @@ export default function Home() {
       </div>
 
 
-      <div id="div1" className="CenterScreen">
+      <div id="div1" className="CenterScreen ">
 
         <div className="text-center text-5xl text-white font-bebas tracking-[.15rem] pt-14 ">
           <p>Court Monitor</p>
         </div>
         <div className="grid grid-flow-row justify-center">
-          <div className="min-w-96 p-8 rounded-lg">
+          <div className="min-w-96 p-8 rounded-lg bg-white bg-opacity-35">
             <div className="items-center pb-8">
               <h1 className="text-center text-4xl font-titillium text-white textShadow">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
@@ -161,7 +161,7 @@ export default function Home() {
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
                   <p>UserName:</p>
                 </div>
-                <input id="username" type="text" className="inputbg border-transparent" required onChange={(e) => setUsername(e.target.value)} />
+                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black" required onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block">
@@ -169,7 +169,7 @@ export default function Home() {
                     <p>Password:</p>
                   </div>
                 </div>
-                <input id="password1" type="password" className="inputbg border-transparent" required onChange={(e) => setPassword(e.target.value)} />
+                <input id="password1" type="password" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black" required onChange={(e) => setPassword(e.target.value)} />
               </div>
 
               <Button onClick={handleSubmit} className="bg-white text-black font-titillium">
