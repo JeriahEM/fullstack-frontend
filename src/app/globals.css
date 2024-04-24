@@ -23,7 +23,11 @@
   }
 
 
-
+  .mantennis{
+    background-image: url('assets/images/mantennis.jpg');
+    background-position: center;
+    background-size: cover;
+}
 
 .Tennis{
     background-image: url('assets/images/Tennis.jpg');

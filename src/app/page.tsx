@@ -106,7 +106,17 @@ export default function Home() {
         <div className="text-center text-5xl text-white font-bebas tracking-[.15rem] pt-14 ">
           <p>Court Monitor</p>
         </div>
-        <div className="grid grid-flow-row justify-center">
+        <div className="grid grid-flow-col justify-center">
+          <div className="hidden">
+          <div className="min-w-96 p-8 rounded-bl-lg rounded-tl-lg bg-white mantennis">
+            <br />
+            <h1 className="font-bebas text-5xl text-center ">Welcome Back</h1>
+            <br />
+            <h3 className="text-center font-bebas text-3xl">
+              Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
+            </h3>
+          </div>
+          </div>
           <div className="bg-white bg-opacity-35 min-w-96 p-8 rounded-lg">
             <div className="items-center pb-8">
               <h1 className="text-center text-5xl font-titillium text-white textShadow">Fill out your information</h1>
@@ -151,21 +161,30 @@ export default function Home() {
         <div className="text-center text-5xl text-white font-bebas tracking-[.15rem] pt-14 ">
           <p>Court Monitor</p>
         </div>
-        <div className="grid grid-flow-row justify-center">
-          <div className="min-w-96 p-8 rounded-lg bg-white bg-opacity-35">
+        <br />
+        <div className="grid grid-flow-col justify-center">
+          <div className="min-w-96 p-8 rounded-bl-lg rounded-tl-lg bg-white mantennis">
+            <br />
+            <h1 className="font-bebas text-5xl text-center ">Welcome Back</h1>
+            <br />
+            <h3 className="text-center font-bebas text-3xl">
+              Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
+            </h3>
+          </div>
+          <div className="min-w-96 p-8 rounded-tr-lg rounded-br-lg bg-white">
             <div className="items-center pb-8">
-              <h1 className="text-center text-5xl font-titillium text-white textShadow">{switchBool ? 'New User' : 'Login'}</h1>
+              <h1 className="text-center text-5xl font-bebas text-black ">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
             <form className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
-                <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
-                  <p>UserName:</p>
+                <div className="mb-2 block pt-2 text-3xl font-titillium text-black ">
+                  <p>Username:</p>
                 </div>
                 <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" required onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block">
-                  <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
+                  <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
                     <p>Password:</p>
                   </div>
                 </div>
@@ -177,8 +196,8 @@ export default function Home() {
               </Button>
 
               <div className="flex items-center place-content-center gap-2">
-                <button className="text-3xl font-titillium text-white" onClick={handleSwtich}>
-                  <p className="textShadow">{switchBool ? 'Already have an Account?' : 'Sign up'}</p>
+                <button className="text-3xl font-titillium text-black" onClick={handleSwtich}>
+                  <p className=" hover:text-blue-800">{switchBool ? 'Already have an Account?' : 'Sign up'}</p>
 
                 </button>
               </div>
