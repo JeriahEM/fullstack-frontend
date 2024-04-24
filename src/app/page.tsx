@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createAccount, getLoggedInUserData, login } from "@/utils/Dataservices";
 import { IToken } from "./Interfaces/Interfaces";
+import NavbarComponent from "./Components/NavbarComponent";
 
 
 
@@ -107,12 +108,12 @@ export default function Home() {
           <p>Court Monitor</p>
         </div>
         <div className="grid grid-flow-col justify-center">
-          <div className="hidden">
-          <div className="min-w-96 p-8 rounded-bl-lg rounded-tl-lg bg-white mantennis">
+          <div className="">
+          <div className="min-w-96 p-8 rounded-bl-lg rounded-tl-lg bg-white Court">
             <br />
-            <h1 className="font-bebas text-5xl text-center ">Welcome Back</h1>
+            <h1 className="font-bebas text -xl text-center ">Welcome Back</h1>
             <br />
-            <h3 className="text-center font-bebas text-3xl">
+            <h3 className="text-center font-bebas text-2xl">
               Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
             </h3>
           </div>
@@ -163,11 +164,11 @@ export default function Home() {
         </div>
         <br />
         <div className="grid grid-flow-col justify-center">
-          <div className="min-w-96 p-8 rounded-bl-lg rounded-tl-lg bg-white mantennis">
-            <br />
-            <h1 className="font-bebas text-5xl text-center ">Welcome Back</h1>
-            <br />
-            <h3 className="text-center font-bebas text-3xl">
+          <div className="min-w-96 p-8 rounded-bl-lg rounded-tl-lg bg-slate-600 bg-blend-darken Court">
+            <br /> <br />
+            <h1 className="font-bebas text-4xl text-center text-white ">Welcome Back</h1>
+            <br /> <br />
+            <h3 className="text-center font-bebas text-2xl text-white  ">
               Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
             </h3>
           </div>
