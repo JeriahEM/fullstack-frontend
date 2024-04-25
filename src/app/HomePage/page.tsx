@@ -20,11 +20,11 @@ import DeleteEventModal from '../Components/DeleteEventModal';
 const HomePage = () => {
   interface Event {
     title: string;
-    start: Date | string;
-    end: Date | string;
+    start: string;
+    end:string;
     allDay: boolean;
     id: number;
-    //color
+    color: string
     //program
     //
   }
@@ -39,33 +39,29 @@ const HomePage = () => {
   const [allEvents, setAllEvents] = useState<Event[]>([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [idToDelete, setIdToDelete] = useState<number | null>(null)
+  const [idToDelete, setIdToDelete] = useState<number>(999999999)
   const [newEvent, setNewEvent] = useState<Event>({
     title: '',
     start: '',
     end: '',
     allDay: false,
-    id: 0
+    id: 0,
+    color: ''
   })
 
-  useEffect(() => {
-    let draggableEl = document.getElementById('draggable-el')
-    if (draggableEl) {
-      new Draggable(draggableEl, {
-        itemSelector: ".fc-event",
-        eventData: function (eventEl) {
-          let title = eventEl.getAttribute("title")
-          let id = eventEl.getAttribute("data")
-          let start = eventEl.getAttribute("start")
-          return { title, id, start }
-        }
-      })
-    }
-  }, [])
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("")
 
-  function handleDateClick(arg: { date: Date, allDay: boolean }) {
-    setNewEvent({ ...newEvent, start: arg.date, allDay: arg.allDay, id: new Date().getTime() })
+  function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
+    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
     setShowModal(true)
+
+    setStartTime(arg.dateStr + " ")
+    setEndTime(arg.dateStr + " ")
+    const test = allEvents
+
+    console.log(test)
+    
   }
   function addEvent(data: DropArg) {
     const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
@@ -80,7 +76,7 @@ const HomePage = () => {
   function handleDelete() {
     setAllEvents(allEvents.filter(event => Number(event.id) !== Number(idToDelete)))
     setShowDeleteModal(false)
-    setIdToDelete(null)
+    setIdToDelete(999999)
   }
 
   function handleCloseModal() {
@@ -90,10 +86,13 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      id: 0
+      id: 0,
+      color: ''
     })
+    setStartTime("")
+    setEndTime("")
     setShowDeleteModal(false)
-    setIdToDelete(null)
+    setIdToDelete(9999999)
   }
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -102,6 +101,27 @@ const HomePage = () => {
       title: e.target.value
     })
   }
+  const handleEndTimeChange = (time:string): void => {
+    setNewEvent({
+      ...newEvent,
+      end: (endTime + time ),
+      allDay: false,
+    })
+  }
+  const handleStartTimeChange = (time:string): void => {
+    setNewEvent({
+      ...newEvent,
+      start: (startTime + time),
+      allDay: false,
+    })
+  }
+  const handleColorChange = (color:string): void => {
+    setNewEvent({
+      ...newEvent,
+      color: color
+    })
+  }
+
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -113,7 +133,8 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      id: 0
+      id: 0,
+      color: ''
     })
   }
 
@@ -147,24 +168,28 @@ const HomePage = () => {
               selectable={true}
               selectMirror={true}
               dateClick={handleDateClick}
-              drop={(data) => addEvent(data)}
+              // drop={(data) => addEvent(data)}
               eventClick={(data) => handleDeleteModal(data)}
             />
           
 
-        <AddEventModal 
+          <AddEventModal 
           showModal={showModal}
           setShowModal={setShowModal}
           handleSubmit={handleSubmit}
-          handleChange={handleTitleChange}
+          handleTitleChange={handleTitleChange}
+          handleEndTimeChange={handleEndTimeChange}
+          handleStartTimeChange={handleStartTimeChange}
           newEvent={newEvent}
           handleCloseModal={handleCloseModal}
+          handleColorChange={handleColorChange}
         />
         <DeleteEventModal
          showDeleteModal={showDeleteModal}
          setShowDeleteModal={setShowDeleteModal}
          handleDelete={handleDelete}
          handleCloseModal={handleCloseModal}
+         eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
         />
 
 
