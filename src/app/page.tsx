@@ -119,7 +119,7 @@ export default function Home() {
             </h3>
           </div>
  
-          <div className="min-w-96 p-8 sm:rounded-tl-lg rounded sm:rounded-tr-lg rounded-br-lg  bg-white ">
+          <div className="min-w-96 p-8 rounded-lg lg:rounded-r-lg lg:rounded-l-none  bg-white ">
             <div className="items-center pb-8">
               <h1 className="text-center text-4xl font-bebas text-black ">Fill out your information</h1>
             </div>
@@ -174,7 +174,7 @@ export default function Home() {
               Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
             </h3>
           </div>
-          <div className="min-w-96 p-8  rounded-tr-lg rounded-br-lg  bg-white sm:rounded-tl-lg rounded sm:rounded-bl-lg lg:block">
+          <div className="min-w-96 p-8 bg-white rounded-lg lg:rounded-r-lg lg:rounded-l-none">
             <div className="items-center pb-8">
               <h1 className="text-center text-5xl font-bebas text-black ">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
