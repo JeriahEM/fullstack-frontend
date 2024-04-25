@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { findDifferences, loggedinData, updateUserProfile } from "@/utils/Dataservices";
 import { IUserdata } from "../Interfaces/Interfaces";
 import { encode } from "punycode";
+import { ClassNames } from "@emotion/react";
 
 
 const ProfilePage = () => {
@@ -169,8 +170,8 @@ const ProfilePage = () => {
   return (
     <>
       <NavbarComponent />
-
-      <div className="grid grid-cols-6 mx-7 py-8 bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
+      <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
+      <div className="grid grid-cols-6 mx-7 py-8 ">
         <div className="col-span-2 bg-orange-100 w-full">
           <div className="flex justify-center">
             <div className="my-4 border-2 border-black bg-lime-300 w-[80%] h-[45vh]">
@@ -319,6 +320,7 @@ const ProfilePage = () => {
 
       <h1 className="text-center text-3xl font-bold py-4 font-titillium">My Programs</h1>
       <div className="border-2 border-red-600 h-[40vh] mx-7"></div>
+      </div>
     </>
   )
 }
