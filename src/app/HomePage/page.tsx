@@ -55,7 +55,7 @@ const HomePage = () => {
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
     setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
     setShowModal(true)
-
+    console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
     const test = allEvents
@@ -163,13 +163,14 @@ const HomePage = () => {
               }}
               events={allEvents as EventSourceInput}
               nowIndicator={true}
-              editable={true}
-              droppable={true}
+              // editable={true}
+              // // droppable={true}
               selectable={true}
               selectMirror={true}
               dateClick={handleDateClick}
-              // drop={(data) => addEvent(data)}
+              // // drop={(data) => addEvent(data)}
               eventClick={(data) => handleDeleteModal(data)}
+              dayMaxEvents={1}
             />
           
 
@@ -218,7 +219,40 @@ const HomePage = () => {
       </div>
 
       <h1 className="text-center text-3xl font-titillium font-bold py-4">UPCOMING EVENTS</h1>
-      <div className="border-2 border-red-600 h-[40vh] mx-7"></div>
+      <div className="border-2 border-red-600 mx-7">
+
+
+      <main className="p-3 h-full min-w-[300px] ">
+        
+        <FullCalendar
+          plugins={[
+            interactionPlugin,
+            timeGridPlugin
+          ]}
+          headerToolbar={{
+            left: 'prev,next today',
+            center: 'title',
+            right: ''
+          }}
+          events={allEvents as EventSourceInput}
+          nowIndicator={true}
+          
+          // editable={true}
+          // droppable={true}
+          // selectable={true}
+          // selectMirror={true}
+          // dateClick={handleDateClick}
+          
+          // eventClick={(data) => handleDeleteModal(data)}
+        />
+      
+
+    
+    
+  </main>
+
+
+      </div>
     </div>
   )
 }
