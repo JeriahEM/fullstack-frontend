@@ -3,11 +3,22 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
+interface Event {
+  title: string;
+  start: string;
+  end: string;
+  allDay: boolean;
+  id: number;
+  //color
+  //program
+  //
+}
 interface DeleteEventModalProps{
     showDeleteModal: boolean
     setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
     handleDelete: ()=>void
     handleCloseModal: ()=>void
+    eventData: Event
 }
 
 const DeleteEventModal = (props:DeleteEventModalProps) => {
@@ -52,9 +63,17 @@ const DeleteEventModal = (props:DeleteEventModalProps) => {
                           <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                             Delete Event
                           </Dialog.Title>
+
+                          <div className='text-2xl'>
+                            <p>Title: {props.eventData?.title}</p>
+                            <p>Start Time: {props.eventData?.start}</p>
+                            <p>End Time: {props.eventData?.end}</p>
+                           
+                          </div>
+
                           <div className="mt-2">
                             <p className="text-sm text-gray-500">
-                              Are you sure you want to delete this event?
+                              Are you sure you want to delete this event? 
                             </p>
                           </div>
                         </div>

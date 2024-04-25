@@ -48,10 +48,10 @@ const NavbarComponent = () => {
     return (
         <Navbar fluid rounded>
           <Navbar.Brand>
-            <div className="sm:hidden ">
+            <div className="sm:hidden">
             <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={()=> router.push('/HomePage')}>CM</span>
             </div>
-            <div className="lg:hidden ">
+            <div className="hidden lg:block">
             <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={()=> router.push('/HomePage')}>Court Monitor</span>
             </div>
           </Navbar.Brand>
