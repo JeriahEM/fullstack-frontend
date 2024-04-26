@@ -81,7 +81,7 @@ const AddEventModal = (props: AddEventModalProps) => {
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                   <div>
 
-                    <div className="mt-3 text-center sm:mt-5">
+                    <div className="mt-1 text-center sm:mt-1">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                         Add Event
                       </Dialog.Title>
@@ -96,17 +96,17 @@ const AddEventModal = (props: AddEventModalProps) => {
                             value={props.newEvent.title} onChange={(e) => props.handleTitleChange(e)} placeholder="Title" />
                         </div>
 
-                        <div className='mt-2 flex items-center gap-5'>
-                          <p>Start Time:</p>
+                        <div className='mt-2 grid grid-cols-3 items-center '>
+                          <p className=' text-end p-3'>Start Time:</p>
                           <TimeSelector onChange={handleStartTimeChange} />
                         </div>
-                        <div className='mt-2 flex items-center gap-5'>
-                          <p>End Time:</p>
+                        <div className='mt-2 grid grid-cols-3 items-center'>
+                          <p className=' text-end p-3'>End Time:</p>
                           <TimeSelector onChange={handleEndTimeChange} />
                         </div>
 
-                        <div className='mt-2 flex items-center gap-5'>
-                          <p>Select a color:</p>
+                        <div className='mt-2 grid grid-cols-3 items-center'>
+                          <p className=' text-end p-3'>Select a color:</p>
                           <ColorSelector onChange={handleColorChange} />
                         </div>
 
