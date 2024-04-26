@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createAccount, getLoggedInUserData, login } from "@/utils/Dataservices";
 import { IToken } from "./Interfaces/Interfaces";
+import NavbarComponent from "./Components/NavbarComponent";
 
 
 
@@ -106,25 +107,36 @@ export default function Home() {
         <div className="text-center text-5xl text-white font-bebas tracking-[.15rem] pt-14 ">
           <p>Court Monitor</p>
         </div>
-        <div className="grid grid-flow-row justify-center">
-          <div className="min-w-96 p-8 rounded-lg">
+        <br />
+        <div className="grid grid-flow-col justify-center">
+
+          <div className="min-w-96 p-8  rounded-bl-lg rounded-tl-lg  bg-blend-darken Court hidden lg:block">
+            <br /> <br />
+            <h1 className="font-bebas text-4xl text-center text-white ">Welcome Back</h1>
+            <br /> <br />
+            <h3 className="text-center font-bebas text-2xl text-white  ">
+              Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
+            </h3>
+          </div>
+ 
+          <div className="min-w-96 p-8 rounded-lg lg:rounded-r-lg lg:rounded-l-none  bg-white ">
             <div className="items-center pb-8">
-              <h1 className="text-center text-4xl font-titillium text-white textShadow">Fill out your information</h1>
+              <h1 className="text-center text-4xl font-bebas text-black ">Fill out your information</h1>
             </div>
             <form className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
-                <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
+                <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
                   <p>Full Name:</p>
                 </div>
-                <input id="username" type="text" className="inputbg border-transparent" required onChange={(e) => setFullName(e.target.value)} />
+                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={(e) => setFullName(e.target.value)} />
               </div>
-              <div className="flex flex-row gap-3">
+              <div className="flex flex-row gap-3 ">
                 <div className="mb-2 block">
-                  <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
-                    <p>E-Mail:</p>
+                  <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
+                    <p>EMail:</p>
                   </div>
                 </div>
-                <input id="email" type="text" className="inputbg border-transparent" required onChange={(e) => setEmail(e.target.value)} />
+                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className=" flex justify-between gap-3">
                 <Button onClick={() => handleNewUserBool()} className=" bg-red-700 text-white font-titillium w-full">
@@ -138,6 +150,7 @@ export default function Home() {
 
               {/* <Button onClick={() => router.push('/HomePage')}>Submit</Button> */}
             </form>
+            <br />
           </div>
 
         </div>
@@ -146,30 +159,39 @@ export default function Home() {
       </div>
 
 
-      <div id="div1" className="CenterScreen">
+      <div id="div1" className="CenterScreen ">
 
         <div className="text-center text-5xl text-white font-bebas tracking-[.15rem] pt-14 ">
           <p>Court Monitor</p>
         </div>
-        <div className="grid grid-flow-row justify-center">
-          <div className="min-w-96 p-8 rounded-lg">
+        <br />
+        <div className="grid grid-flow-col justify-center">
+          <div className="min-w-96 p-8  rounded-bl-lg rounded-tl-lg  bg-blend-darken Court hidden lg:block">
+            <br /> <br />
+            <h1 className="font-bebas text-4xl text-center text-white ">Welcome Back</h1>
+            <br /> <br />
+            <h3 className="text-center font-bebas text-2xl text-white  ">
+              Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
+            </h3>
+          </div>
+          <div className="min-w-96 p-8 bg-white rounded-lg lg:rounded-r-lg lg:rounded-l-none">
             <div className="items-center pb-8">
-              <h1 className="text-center text-4xl font-titillium text-white textShadow">{switchBool ? 'New User' : 'Login'}</h1>
+              <h1 className="text-center text-5xl font-bebas text-black ">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
             <form className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
-                <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
-                  <p>UserName:</p>
+                <div className="mb-2 block pt-2 text-3xl font-titillium text-black ">
+                  <p>Username:</p>
                 </div>
-                <input id="username" type="text" className="inputbg border-transparent" required onChange={(e) => setUsername(e.target.value)} />
+                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" required onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block">
-                  <div className="mb-2 block pt-2 text-3xl font-titillium text-white textShadow">
+                  <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
                     <p>Password:</p>
                   </div>
                 </div>
-                <input id="password1" type="password" className="inputbg border-transparent" required onChange={(e) => setPassword(e.target.value)} />
+                <input id="password1" type="password" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" required onChange={(e) => setPassword(e.target.value)} />
               </div>
 
               <Button onClick={handleSubmit} className="bg-white text-black font-titillium">
@@ -177,8 +199,8 @@ export default function Home() {
               </Button>
 
               <div className="flex items-center place-content-center gap-2">
-                <button className="text-3xl font-titillium text-white" onClick={handleSwtich}>
-                  <p className="textShadow">{switchBool ? 'Already have an Account?' : 'Sign up'}</p>
+                <button className="text-3xl font-titillium text-black" onClick={handleSwtich}>
+                  <p className=" hover:text-blue-800 text-2xl">{switchBool ? 'Already have an Account?' : 'Sign up'}</p>
 
                 </button>
               </div>

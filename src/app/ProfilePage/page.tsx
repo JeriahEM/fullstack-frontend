@@ -160,6 +160,12 @@ const ProfilePage = () => {
 
   }, [])
 
+  const getDate = (e: any) => {
+    console.log('test')
+    console.log(e.target.value)
+    // setBirthday(e)
+  }
+
   return (
     <>
       <NavbarComponent />
@@ -230,7 +236,11 @@ const ProfilePage = () => {
                     <div className="mb-2 block">
                       <Label htmlFor="birthday" value="Edit Birthday" />
                     </div>
-                    <Datepicker onChange={(e) => setBirthday(e.target.value)} id="birthday" />
+                    {/* <Datepicker onChange={(e) => setBirthday(e.target.value)} id="birthday" /> */}
+                    <Datepicker onClick={(e: any) => {
+                      console.log(e.target.value)
+                      // getDate(e)
+                    }} id="birthday"  />
                     {/* <TextInput onChange={(e)=> setBirthday(e.target.value)} id="birthday"/> */}
                   </div>
 

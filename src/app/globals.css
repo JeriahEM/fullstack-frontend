@@ -18,7 +18,17 @@
 
   .inputbg{
     background-color: transparent!important;
+    --tw-ring-color: rgb(0 0 0 / 0) !important;
+    box-shadow: none;
   }
+
+
+.Court{
+    background-image: url('assets/images/court.jpg');
+    background-color: slategray;
+    background-position: center;
+    background-size: cover;
+}
 
 .Tennis{
     background-image: url('assets/images/Tennis.jpg');
@@ -99,3 +109,5 @@ color: white;
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  

@@ -1,11 +1,143 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, {Fragment, useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent';
 
 
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction'
+import timeGridPlugin from '@fullcalendar/timegrid'
+
+import { Dialog, Transition } from '@headlessui/react'
+import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
+import { EventSourceInput } from '@fullcalendar/core/index.js'
+
+import AddEventModal from '../Components/AddEventModal';
+import DeleteEventModal from '../Components/DeleteEventModal';
+
 const HomePage = () => {
+  interface Event {
+    title: string;
+    start: string;
+    end:string;
+    allDay: boolean;
+    id: number;
+    color: string
+    //program
+    //
+  }
+  const [events, setEvents] = useState([
+    { title: 'event 1', id: '1' },
+    { title: 'event 2', id: '2' },
+    { title: 'event 3', id: '3' },
+    { title: 'event 4', id: '4' },
+    { title: 'event 5', id: '5' },
+  ])
+
+  const [allEvents, setAllEvents] = useState<Event[]>([])
+  const [showModal, setShowModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [idToDelete, setIdToDelete] = useState<number>(999999999)
+  const [newEvent, setNewEvent] = useState<Event>({
+    title: '',
+    start: '',
+    end: '',
+    allDay: false,
+    id: 0,
+    color: ''
+  })
+
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("")
+
+  function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
+    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
+    setShowModal(true)
+    console.log(arg.dateStr)
+    setStartTime(arg.dateStr + " ")
+    setEndTime(arg.dateStr + " ")
+    const test = allEvents
+
+    console.log(test)
+    
+  }
+  function addEvent(data: DropArg) {
+    const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
+    setAllEvents([...allEvents, event])
+  }
+
+  function handleDeleteModal(data: { event: { id: string } }) {
+    setShowDeleteModal(true)
+    setIdToDelete(Number(data.event.id))
+  }
+
+  function handleDelete() {
+    setAllEvents(allEvents.filter(event => Number(event.id) !== Number(idToDelete)))
+    setShowDeleteModal(false)
+    setIdToDelete(999999)
+  }
+
+  function handleCloseModal() {
+    setShowModal(false)
+    setNewEvent({
+      title: '',
+      start: '',
+      end: '',
+      allDay: false,
+      id: 0,
+      color: ''
+    })
+    setStartTime("")
+    setEndTime("")
+    setShowDeleteModal(false)
+    setIdToDelete(9999999)
+  }
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setNewEvent({
+      ...newEvent,
+      title: e.target.value
+    })
+  }
+  const handleEndTimeChange = (time:string): void => {
+    setNewEvent({
+      ...newEvent,
+      end: (endTime + time ),
+      allDay: false,
+    })
+  }
+  const handleStartTimeChange = (time:string): void => {
+    setNewEvent({
+      ...newEvent,
+      start: (startTime + time),
+      allDay: false,
+    })
+  }
+  const handleColorChange = (color:string): void => {
+    setNewEvent({
+      ...newEvent,
+      color: color
+    })
+  }
+
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setAllEvents([...allEvents, newEvent])
+    setShowModal(false)
+    console.log(newEvent)
+    setNewEvent({
+      title: '',
+      start: '',
+      end: '',
+      allDay: false,
+      id: 0,
+      color: ''
+    })
+  }
+
   
 
     const router = useRouter();
@@ -15,22 +147,56 @@ const HomePage = () => {
 
       <div className=" grid grid-cols-5 mx-7">
           <div className="col-span-2 bg-orange-300  w-full py-8 ">
-            <p className="text-center inter">CALENDER WILL GO IN HERE</p>
-            <div className="flex justify-center">
-              <div className=" bg-lime-300 w-[90%] h-[45vh]">
-                <div className='p-8 text-xl'>
-                <ul style={{ listStyleType: 'square' }}>
-                <li><p>Welcome to our Beta test: Currently all the navigation features in the navbar will take you somewhere.</p></li>
-                <li><p>Editing your profile will work, Images to be added</p></li>
-                <li><p>User Directory is currently filled with Dummy Data</p></li>
-                <li><p>Sports Selection screen is clickable as well</p></li>
-              </ul>
-                  
-                
-                </div>
-                
-              </div>
-            </div>
+            
+          <main className="p-3 h-full min-w-[300px] ">
+        
+            <FullCalendar
+              plugins={[
+                dayGridPlugin,
+                interactionPlugin,
+                timeGridPlugin
+              ]}
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek'
+              }}
+              events={allEvents as EventSourceInput}
+              nowIndicator={true}
+              // editable={true}
+              // // droppable={true}
+              selectable={true}
+              selectMirror={true}
+              dateClick={handleDateClick}
+              // // drop={(data) => addEvent(data)}
+              eventClick={(data) => handleDeleteModal(data)}
+              dayMaxEvents={1}
+            />
+          
+
+          <AddEventModal 
+          showModal={showModal}
+          setShowModal={setShowModal}
+          handleSubmit={handleSubmit}
+          handleTitleChange={handleTitleChange}
+          handleEndTimeChange={handleEndTimeChange}
+          handleStartTimeChange={handleStartTimeChange}
+          newEvent={newEvent}
+          handleCloseModal={handleCloseModal}
+          handleColorChange={handleColorChange}
+        />
+        <DeleteEventModal
+         showDeleteModal={showDeleteModal}
+         setShowDeleteModal={setShowDeleteModal}
+         handleDelete={handleDelete}
+         handleCloseModal={handleCloseModal}
+         eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
+        />
+
+
+        
+        
+      </main>
             
           </div>
         
@@ -53,7 +219,40 @@ const HomePage = () => {
       </div>
 
       <h1 className="text-center text-3xl font-titillium font-bold py-4">UPCOMING EVENTS</h1>
-      <div className="border-2 border-red-600 h-[40vh] mx-7"></div>
+      <div className="border-2 border-red-600 mx-7">
+
+
+      <main className="p-3 h-full min-w-[300px] ">
+        
+        <FullCalendar
+          plugins={[
+            interactionPlugin,
+            timeGridPlugin
+          ]}
+          headerToolbar={{
+            left: 'prev,next today',
+            center: 'title',
+            right: ''
+          }}
+          events={allEvents as EventSourceInput}
+          nowIndicator={true}
+          
+          // editable={true}
+          // droppable={true}
+          // selectable={true}
+          // selectMirror={true}
+          // dateClick={handleDateClick}
+          
+          // eventClick={(data) => handleDeleteModal(data)}
+        />
+      
+
+    
+    
+  </main>
+
+
+      </div>
     </div>
   )
 }

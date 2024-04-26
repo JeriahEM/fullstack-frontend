@@ -50,9 +50,14 @@ const [test, setTest] = useState('')
   const SportsList = ({ sports: [] }) => {
     return sports.map((sport, index) => (
       <div key={index} className=" flex justify-center py-4">
+<<<<<<< HEAD
         <button
           className={`${sport} h-44 w-[90%] rounded-lg text-7xl font-bold`}
           onClick={() => handleClick(sport)}>
+=======
+        <button className={`${sport} h-44 w-[90%] rounded-lg text-6xl font-bold `} 
+        onClick={()=> router.push('/AllProgramsPage')}>
+>>>>>>> 437c6edcd20b521848f01ee3095aa996fcbca9cd
           <p className="textShadow">{sport}</p>
         </button>
       </div>
@@ -60,7 +65,11 @@ const [test, setTest] = useState('')
   };
 
   return (
+<<<<<<< HEAD
     <div className="font-titillium">
+=======
+    <div className=" font-titillium bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
+>>>>>>> 437c6edcd20b521848f01ee3095aa996fcbca9cd
       <NavbarComponent />
       <h1 className="text-center text-6xl font-bold py-4">Select a Sport</h1>
       <div className="mx-7">
