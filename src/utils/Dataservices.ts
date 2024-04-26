@@ -97,7 +97,7 @@ export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUser
     console.log(differences)
     return differences;
 }
-
+//Takes date in "2024-04-24" and returns "April 24, 2024"
 export const formatDate = (dateString:string) => {
 
     if(dateString.includes("-")){
@@ -117,4 +117,21 @@ export const formatDate = (dateString:string) => {
         return dateString
     }
     
+}
+//formats date in this format "2024-00-00 11:11"
+export const formatTime = (timeString:string) => {
+    const [datePart, timePart] = timeString.split(' ')
+    // Parse the time string to get hours and minutes
+    const [hours, minutes] = timePart.split(':').map(num => parseInt(num, 10));
+
+    // Determine whether it's AM or PM
+    const meridiem = hours >= 12 ? 'pm' : 'am';
+
+    // Convert 24-hour format to 12-hour format
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+
+    // Format the time
+    const formattedTime = `${formattedHours}:${minutes.toString().padStart(2, '0')}${meridiem}`;
+
+    return formattedTime;
 }
