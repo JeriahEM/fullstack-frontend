@@ -22,6 +22,12 @@
     box-shadow: none;
   }
 
+  .placeholder{
+    background-image: url('assets/images/Group13.png');
+    background-color: slategray;
+    background-position: center;
+    background-size: cover;
+}
 
 .Court{
     background-image: url('assets/images/court.jpg');

@@ -146,7 +146,7 @@ const HomePage = () => {
     <NavbarComponent/>
 
       <div className=" grid grid-cols-5 mx-7">
-          <div className="col-span-2 bg-orange-300  w-full py-8 ">
+          <div className="col-span-6 lg:col-span-2 bg-orange-300  w-full py-8 ">
             
           <main className="p-3 h-full min-w-[300px] ">
         
@@ -201,9 +201,9 @@ const HomePage = () => {
           </div>
         
 
-        <div className=" col-span-3 px-16">
+        <div className=" col-span-6 lg:col-span-3 px-16">
           <div className="py-8">
-            <h1 className="text-center text-3xl font-titillium font-bold">THIS IS TODAYS DATE</h1>
+            <h1 className="text-center text-2xl lg:text-3xl font-titillium font-bold">THIS IS TODAYS DATE</h1>
             <div className="">
               <ul style={{ listStyleType: 'square' }}>
                 <li className="my-3 font-titillium">EVENT 1</li>
@@ -218,7 +218,7 @@ const HomePage = () => {
 
       </div>
 
-      <h1 className="text-center text-3xl font-titillium font-bold py-4">UPCOMING EVENTS</h1>
+      <h1 className="text-center text-2xl lg:text-3xl font-titillium font-bold py-4">UPCOMING EVENTS</h1>
       <div className="border-2 border-red-600 mx-7">
 
 

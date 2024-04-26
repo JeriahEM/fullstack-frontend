@@ -172,16 +172,15 @@ const ProfilePage = () => {
       <NavbarComponent />
       <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
       <div className="grid grid-cols-6 mx-7 py-8 ">
-        <div className="col-span-2 bg-orange-100 w-full">
+        <div className=" col-span-6 lg:col-span-2  lg:w-full w-48 ml-20 lg:ml-0">
           <div className="flex justify-center">
-            <div className="my-4 border-2 border-black bg-lime-300 w-[80%] h-[45vh]">
-              <p>Notes: Changing your password and username will not change it in the database so you will still log in using your original username</p>
-              <p>Adding images to be added</p>
+            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 lg:h-[45vh] rounded-3xl">
+              {/* where image goes */}
             </div>
           </div>
         </div>
 
-        <div className=" col-span-4 px-16 flex flex-col justify-between">
+        <div className=" col-span-6 lg:col-span-4 lg:px-16 flex flex-col justify-between">
           <div className="">
             <ul style={{ listStyleType: "none" }}>
               <li className="my-3">
