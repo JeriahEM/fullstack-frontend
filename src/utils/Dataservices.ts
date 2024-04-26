@@ -120,7 +120,9 @@ export const formatDate = (dateString:string) => {
 }
 //formats date in this format "2024-00-00 11:11"
 export const formatTime = (timeString:string) => {
-    const [datePart, timePart] = timeString.split(' ')
+
+    if(timeString.includes(" ")){
+        const [datePart, timePart] = timeString.split(' ')
     // Parse the time string to get hours and minutes
     const [hours, minutes] = timePart.split(':').map(num => parseInt(num, 10));
 
@@ -134,4 +136,9 @@ export const formatTime = (timeString:string) => {
     const formattedTime = `${formattedHours}:${minutes.toString().padStart(2, '0')}${meridiem}`;
 
     return formattedTime;
+    }
+    else{
+        return ""
+    }
+    
 }
