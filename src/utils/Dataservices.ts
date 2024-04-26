@@ -1,6 +1,6 @@
 import { INewUser, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 
-
+//Connecting Backend / Fetches
 const url = "https://apicourtmonitor.azurewebsites.net"
 
 let userData: IUserdata
@@ -80,7 +80,7 @@ export const updateUserProfile = async (username:string, inputString:string) => 
     return data
 }
 
-
+//Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};
 
@@ -96,4 +96,25 @@ export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUser
     }
     console.log(differences)
     return differences;
+}
+
+export const formatDate = (dateString:string) => {
+
+    if(dateString.includes("-")){
+        // Parse the date string to get year, month, and day
+    const [year, month, day] = dateString.split('-');
+    
+    // Convert month number to month name
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthName = monthNames[parseInt(month, 10) - 1];
+    
+    // Create the formatted date string
+    const formattedDate = `${monthName} ${parseInt(day, 10)}, ${year}`;
+    
+    return formattedDate;
+    }
+    else{
+        return dateString
+    }
+    
 }
