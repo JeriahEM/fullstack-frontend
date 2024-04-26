@@ -18,6 +18,8 @@ import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
 import { formatDate, formatTime } from '@/utils/Dataservices';
 
+import DummyEvents from '@/utils/DummyEvent.json'
+
 const HomePage = () => {
   interface Event {
     title: string;
@@ -35,6 +37,7 @@ const HomePage = () => {
     const options:any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
+    setAllEvents(DummyEvents)
 }, []);
 
   const [events, setEvents] = useState([
