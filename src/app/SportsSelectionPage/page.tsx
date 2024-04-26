@@ -39,7 +39,7 @@ const SportsSelectionPage = () => {
     
     return sports.map((sport, index) => (
       <div key={index} className=" flex justify-center py-4">
-        <button className={`${sport} h-44 w-[90%] rounded-lg text-6xl font-bold `} 
+        <button className={`${sport} h-32 lg:h-44 w-[90%] rounded-lg text-6xl font-bold `} 
         onClick={()=> router.push('/AllProgramsPage')}>
           <p className="textShadow">{sport}</p>
         </button>
