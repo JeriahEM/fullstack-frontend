@@ -72,7 +72,8 @@ const HomePage = () => {
     setEndTime(arg.dateStr + " ")
 
     setClickedDate(arg.dateStr)
-    const currentEvents = allEvents.filter(obj => obj.start === arg.dateStr)
+    const currentEvents = allEvents.filter(obj => obj.start.includes(arg.dateStr))
+    console.log(currentEvents)
     setDisplayEvents(currentEvents)
     
   }
