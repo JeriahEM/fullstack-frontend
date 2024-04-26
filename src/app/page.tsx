@@ -119,8 +119,8 @@ export default function Home() {
             </h3>
           </div>
  
-          <div className="min-w-96 p-8 rounded-lg lg:rounded-r-lg lg:rounded-l-none  bg-white ">
-            <div className="items-center pb-8">
+          <div className="min-w-96 min-h-390 p-8 rounded-lg lg:rounded-r-lg lg:rounded-l-none  bg-white ">
+            <div className="items-center pb-7">
               <h1 className="text-center text-4xl font-bebas text-black ">Fill out your information</h1>
             </div>
             <form className="flex max-w-md flex-col gap-4">
@@ -128,7 +128,7 @@ export default function Home() {
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
                   <p>Full Name:</p>
                 </div>
-                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={(e) => setFullName(e.target.value)} />
+                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent mt-10 max-h-14 focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={(e) => setFullName(e.target.value)} />
               </div>
               <div className="flex flex-row gap-3 ">
                 <div className="mb-2 block">
@@ -138,11 +138,12 @@ export default function Home() {
                 </div>
                 <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={(e) => setEmail(e.target.value)} />
               </div>
+              <br />
               <div className=" flex justify-between gap-3">
                 <Button onClick={() => handleNewUserBool()} className=" bg-red-700 text-white font-titillium w-full">
                   <p className="text-3xl">Back</p>
                 </Button>
-                <Button onClick={handleNewUserSubmit} className="bg-white text-black font-titillium w-full">
+                <Button onClick={handleNewUserSubmit} className="bg-lime-300 text-black font-titillium w-full">
                   <p className="text-3xl">Enter</p>
                 </Button>
               </div>
@@ -174,7 +175,7 @@ export default function Home() {
               Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
             </h3>
           </div>
-          <div className="min-w-96 p-8 bg-white rounded-lg lg:rounded-r-lg lg:rounded-l-none">
+          <div className="min-w-96 p-8 bg-white rounded-lg lg:rounded-r-lg lg:rounded-l-none ">
             <div className="items-center pb-8">
               <h1 className="text-center text-5xl font-bebas text-black ">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
@@ -193,15 +194,16 @@ export default function Home() {
                 </div>
                 <input id="password1" type="password" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" required onChange={(e) => setPassword(e.target.value)} />
               </div>
+              <p className=" hover:text-blue-400 text-blue-600 text-md min-h-7">{switchBool ? '' : 'Forgot password?'}</p>
 
-              <Button onClick={handleSubmit} className="bg-white text-black font-titillium">
+              <Button onClick={handleSubmit} className=" text-black font-titillium bg-lime-300">
                 <p className="text-3xl">{switchBool ? 'Next' : 'Enter'}</p>
               </Button>
 
               <div className="flex items-center place-content-center gap-2">
                 <button className="text-3xl font-titillium text-black" onClick={handleSwtich}>
-                  <p className=" hover:text-blue-800 text-2xl">{switchBool ? 'Already have an Account?' : 'Sign up'}</p>
-
+                  <p className=" hover:text-blue-600 text-xl">{switchBool ? 'Already have an Account?' : 'Sign up'}</p>
+                  
                 </button>
               </div>
               {/* <Button onClick={() => router.push('/HomePage')}>Submit</Button> */}
