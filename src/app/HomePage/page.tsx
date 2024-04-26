@@ -16,6 +16,9 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
+import { formatDate, formatTime } from '@/utils/Dataservices';
+
+import DummyEvents from '@/utils/DummyEvent.json'
 
 const HomePage = () => {
   interface Event {
@@ -28,6 +31,15 @@ const HomePage = () => {
     //program
     //
   }
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const options:any = { month: 'long', day: 'numeric', year: 'numeric' };
+    const formattedDateString = currentDate.toLocaleDateString('en-US', options);
+    setClickedDate(formattedDateString);
+    setAllEvents(DummyEvents)
+}, []);
+
   const [events, setEvents] = useState([
     { title: 'event 1', id: '1' },
     { title: 'event 2', id: '2' },
@@ -52,21 +64,26 @@ const HomePage = () => {
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("")
 
+  const [clickedDate, setClickedDate] = useState<string>(new Date().toISOString())
+  const [displayEvents, setDisplayEvents] = useState<Event[]>([])
+
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
     setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
     setShowModal(true)
     console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
-    const test = allEvents
 
-    console.log(test)
+    setClickedDate(arg.dateStr)
+    const currentEvents = allEvents.filter(obj => obj.start.includes(arg.dateStr))
+    console.log(currentEvents)
+    setDisplayEvents(currentEvents)
     
   }
-  function addEvent(data: DropArg) {
-    const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
-    setAllEvents([...allEvents, event])
-  }
+  // function addEvent(data: DropArg) {
+  //   const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
+  //   setAllEvents([...allEvents, event])
+  // }
 
   function handleDeleteModal(data: { event: { id: string } }) {
     setShowDeleteModal(true)
@@ -126,6 +143,7 @@ const HomePage = () => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setAllEvents([...allEvents, newEvent])
+    setDisplayEvents([...displayEvents, newEvent])
     setShowModal(false)
     console.log(newEvent)
     setNewEvent({
@@ -145,10 +163,10 @@ const HomePage = () => {
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
     <NavbarComponent/>
 
-      <div className=" grid grid-cols-5 mx-7">
-          <div className="col-span-2 bg-orange-300  w-full py-8 ">
+      <div className=" grid grid-cols-7 mx-7">
+          <div className="col-span-3 w-full py-8 ">
             
-          <main className="p-3 h-full min-w-[300px] ">
+          <main className="p-3 h-full">
         
             <FullCalendar
               plugins={[
@@ -157,9 +175,9 @@ const HomePage = () => {
                 timeGridPlugin
               ]}
               headerToolbar={{
-                left: 'prev,next today',
+                left: 'prev,next',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek'
+                right: 'today'
               }}
               events={allEvents as EventSourceInput}
               nowIndicator={true}
@@ -170,7 +188,13 @@ const HomePage = () => {
               dateClick={handleDateClick}
               // // drop={(data) => addEvent(data)}
               eventClick={(data) => handleDeleteModal(data)}
-              dayMaxEvents={1}
+              dayMaxEvents={2}
+              viewClassNames={"bg-white"}
+              dayHeaderClassNames={"bg-white"}
+              aspectRatio={1.6}
+              
+              
+              
             />
           
 
@@ -201,14 +225,21 @@ const HomePage = () => {
           </div>
         
 
-        <div className=" col-span-3 px-16">
+        <div className=" col-span-4 px-10">
           <div className="py-8">
-            <h1 className="text-center text-3xl font-titillium font-bold">THIS IS TODAYS DATE</h1>
-            <div className="">
+            <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
+            <div className=" text-xl p-5">
               <ul style={{ listStyleType: 'square' }}>
-                <li className="my-3 font-titillium">EVENT 1</li>
+                {/* <li className="my-3 font-titillium">EVENT 1</li>
                 <li className="my-3 font-titillium">EVENT 2</li>
-                <li className="my-3 font-titillium">EVENT 3 </li>
+                <li className="my-3 font-titillium">EVENT 3 </li> */}
+                {displayEvents.map((event, index) => (
+                    <li className='font-titillium py-3' key={index}>
+                        <strong>{event.title}</strong> - {formatDate(event.start)} | 
+                        {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
+                        {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
+                    </li>
+                ))}
               </ul>
             </div>
 
@@ -219,10 +250,10 @@ const HomePage = () => {
       </div>
 
       <h1 className="text-center text-3xl font-titillium font-bold py-4">UPCOMING EVENTS</h1>
-      <div className="border-2 border-red-600 mx-7">
+      <div className="border-4 border-black mx-7 max-h-[70vh] overflow-scroll rounded-lg">
 
 
-      <main className="p-3 h-full min-w-[300px] ">
+      <main className="p-3 h-full">
         
         <FullCalendar
           plugins={[
@@ -230,9 +261,9 @@ const HomePage = () => {
             timeGridPlugin
           ]}
           headerToolbar={{
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
-            right: ''
+            right: 'today'
           }}
           events={allEvents as EventSourceInput}
           nowIndicator={true}

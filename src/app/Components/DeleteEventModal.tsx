@@ -2,6 +2,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
+import { formatTime } from '@/utils/Dataservices';
 
 interface Event {
   title: string;
@@ -66,8 +67,8 @@ const DeleteEventModal = (props:DeleteEventModalProps) => {
 
                           <div className='text-2xl'>
                             <p>Title: {props.eventData?.title}</p>
-                            <p>Start Time: {props.eventData?.start}</p>
-                            <p>End Time: {props.eventData?.end}</p>
+                            <p>Start Time: {props.eventData?.start ? `${formatTime(props.eventData?.start)}`: ""}</p>
+                            <p>End Time: {props.eventData?.end ? `${formatTime(props.eventData?.end)}`: ""}</p>
                            
                           </div>
 

@@ -22,6 +22,12 @@
     box-shadow: none;
   }
 
+  .placeholder{
+    background-image: url('assets/images/Group13.png');
+    background-color: slategray;
+    background-position: center;
+    background-size: cover;
+}
 
 .Court{
     background-image: url('assets/images/court.jpg');
@@ -110,4 +116,38 @@ color: white;
     transform: translate(-50%, -50%);
   }
 
+/* Calendar css */
+  .fc .fc-button{
+  @apply bg-violet-800 hover:bg-violet-900  ;
+  width: 3.4vw
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  @apply bg-violet-600;
+}
+
+.fc .fc-button-primary:disabled {
+  @apply bg-violet-600;
+}
+.fc-v-event {
+  @apply bg-violet-500 border border-violet-600 ;
   
+}
+  
+  input {
+    @apply px-2;
+  }
+    .fc-header-toolbar {
+      display: inline-block;
+      padding: 4px 4px;
+      
+      @apply space-x-8;
+  }
+  
+  .fc-day {
+    @apply m-8;
+  }
+  
+  .fc-scrollgrid-sync-table {
+    @apply w-full;
+  }
