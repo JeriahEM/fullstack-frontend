@@ -18,7 +18,7 @@ const TimeSelector: React.FC<{ onChange: (time: string) => void }> = ({ onChange
   };
 
   return (
-    <div className="flex space-x-2">
+    <div className="flex space-x-2 col-span-2">
       <select
         className="border p-2 rounded"
         value={hour}
