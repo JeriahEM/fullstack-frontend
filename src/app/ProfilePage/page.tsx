@@ -229,7 +229,7 @@ const ProfilePage = () => {
                     <div className="mb-2 block">
                       <Label htmlFor="name4" value="Edit Name" />
                     </div>
-                    <TextInput onChange={(e) => setName(e.target.value)} id="name4" />
+                    <TextInput onChange={(e) => setName(e.target.value)} id="name4" max={24}/>
                   </div>
 
                   <div>
@@ -248,27 +248,27 @@ const ProfilePage = () => {
                     <div className="mb-2 block">
                       <Label htmlFor="funFact" value="Edit Fun Fact" />
                     </div>
-                    <TextInput onChange={(e) => setFunFact(e.target.value)} id="funFact" />
+                    <TextInput onChange={(e) => setFunFact(e.target.value)} id="funFact" max={24}/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="username" value="Edit Username" />
                     </div>
-                    <TextInput onChange={(e) => setUsername(e.target.value)} id="username" />
+                    <TextInput onChange={(e) => setUsername(e.target.value)} id="username" max={24}/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="password" value="Edit Password" />
                     </div>
-                    <TextInput onChange={(e) => setPassword(e.target.value)} id="password" type="password" />
+                    <TextInput onChange={(e) => setPassword(e.target.value)} id="password" type="password" max={24} />
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="password" value="Edit Email" />
                     </div>
-                    <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password" />
+                    <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password" max={24}/>
                   </div>
 
                   <div className="w-full flex flex-row justify-between">
