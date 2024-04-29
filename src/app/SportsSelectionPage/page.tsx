@@ -47,11 +47,11 @@ const SportsSelectionPage = () => {
     ));
   };
   return (
-    <div className=" font-titillium bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
+    <div className=" bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
       <NavbarComponent />
-      <h1 className="text-center text-6xl font-bold py-4">Select a Sport</h1>
+      <h1 className="text-center text-6xl font-bold py-4 font-titillium">Select a Sport</h1>
       <div className="mx-7">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 font-titillium">
           <SportsList sports={sports} />
         </div>
       </div>

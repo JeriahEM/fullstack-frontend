@@ -51,7 +51,7 @@ const NavbarComponent = () => {
             <div className="sm:hidden">
             <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={()=> router.push('/HomePage')}>CM</span>
             </div>
-            <div className="hidden lg:block">
+            <div className="hidden md:block">
             <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={()=> router.push('/HomePage')}>Court Monitor</span>
             </div>
           </Navbar.Brand>

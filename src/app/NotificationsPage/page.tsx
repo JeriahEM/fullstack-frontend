@@ -17,7 +17,7 @@ const NotificationsPage = () => {
   };
   
   return (
-    <div className=" font-titillium bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
+    <div className="  bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
       <NavbarComponent />
 
       <div className="grid grid-cols-3">
@@ -30,7 +30,7 @@ const NotificationsPage = () => {
               <div className="px-1 sm:hidden ">
                 <MailOutlineIcon fontSize="small"/>
               </div>
-              <p className="">System</p>
+              <p className="font-titillium">System</p>
             </button>
           </div>
         </div>
@@ -41,7 +41,7 @@ const NotificationsPage = () => {
             <div className="flex justify-center py-4">
               <li className="ml-8">
                 <div className="border-2 border-black bg-slate-200 rounded-lg mx-2 md:mx-8 px-5 py-9">
-                  <p className="text-lg md:text-2xl font-bold">
+                  <p className="text-lg md:text-2xl font-bold font-titillium">
                     Green Dot Practice: 6pm - 8pm on Monday, March 3/11 has been
                     removed.
                   </p>
