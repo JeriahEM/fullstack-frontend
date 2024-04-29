@@ -24,8 +24,8 @@ const NotificationsPage = () => {
         <div className=" border-r-2 border-black h-screen">
         <div className=" flex justify-center py-4">
             <button className={` bg-slate-200 h-28 w-[90%] lg:w-[80%] rounded-lg text-2xl lg:text-4xl font-bold flex justify-center items-center`}>
-              <div className="px-4 hidden lg:block">
-                <MailOutlineIcon style={styles.largeIcon}/>
+              <div className="px-4 hidden md:block">
+                <MailOutlineIcon fontSize="large"/>
               </div>
               <div className="px-1 sm:hidden ">
                 <MailOutlineIcon fontSize="small"/>
@@ -40,8 +40,8 @@ const NotificationsPage = () => {
             {/* message element */}
             <div className="flex justify-center py-4">
               <li className="ml-8">
-                <div className="border-2 border-black bg-slate-200 rounded-lg mx-2 lg:mx-8 px-5 py-9">
-                  <p className="text-lg lg:text-2xl font-bold">
+                <div className="border-2 border-black bg-slate-200 rounded-lg mx-2 md:mx-8 px-5 py-9">
+                  <p className="text-lg md:text-2xl font-bold">
                     Green Dot Practice: 6pm - 8pm on Monday, March 3/11 has been
                     removed.
                   </p>

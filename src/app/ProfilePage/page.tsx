@@ -172,15 +172,15 @@ const ProfilePage = () => {
       <NavbarComponent />
       <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
       <div className="grid grid-cols-6 mx-7 py-8 ">
-        <div className=" col-span-6 lg:col-span-2  lg:w-full w-48 ml-20 lg:ml-0">
+        <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
           <div className="flex justify-center">
-            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 lg:h-[45vh] rounded-3xl">
+            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 md:h-[45vh] rounded-3xl">
               {/* where image goes */}
             </div>
           </div>
         </div>
 
-        <div className=" col-span-6 lg:col-span-4 lg:px-16 flex flex-col justify-between">
+        <div className=" col-span-6 md:col-span-3 lg:col-span-4 lg:px-16 flex flex-col justify-between">
           <div className="">
             <ul style={{ listStyleType: "none" }}>
               <li className="my-3">

@@ -133,7 +133,7 @@ export default function Home() {
               <div className="flex flex-row gap-3 ">
                 <div className="mb-2 block">
                   <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
-                    <p>EMail:</p>
+                    <p>Email:</p>
                   </div>
                 </div>
                 <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={(e) => setEmail(e.target.value)} />
