@@ -1,4 +1,4 @@
-import { INewUser, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { IEvent, INewUser, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 
 //Connecting Backend / Fetches
 const url = "https://apicourtmonitor.azurewebsites.net"
@@ -78,6 +78,35 @@ export const updateUserProfile = async (username:string, inputString:string) => 
     }
     const data = await res.json();
     return data
+}
+
+export const createEvent = async (event: IEvent) => {
+    const res = await fetch(url + '/Event/CreateEvent',  {
+        method: "POST",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body:JSON.stringify(event)
+    })
+
+    if(!res.ok){
+        const message = "An error has occured" + res.status;
+        throw new Error(message);
+    }
+    else{
+        alert("Event Created")
+    }
+
+    const data = await res.json();
+    console.log(data);
+}
+
+export const getAllEvents = async () => {
+    const res = await fetch(url + '/Event/GetAllEvents');
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
 }
 
 //Helper Functions

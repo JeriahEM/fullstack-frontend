@@ -16,64 +16,65 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { formatDate, formatTime } from '@/utils/Dataservices';
+import { createEvent, formatDate, formatTime, getAllEvents } from '@/utils/Dataservices';
 
 import DummyEvents from '@/utils/DummyEvent.json'
+import { IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
-  interface Event {
-    title: string;
-    start: string;
-    end:string;
-    allDay: boolean;
-    id: number;
-    color: string
-    //program
-    //
-  }
 
   useEffect(() => {
     const currentDate = new Date();
     const options:any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
-    setAllEvents(DummyEvents)
+    // setAllEvents(DummyEvents)
+    const getEvents = async () => {
+      const fetchedEvents = await getAllEvents();
+      setAllEvents(fetchedEvents)
+    }
+    getEvents()
+
 }, []);
 
-  const [events, setEvents] = useState([
-    { title: 'event 1', id: '1' },
-    { title: 'event 2', id: '2' },
-    { title: 'event 3', id: '3' },
-    { title: 'event 4', id: '4' },
-    { title: 'event 5', id: '5' },
-  ])
-
-  const [allEvents, setAllEvents] = useState<Event[]>([])
+  // const [events, setEvents] = useState([
+  //   { title: 'event 1', id: '1' },
+  //   { title: 'event 2', id: '2' },
+  //   { title: 'event 3', id: '3' },
+  //   { title: 'event 4', id: '4' },
+  //   { title: 'event 5', id: '5' },
+  // ])
+  const [programID, setProgramID] = useState<number>(2);
+  const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [idToDelete, setIdToDelete] = useState<number>(999999999)
-  const [newEvent, setNewEvent] = useState<Event>({
+  const [newEvent, setNewEvent] = useState<IEvent>({
     title: '',
     start: '',
     end: '',
     allDay: false,
-    id: 0,
-    color: ''
+    eventID: 0,
+    color: '',
+    programID: programID
   })
 
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("")
 
   const [clickedDate, setClickedDate] = useState<string>(new Date().toISOString())
-  const [displayEvents, setDisplayEvents] = useState<Event[]>([])
+  const [displayEvents, setDisplayEvents] = useState<IEvent[]>([])
 
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
-    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
+    //setting up useState for the modal
+    // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, eventID: new Date().getTime() })
+    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, eventID: 0 })
     setShowModal(true)
     console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
 
+    //showing the events on the other div
     setClickedDate(arg.dateStr)
     const currentEvents = allEvents.filter(obj => obj.start.includes(arg.dateStr))
     console.log(currentEvents)
@@ -91,7 +92,7 @@ const HomePage = () => {
   }
 
   function handleDelete() {
-    setAllEvents(allEvents.filter(event => Number(event.id) !== Number(idToDelete)))
+    setAllEvents(allEvents.filter(event => Number(event.eventID) !== Number(idToDelete)))
     setShowDeleteModal(false)
     setIdToDelete(999999)
   }
@@ -103,8 +104,9 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      id: 0,
-      color: ''
+      eventID: 0,
+      color: '',
+      programID: programID,
     })
     setStartTime("")
     setEndTime("")
@@ -140,8 +142,10 @@ const HomePage = () => {
   }
 
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    console.log(newEvent)
+    await createEvent(newEvent);
     setAllEvents([...allEvents, newEvent])
     setDisplayEvents([...displayEvents, newEvent])
     setShowModal(false)
@@ -151,8 +155,9 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      id: 0,
-      color: ''
+      eventID: 0,
+      color: '',
+      programID: programID,
     })
   }
 
@@ -214,7 +219,7 @@ const HomePage = () => {
          setShowDeleteModal={setShowDeleteModal}
          handleDelete={handleDelete}
          handleCloseModal={handleCloseModal}
-         eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
+         eventData={allEvents.filter(obj => obj.eventID === idToDelete)[0]}
         />
 
 

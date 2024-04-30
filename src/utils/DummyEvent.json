@@ -1,82 +1,102 @@
 [
   {
     "title": "Event 1",
-    "start": "2024-04-24 17:00",
-    "end": "2024-04-24 20:00",
-    "allDay": false,
-    "id": 1,
-    "color": "red"
+    "start": "2024-04-24",
+    "end": "",
+    "allDay": true,
+    "eventID": 1,
+    "color": "red",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 2",
     "start": "2024-04-25 10:30",
     "end": "2024-04-25 14:30",
     "allDay": false,
-    "id": 2,
-    "color": "blue"
+    "eventID": 2,
+    "color": "blue",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 3",
     "start": "2024-04-26 08:00",
     "end": "2024-04-26 11:30",
     "allDay": false,
-    "id": 3,
-    "color": "purple"
+    "eventID": 3,
+    "color": "purple",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 4",
     "start": "2024-04-27 15:45",
     "end": "2024-04-27 19:45",
     "allDay": false,
-    "id": 4,
-    "color": "red"
+    "eventID": 4,
+    "color": "red",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 5",
     "start": "2024-04-28 14:00",
     "end": "2024-04-28 17:00",
     "allDay": false,
-    "id": 5,
-    "color": "blue"
+    "eventID": 5,
+    "color": "blue",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 6",
     "start": "2024-04-29 09:30",
     "end": "2024-04-29 12:30",
     "allDay": false,
-    "id": 6,
-    "color": "purple"
+    "eventID": 6,
+    "color": "purple",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 7",
     "start": "2024-04-30 13:15",
     "end": "2024-04-30 17:15",
     "allDay": false,
-    "id": 7,
-    "color": "red"
+    "eventID": 7,
+    "color": "red",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 8",
     "start": "2024-05-01 18:30",
     "end": "2024-05-01 22:30",
     "allDay": false,
-    "id": 8,
-    "color": "blue"
+    "eventID": 8,
+    "color": "blue",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 9",
     "start": "2024-05-02 11:45",
     "end": "2024-05-02 14:45",
     "allDay": false,
-    "id": 9,
-    "color": "purple"
+    "eventID": 9,
+    "color": "purple",
+    "programID": 0,
+    "date": ""
   },
   {
     "title": "Event 10",
     "start": "2024-05-03 16:00",
     "end": "2024-05-03 19:00",
     "allDay": false,
-    "id": 10,
-    "color": "red"
+    "eventID": 10,
+    "color": "red",
+    "programID": 0,
+    "date": ""
   }
 ]

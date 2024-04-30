@@ -29,3 +29,13 @@ export interface IUserdata {
     isCoach: boolean,
     isUser: boolean,
 }
+
+export interface IEvent { 
+    eventID: number,
+    title: string, 
+    start: string, 
+    end: string,
+    color: string,
+    allDay: boolean,
+    programID: number, 
+}
