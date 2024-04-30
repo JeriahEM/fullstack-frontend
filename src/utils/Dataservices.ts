@@ -1,4 +1,4 @@
-import { INewUser, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 
 //Connecting Backend / Fetches
 const url = "https://apicourtmonitor.azurewebsites.net"
@@ -80,6 +80,24 @@ export const updateUserProfile = async (username:string, inputString:string) => 
     return data
 }
 
+export const resetPassword = async (newPassword: IResetPassword) => {
+    const res = await fetch( url + "/User/ResetPassword", {
+        method: "POST",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body: JSON.stringify(newPassword)
+    });
+
+    if(!res.ok){
+        const message = "An Error has occured" + res.status;
+        throw new Error(message);
+    }
+
+    const data: IToken = await res.json();
+    return data;
+}
+
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};
@@ -99,7 +117,7 @@ export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUser
 }
 //Takes date in "2024-04-24" and returns "April 24, 2024"
 export const formatDate = (dateString:string) => {
-
+if(dateString){
     if(dateString.includes("-")){
         // Parse the date string to get year, month, and day
     const [year, month, day] = dateString.split('-');
@@ -116,6 +134,8 @@ export const formatDate = (dateString:string) => {
     else{
         return dateString
     }
+}
+    
     
 }
 //formats date in this format "2024-00-00 11:11"

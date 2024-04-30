@@ -29,3 +29,8 @@ export interface IUserdata {
     isCoach: boolean,
     isUser: boolean,
 }
+
+export interface IResetPassword {
+    email: string,
+    newPassword: string,
+}

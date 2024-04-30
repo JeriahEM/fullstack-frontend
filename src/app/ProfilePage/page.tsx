@@ -3,8 +3,8 @@ import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button, Checkbox, Datepicker, Label, Modal, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
-import { findDifferences, loggedinData, updateUserProfile } from "@/utils/Dataservices";
-import { IUserdata } from "../Interfaces/Interfaces";
+import { findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile } from "@/utils/Dataservices";
+import { IResetPassword, IUserdata } from "../Interfaces/Interfaces";
 import { encode } from "punycode";
 import { ClassNames } from "@emotion/react";
 
@@ -64,7 +64,7 @@ const ProfilePage = () => {
   const updateDummy = () => {
     dummy.username = username;
     dummy.image = image;
-    dummy.birthday = birthday;
+    dummy.birthday = (birthday);
     dummy.programs = programs;
     dummy.funFact = funFact;
     dummy.email = email;
@@ -121,8 +121,17 @@ const ProfilePage = () => {
       return(changedStrings)
     }
 
+    const newPassword = async (newPassword: IResetPassword) => {
+      const fetchData = resetPassword(newPassword);
+
+    }
+
     updateDummy()
-   
+    const newPasswordDummy: IResetPassword = {
+      email: email,
+      newPassword: password
+    }
+    newPassword(newPasswordDummy)
     setUser(dummy)
     const urlString = createString()
     updateUserProfile(trueusername, urlString)
@@ -150,7 +159,7 @@ const ProfilePage = () => {
       setName(loggedIn.realName);
       setUserID(loggedIn.userID);
       setFunFact(loggedIn.funFact)
-      // console.log(loggedIn)
+       console.log(loggedIn)
 
       dummy = loggedIn;
       setUser(dummy)
@@ -192,7 +201,8 @@ const ProfilePage = () => {
               <li className="my-3">
                 <div className="flex flex-row text-2xl font-titillium">
                   <p className="pe-3 font-bold">Birthday:</p>
-                  <p>{user.birthday}</p>
+                  <p>{formatDate(user.birthday)}</p>
+                  {/* <p>{user.birthday}</p> */}
                 </div>
               </li>
               <li className="my-3">
@@ -229,7 +239,7 @@ const ProfilePage = () => {
                     <div className="mb-2 block">
                       <Label htmlFor="name4" value="Edit Name" />
                     </div>
-                    <TextInput onChange={(e) => setName(e.target.value)} id="name4" max={24}/>
+                    <TextInput onChange={(e) => setName(e.target.value)} id="name4" maxLength={24}/>
                   </div>
 
                   <div>
@@ -237,38 +247,38 @@ const ProfilePage = () => {
                       <Label htmlFor="birthday" value="Edit Birthday" />
                     </div>
                     {/* <Datepicker onChange={(e) => setBirthday(e.target.value)} id="birthday" /> */}
-                    <Datepicker onClick={(e: any) => {
+                    {/* <Datepicker onClick={(e: any) => {
                       console.log(e.target.value)
                       // getDate(e)
-                    }} id="birthday"  />
-                    {/* <TextInput onChange={(e)=> setBirthday(e.target.value)} id="birthday"/> */}
+                    }} id="birthday"  /> */}
+                    <TextInput onChange={(e)=> setBirthday(e.target.value)} id="birthday" type="date"/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="funFact" value="Edit Fun Fact" />
                     </div>
-                    <TextInput onChange={(e) => setFunFact(e.target.value)} id="funFact" max={24}/>
+                    <TextInput onChange={(e) => setFunFact(e.target.value)} id="funFact" minLength={4} required maxLength={24}/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="username" value="Edit Username" />
                     </div>
-                    <TextInput onChange={(e) => setUsername(e.target.value)} id="username" max={24}/>
+                    <TextInput onChange={(e) => setUsername(e.target.value)} id="username" maxLength={24}/>
                   </div>
 
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="password" value="Edit Password" />
                     </div>
-                    <TextInput onChange={(e) => setPassword(e.target.value)} id="password" type="password" max={24} />
+                    <TextInput onChange={(e) => setPassword(e.target.value)} id="password" type="password" maxLength={24} />
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="password" value="Edit Email" />
                     </div>
-                    <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password" max={24}/>
+                    <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password" maxLength={24}/>
                   </div>
 
                   <div className="w-full flex flex-row justify-between">
