@@ -3,23 +3,14 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { formatTime } from '@/utils/Dataservices';
+import { IEvent } from '../Interfaces/Interfaces';
 
-interface Event {
-  title: string;
-  start: string;
-  end: string;
-  allDay: boolean;
-  id: number;
-  //color
-  //program
-  //
-}
 interface DeleteEventModalProps{
     showDeleteModal: boolean
     setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
     handleDelete: ()=>void
     handleCloseModal: ()=>void
-    eventData: Event
+    eventData: IEvent
 }
 
 const DeleteEventModal = (props:DeleteEventModalProps) => {

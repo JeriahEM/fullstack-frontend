@@ -1,4 +1,4 @@
-import { INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 
 //Connecting Backend / Fetches
 const url = "https://apicourtmonitor.azurewebsites.net"
@@ -38,6 +38,7 @@ export const login = async (LoginUser: IUserInfo) => {
     if(!res.ok){
         const message = "An Error has occured" + res.status;
         throw new Error(message);
+        alert("Username and Password combination not found. Try again")
     }
 
     const data: IToken = await res.json();
@@ -80,24 +81,34 @@ export const updateUserProfile = async (username:string, inputString:string) => 
     return data
 }
 
-export const resetPassword = async (newPassword: IResetPassword) => {
-    const res = await fetch( url + "/User/ResetPassword", {
+export const createEvent = async (event: IEvent) => {
+    const res = await fetch(url + '/Event/CreateEvent',  {
         method: "POST",
         headers: {
             'Content-Type' : "application/json"
         },
-        body: JSON.stringify(newPassword)
-    });
+        body:JSON.stringify(event)
+    })
 
     if(!res.ok){
-        const message = "An Error has occured" + res.status;
+        const message = "An error has occured" + res.status;
         throw new Error(message);
     }
+    else{
+        alert("Event Created")
+    }
 
-    const data: IToken = await res.json();
-    return data;
+    const data = await res.json();
+    console.log(data);
 }
 
+export const getAllEvents = async () => {
+    const res = await fetch(url + '/Event/GetAllEvents');
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};

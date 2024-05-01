@@ -10,13 +10,13 @@ import { ClassNames } from "@emotion/react";
 
 
 const ProfilePage = () => {
-  interface Iuserprofile {
-    Name: string,
-    Birthday: string,
-    FunFact: string,
-    UserName: string,
-    Password: string,
-  }
+  // interface Iuserprofile {
+  //   Name: string,
+  //   Birthday: string,
+  //   FunFact: string,
+  //   UserName: string,
+  //   Password: string,
+  // }
   const [user, setUser] = useState<IUserdata>({} as IUserdata)
 
   const [openModal, setOpenModal] = useState(false);
@@ -159,7 +159,7 @@ const ProfilePage = () => {
       setName(loggedIn.realName);
       setUserID(loggedIn.userID);
       setFunFact(loggedIn.funFact)
-       console.log(loggedIn)
+      console.log(loggedIn)
 
       dummy = loggedIn;
       setUser(dummy)
