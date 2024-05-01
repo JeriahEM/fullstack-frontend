@@ -119,7 +119,7 @@ color: white;
 /* Calendar css */
   .fc .fc-button{
   @apply bg-violet-800 hover:bg-violet-900  ;
-  width: 3.4vw
+ 
 }
 
 .fc .fc-button-primary:not(:disabled).fc-button-active {

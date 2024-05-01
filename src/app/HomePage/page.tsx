@@ -28,22 +28,20 @@ const HomePage = () => {
     const options:any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
-    // setAllEvents(DummyEvents)
-    const getEvents = async () => {
-      const fetchedEvents = await getAllEvents();
-      setAllEvents(fetchedEvents)
-    }
-    getEvents()
+    setAllEvents(DummyEvents)
+    // const getEvents = async () => {
+    //   const fetchedEvents = await getAllEvents();
+    //   idCounter = fetchedEvents.length;
+    //   console.log("you have this many events : " + idCounter)
+    //   setAllEvents(fetchedEvents)
+    // }
+    // getEvents()
+    console.log(allEvents)
 
 }, []);
 
-  // const [events, setEvents] = useState([
-  //   { title: 'event 1', id: '1' },
-  //   { title: 'event 2', id: '2' },
-  //   { title: 'event 3', id: '3' },
-  //   { title: 'event 4', id: '4' },
-  //   { title: 'event 5', id: '5' },
-  // ])
+  var idCounter = 0;
+ 
   const [programID, setProgramID] = useState<number>(2);
   const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
@@ -89,6 +87,7 @@ const HomePage = () => {
   function handleDeleteModal(data: { event: { id: string } }) {
     setShowDeleteModal(true)
     setIdToDelete(Number(data.event.id))
+    alert(idToDelete)
   }
 
   function handleDelete() {
@@ -146,10 +145,13 @@ const HomePage = () => {
     e.preventDefault()
     console.log(newEvent)
     await createEvent(newEvent);
+    newEvent.eventID = idCounter;
+    idCounter++;
     setAllEvents([...allEvents, newEvent])
     setDisplayEvents([...displayEvents, newEvent])
     setShowModal(false)
     console.log(newEvent)
+    
     setNewEvent({
       title: '',
       start: '',

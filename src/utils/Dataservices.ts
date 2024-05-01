@@ -38,6 +38,7 @@ export const login = async (LoginUser: IUserInfo) => {
     if(!res.ok){
         const message = "An Error has occured" + res.status;
         throw new Error(message);
+        alert("Username and Password combination not found. Try again")
     }
 
     const data: IToken = await res.json();
