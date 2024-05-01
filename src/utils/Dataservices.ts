@@ -101,6 +101,14 @@ export const createEvent = async (event: IEvent) => {
     const data = await res.json();
     console.log(data);
 }
+
+export const getAllEvents = async () => {
+    const res = await fetch(url + '/Event/GetAllEvents');
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};
