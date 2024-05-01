@@ -31,7 +31,7 @@ export interface IUserdata {
 }
 
 export interface IEvent { 
-    eventID: number,
+    id: number,
     title: string, 
     start: string, 
     end: string,

@@ -52,7 +52,7 @@ const HomePage = () => {
     start: '',
     end: '',
     allDay: false,
-    eventID: 0,
+    id: 0,
     color: '',
     programID: programID
   })
@@ -65,8 +65,8 @@ const HomePage = () => {
 
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
     //setting up useState for the modal
-    // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, eventID: new Date().getTime() })
-    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, eventID: 0 })
+    // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
+    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0 })
     setShowModal(true)
     console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
@@ -87,11 +87,10 @@ const HomePage = () => {
   function handleDeleteModal(data: { event: { id: string } }) {
     setShowDeleteModal(true)
     setIdToDelete(Number(data.event.id))
-    alert(idToDelete)
   }
 
   function handleDelete() {
-    setAllEvents(allEvents.filter(event => Number(event.eventID) !== Number(idToDelete)))
+    setAllEvents(allEvents.filter(event => Number(event.id) !== Number(idToDelete)))
     setShowDeleteModal(false)
     setIdToDelete(999999)
   }
@@ -103,7 +102,7 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      eventID: 0,
+      id: 0,
       color: '',
       programID: programID,
     })
@@ -145,7 +144,7 @@ const HomePage = () => {
     e.preventDefault()
     console.log(newEvent)
     await createEvent(newEvent);
-    newEvent.eventID = idCounter;
+    newEvent.id = idCounter;
     idCounter++;
     setAllEvents([...allEvents, newEvent])
     setDisplayEvents([...displayEvents, newEvent])
@@ -157,7 +156,7 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      eventID: 0,
+      id: 0,
       color: '',
       programID: programID,
     })
@@ -221,7 +220,7 @@ const HomePage = () => {
          setShowDeleteModal={setShowDeleteModal}
          handleDelete={handleDelete}
          handleCloseModal={handleCloseModal}
-         eventData={allEvents.filter(obj => obj.eventID === idToDelete)[0]}
+         eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
         />
 
 
