@@ -30,6 +30,16 @@ export interface IUserdata {
     isUser: boolean,
 }
 
+export interface IEvent { 
+    id: number,
+    title: string, 
+    start: string, 
+    end: string,
+    color: string,
+    allDay: boolean,
+    programID: number, 
+}
+
 export interface IResetPassword {
     email: string,
     newPassword: string,

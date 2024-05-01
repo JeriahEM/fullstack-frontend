@@ -1,4 +1,4 @@
-import { INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 
 //Connecting Backend / Fetches
 const url = "https://apicourtmonitor.azurewebsites.net"
@@ -38,6 +38,7 @@ export const login = async (LoginUser: IUserInfo) => {
     if(!res.ok){
         const message = "An Error has occured" + res.status;
         throw new Error(message);
+        alert("Username and Password combination not found. Try again")
     }
 
     const data: IToken = await res.json();
@@ -78,24 +79,6 @@ export const updateUserProfile = async (username:string, inputString:string) => 
     }
     const data = await res.json();
     return data
-}
-
-export const resetPassword = async (newPassword: IResetPassword) => {
-    const res = await fetch( url + "/User/ResetPassword", {
-        method: "POST",
-        headers: {
-            'Content-Type' : "application/json"
-        },
-        body: JSON.stringify(newPassword)
-    });
-
-    if(!res.ok){
-        const message = "An Error has occured" + res.status;
-        throw new Error(message);
-    }
-
-    const data: IToken = await res.json();
-    return data;
 }
 
 //Helper Functions

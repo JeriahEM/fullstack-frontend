@@ -16,21 +16,12 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { formatDate, formatTime } from '@/utils/Dataservices';
+import { createEvent, formatDate, formatTime, getAllEvents } from '@/utils/Dataservices';
 
 import DummyEvents from '@/utils/DummyEvent.json'
+import { IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
-  interface Event {
-    title: string;
-    start: string;
-    end:string;
-    allDay: boolean;
-    id: number;
-    color: string
-    //program
-    //
-  }
 
   useEffect(() => {
     const currentDate = new Date();
@@ -38,42 +29,50 @@ const HomePage = () => {
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
     setAllEvents(DummyEvents)
+    // const getEvents = async () => {
+    //   const fetchedEvents = await getAllEvents();
+    //   idCounter = fetchedEvents.length;
+    //   console.log("you have this many events : " + idCounter)
+    //   setAllEvents(fetchedEvents)
+    // }
+    // getEvents()
+    console.log(allEvents)
+
 }, []);
 
-  const [events, setEvents] = useState([
-    { title: 'event 1', id: '1' },
-    { title: 'event 2', id: '2' },
-    { title: 'event 3', id: '3' },
-    { title: 'event 4', id: '4' },
-    { title: 'event 5', id: '5' },
-  ])
-
-  const [allEvents, setAllEvents] = useState<Event[]>([])
+  var idCounter = 0;
+ 
+  const [programID, setProgramID] = useState<number>(2);
+  const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [idToDelete, setIdToDelete] = useState<number>(999999999)
-  const [newEvent, setNewEvent] = useState<Event>({
+  const [newEvent, setNewEvent] = useState<IEvent>({
     title: '',
     start: '',
     end: '',
     allDay: false,
     id: 0,
-    color: ''
+    color: '',
+    programID: programID
   })
 
   const [startTime, setStartTime] = useState<string>("");
   const [endTime, setEndTime] = useState<string>("")
 
   const [clickedDate, setClickedDate] = useState<string>(new Date().toISOString())
-  const [displayEvents, setDisplayEvents] = useState<Event[]>([])
+  const [displayEvents, setDisplayEvents] = useState<IEvent[]>([])
 
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
-    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
+    //setting up useState for the modal
+    // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
+    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0 })
     setShowModal(true)
     console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
 
+    //showing the events on the other div
     setClickedDate(arg.dateStr)
     const currentEvents = allEvents.filter(obj => obj.start.includes(arg.dateStr))
     console.log(currentEvents)
@@ -104,7 +103,8 @@ const HomePage = () => {
       end: '',
       allDay: false,
       id: 0,
-      color: ''
+      color: '',
+      programID: programID,
     })
     setStartTime("")
     setEndTime("")
@@ -140,19 +140,25 @@ const HomePage = () => {
   }
 
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    console.log(newEvent)
+    await createEvent(newEvent);
+    newEvent.id = idCounter;
+    idCounter++;
     setAllEvents([...allEvents, newEvent])
     setDisplayEvents([...displayEvents, newEvent])
     setShowModal(false)
     console.log(newEvent)
+    
     setNewEvent({
       title: '',
       start: '',
       end: '',
       allDay: false,
       id: 0,
-      color: ''
+      color: '',
+      programID: programID,
     })
   }
 
@@ -163,10 +169,10 @@ const HomePage = () => {
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
     <NavbarComponent/>
 
-      <div className=" grid grid-cols-7 mx-7">
-          <div className="col-span-3 w-full py-8 ">
+      <div className=" grid grid-cols-7 lg:mx-7">
+          <div className=" col-span-7 lg:col-span-3 w-full py-3 lg:py-8 ">
             
-          <main className="p-3 h-full">
+          <main className="lg:p-3 h-full">
         
             <FullCalendar
               plugins={[
@@ -191,7 +197,7 @@ const HomePage = () => {
               dayMaxEvents={2}
               viewClassNames={"bg-white"}
               dayHeaderClassNames={"bg-white"}
-              aspectRatio={1.6}
+              height={600}
               
               
               
@@ -225,8 +231,8 @@ const HomePage = () => {
           </div>
         
 
-        <div className=" col-span-4 px-10">
-          <div className="py-8">
+        <div className=" col-span-7 lg:col-span-4 lg:px-10">
+          <div className="py-3 lg:py-8">
             <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
             <div className=" text-xl p-5">
               <ul style={{ listStyleType: 'square' }}>
@@ -250,10 +256,10 @@ const HomePage = () => {
       </div>
 
       <h1 className="text-center text-3xl font-titillium font-bold py-4">UPCOMING EVENTS</h1>
-      <div className="border-4 border-black mx-7 max-h-[70vh] overflow-scroll rounded-lg">
+      <div className="border-4 border-black lg:mx-7 rounded-lg">
 
 
-      <main className="p-3 h-full">
+      <main className="lg:p-3 h-full">
         
         <FullCalendar
           plugins={[
@@ -267,6 +273,9 @@ const HomePage = () => {
           }}
           events={allEvents as EventSourceInput}
           nowIndicator={true}
+          height={600}
+          expandRows={true}
+          
           
           // editable={true}
           // droppable={true}
