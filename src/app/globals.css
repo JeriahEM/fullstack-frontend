@@ -151,3 +151,14 @@ color: white;
   .fc-scrollgrid-sync-table {
     @apply w-full;
   }
+
+ .fc-header-toolbar{
+  font-size: 0.9rem; /* Default font size for small screens */
+}
+
+/* Media query for screens larger than 768px */
+@media (min-width: 1024px) {
+    .fc-header-toolbar {
+        font-size: 1rem; /* Font size for larger screens */
+    }
+}

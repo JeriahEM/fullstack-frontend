@@ -169,10 +169,10 @@ const HomePage = () => {
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
     <NavbarComponent/>
 
-      <div className=" grid grid-cols-7 mx-7">
-          <div className="col-span-3 w-full py-8 ">
+      <div className=" grid grid-cols-7 lg:mx-7">
+          <div className=" col-span-7 lg:col-span-3 w-full py-3 lg:py-8 ">
             
-          <main className="p-3 h-full">
+          <main className="lg:p-3 h-full">
         
             <FullCalendar
               plugins={[
@@ -197,7 +197,7 @@ const HomePage = () => {
               dayMaxEvents={2}
               viewClassNames={"bg-white"}
               dayHeaderClassNames={"bg-white"}
-              aspectRatio={1.6}
+              height={600}
               
               
               
@@ -231,8 +231,8 @@ const HomePage = () => {
           </div>
         
 
-        <div className=" col-span-4 px-10">
-          <div className="py-8">
+        <div className=" col-span-7 lg:col-span-4 lg:px-10">
+          <div className="py-3 lg:py-8">
             <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
             <div className=" text-xl p-5">
               <ul style={{ listStyleType: 'square' }}>
@@ -256,10 +256,10 @@ const HomePage = () => {
       </div>
 
       <h1 className="text-center text-3xl font-titillium font-bold py-4">UPCOMING EVENTS</h1>
-      <div className="border-4 border-black mx-7 max-h-[70vh] overflow-scroll rounded-lg">
+      <div className="border-4 border-black lg:mx-7 rounded-lg">
 
 
-      <main className="p-3 h-full">
+      <main className="lg:p-3 h-full">
         
         <FullCalendar
           plugins={[
@@ -273,6 +273,9 @@ const HomePage = () => {
           }}
           events={allEvents as EventSourceInput}
           nowIndicator={true}
+          height={600}
+          expandRows={true}
+          
           
           // editable={true}
           // droppable={true}
