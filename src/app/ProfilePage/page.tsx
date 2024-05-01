@@ -182,7 +182,7 @@ const [openCancelPfpModal, setOpenCancelPfpModal] = useState(false);
 const [newPfp, setNewPfp] =useState<string>("");
 
 
-const handleClosPfpeModals = () => {
+const handleClosePfpModals = () => {
   setOpenPfpModal(false);
   setOpenConfirmPfpModal(false);
   setOpenCancelPfpModal(false);
@@ -200,8 +200,8 @@ const handleNewProgram = () => {
       <div className="grid grid-cols-6 mx-7 py-8 ">
         <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
           <div className="flex justify-center">
-            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 md:h-[45vh] rounded-3xl" onClick={() => setOpenModal(true)}>
-              <Modal>
+            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 md:h-[45vh] rounded-3xl" onClick={() => setOpenPfpModal(true)}>
+              <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openPfpModal}>
               <Modal.Header>
             <p className='text-gray-900 dark:text-white'>Create New Program</p>
           </Modal.Header>
@@ -217,18 +217,18 @@ const handleNewProgram = () => {
                     <div className="mb-2 block">
                       <Label htmlFor="programName" value="Enter the name of your Program"/>
                     </div>
-                    <TextInput onChange={(e) => setNewProgram(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
+                    <TextInput onChange={(e) => setNewPfp(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="programDescription" value="Enter a description" />
                     </div>
-                    <Textarea onChange={(e) => setNewProgram(e.target.value)} id="New Program" minLength={4} required />
+                    <TextInput onChange={(e) => setNewPfp(e.target.value)} id="New Program" minLength={4} required />
                   </div>
 
 
                   <div className="w-full flex flex-row justify-between">
-                    <Button onClick={() => setOpenCancelModal(true)} className="!bg-red-500">Cancel</Button>
+                    <Button onClick={() => setOpenCancelPfpModal(true)} className="!bg-red-500">Cancel</Button>
                     <Modal show={openCancelModal} size="md" >
 
                       <Modal.Body>
@@ -238,15 +238,15 @@ const handleNewProgram = () => {
                           </h3>
 
                           <div className="w-full flex flex-row justify-between">
-                            <Button className="!bg-red-500" onClick={() => setOpenCancelModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" onClick={handleCloseModals}>Confirm</Button>
+                            <Button className="!bg-red-500" onClick={() => setOpenCancelPfpModal(false)}>Cancel</Button>
+                            <Button className="!bg-green-500" onClick={handleClosePfpModals}>Confirm</Button>
                           </div>
 
                         </div>
                       </Modal.Body>
                     </Modal>
-                    <Button onClick={() => setOpenConfirmModal(true)} className="!bg-green-500">Create Program</Button>
-                    <Modal show={openConfirmModal} size="md">
+                    <Button onClick={() => setOpenConfirmPfpModal(true)} className="!bg-green-500">Create Program</Button>
+                    <Modal show={openConfirmPfpModal} size="md">
                       <Modal.Body>
                         <div className="space-y-6">
                           <h3 className="text-xl font-medium text-gray-900 dark:text-white">
@@ -254,7 +254,7 @@ const handleNewProgram = () => {
                           </h3>
 
                           <div className="w-full flex flex-row justify-between">
-                            <Button className="!bg-red-500" onClick={() => setOpenConfirmModal(false)}>Cancel</Button>
+                            <Button className="!bg-red-500" onClick={() => setOpenConfirmPfpModal(false)}>Cancel</Button>
                             <Button className="!bg-green-500" >Confirm</Button>
 
                           </div>
