@@ -109,6 +109,24 @@ export const getAllEvents = async () => {
     console.log(data)
     return  data
 }
+
+export const resetPassword = async (newPassword: IResetPassword) => {
+    const res = await fetch( url + "/User/ResetPassword", {
+        method: "POST",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body: JSON.stringify(newPassword)
+    });
+
+    if(!res.ok){
+        const message = "An Error has occured" + res.status;
+        throw new Error(message);
+    }
+
+    const data: IToken = await res.json();
+    return data;
+}
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};
