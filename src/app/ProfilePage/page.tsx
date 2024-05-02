@@ -24,6 +24,9 @@ const ProfilePage = () => {
   const [openCancelModal, setOpenCancelModal] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
+
+
+
   const [programs, setPrograms] = useState<string>(" ")
   const [birthday, setBirthday] = useState<string>(" ")
   const [image, setImage] = useState<string>(" ")
@@ -173,25 +176,25 @@ const ProfilePage = () => {
   const getDate = (e: any) => {
     console.log('test')
     console.log(e.target.value)
-    // setBirthday(e)
+    setBirthday(e)
   }
   
-  const [openPfpModal, setOpenPfpModal] = useState(false);
-const [openConfirmPfpModal, setOpenConfirmPfpModal] = useState(false);
-const [openCancelPfpModal, setOpenCancelPfpModal] = useState(false);
-const [newPfp, setNewPfp] =useState<string>("");
+//   const [openPfpModal, setOpenPfpModal] = useState(false);
+// const [openConfirmPfpModal, setOpenConfirmPfpModal] = useState(false);
+// const [openCancelPfpModal, setOpenCancelPfpModal] = useState(false);
+// const [newPfp, setNewPfp] =useState<string>("");
+//   const [tempModal, setTempModal] = useState(false);
 
-
-const handleClosePfpModals = () => {
-  setOpenPfpModal(false);
-  setOpenConfirmPfpModal(false);
-  setOpenCancelPfpModal(false);
-}
-const handleNewProgram = () => {
-  setOpenPfpModal(false);
-  setOpenConfirmPfpModal(false);
-  setOpenCancelPfpModal(false);
-}
+// const handleClosePfpModals = () => {
+//   setOpenPfpModal(false);
+//   setOpenConfirmPfpModal(false);
+//   setOpenCancelPfpModal(false);
+// }
+// const handleNewProgram = () => {
+//   setOpenPfpModal(false);
+//   setOpenConfirmPfpModal(false);
+//   setOpenCancelPfpModal(false);
+// }
 
   return (
     <>
@@ -200,9 +203,10 @@ const handleNewProgram = () => {
       <div className="grid grid-cols-6 mx-7 py-8 ">
         <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
           <div className="flex justify-center">
-            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 md:h-[45vh] rounded-3xl" onClick={() => setOpenPfpModal(true)}>
-              <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openPfpModal}>
-              <Modal.Header>
+            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 md:h-[45vh] rounded-3xl" >
+              
+            {/* <Modal size="xl" show={openPfpModal} popup onClose={() => setOpenPfpModal(false)}>
+          <Modal.Header>
             <p className='text-gray-900 dark:text-white'>Create New Program</p>
           </Modal.Header>
           <Modal.Body>
@@ -217,19 +221,19 @@ const handleNewProgram = () => {
                     <div className="mb-2 block">
                       <Label htmlFor="programName" value="Enter the name of your Program"/>
                     </div>
-                    <TextInput onChange={(e) => setNewPfp(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
+                    {/* <TextInput onChange={(e) => setNewProgram(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="programDescription" value="Enter a description" />
                     </div>
-                    <TextInput onChange={(e) => setNewPfp(e.target.value)} id="New Program" minLength={4} required />
+                    <Textarea onChange={(e) => setNewProgram(e.target.value)} id="New Program" minLength={4} required /> 
                   </div>
 
 
                   <div className="w-full flex flex-row justify-between">
                     <Button onClick={() => setOpenCancelPfpModal(true)} className="!bg-red-500">Cancel</Button>
-                    <Modal show={openCancelModal} size="md" >
+                    <Modal show={openCancelPfpModal} size="md" >
 
                       <Modal.Body>
                         <div className="space-y-6">
@@ -255,8 +259,13 @@ const handleNewProgram = () => {
 
                           <div className="w-full flex flex-row justify-between">
                             <Button className="!bg-red-500" onClick={() => setOpenConfirmPfpModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" >Confirm</Button>
-
+                            <Button className="!bg-green-500" onClick={() => setTempModal(true)} >Confirm</Button>
+                            <Modal popup onClose={() => setTempModal(false)} show={tempModal} size="md">
+                              <Modal.Header/>
+                              <Modal.Body>
+                                <h3>This feature is in progres</h3>
+                              </Modal.Body>
+                            </Modal>
                           </div>
 
                         </div>
@@ -267,7 +276,8 @@ const handleNewProgram = () => {
 
                 </div>
               </Modal.Body>
-              </Modal>
+        </Modal> 
+*/}
               {/* where image goes */}
             </div>
           </div>
@@ -377,7 +387,7 @@ const handleNewProgram = () => {
 
                           <div className="w-full flex flex-row justify-between">
                             <Button className="!bg-red-500" onClick={() => setOpenCancelModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" onClick={handleCloseModals}>Confirm</Button>
+                            <Button className="!bg-green-500" onClick={() => handleCloseModals()}>Confirm</Button>
                           </div>
 
                         </div>

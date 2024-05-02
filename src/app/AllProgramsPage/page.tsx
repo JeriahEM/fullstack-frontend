@@ -14,7 +14,9 @@ const AllProgramsPage = () => {
 const [openModal, setOpenModal] = useState(false);
 const [openConfirmModal, setOpenConfirmModal] = useState(false);
 const [openCancelModal, setOpenCancelModal] = useState(false);
-const [newProgram, setNewProgram] =useState<string>("");
+const [newProgram, setNewProgram] = useState<string>("");
+
+const [tempModal, setTempModal] = useState(false);
 
 const router = useRouter();
 
@@ -89,8 +91,13 @@ const handleNewProgram = () => {
 
                           <div className="w-full flex flex-row justify-between">
                             <Button className="!bg-red-500" onClick={() => setOpenConfirmModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" >Confirm</Button>
-
+                            <Button className="!bg-green-500" onClick={() => setTempModal(true)} >Confirm</Button>
+                            <Modal popup onClose={() => setTempModal(false)} show={tempModal} size="md">
+                              <Modal.Header/>
+                              <Modal.Body>
+                                <h3>This feature is in progres</h3>
+                              </Modal.Body>
+                            </Modal>
                           </div>
 
                         </div>
