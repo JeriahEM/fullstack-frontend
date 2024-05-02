@@ -44,3 +44,8 @@ export interface IResetPassword {
     email: string,
     newPassword: string,
 }
+
+export interface ICreateProgram {
+    title: string,
+    description: string,
+}
