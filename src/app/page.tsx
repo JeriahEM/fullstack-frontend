@@ -3,7 +3,7 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createAccount, getLoggedInUserData, login } from "@/utils/Dataservices";
+import { createAccount, getLoggedInUserData, isValidEmailFunction, login } from "@/utils/Dataservices";
 import { IToken } from "./Interfaces/Interfaces";
 import NavbarComponent from "./Components/NavbarComponent";
 
@@ -15,8 +15,15 @@ export default function Home() {
 
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("")
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(false)
+  const handleEmailChange = (event: any) => {
+    const { value } = event.target;
+    setEmail(value);
+    setIsValidEmail(isValidEmailFunction(value)); // Update validity state on input change
+    console.log(isValidEmail)
+  };
 
-  const [switchBool, setSwitchBool] = useState<boolean>(true);
+  const [switchBool, setSwitchBool] = useState<boolean>(false);
   const [newUserBool, setNewUserBool] = useState<boolean>(false);
 
   const router = useRouter();
@@ -25,6 +32,7 @@ export default function Home() {
   const handleSwtich = () => {
     setSwitchBool(!switchBool);
   }
+
   const handleNewUserBool = () => {
     setNewUserBool(!newUserBool);
 
@@ -77,23 +85,29 @@ export default function Home() {
 
   const handleNewUserSubmit = async () => {
     console.log(newUserBool)
-    if (newUserBool) {
-      let userData = {
-        username: username,
-        password: password,
-        fullname: fullName,
-        email: email
+    if (isValidEmail) {
+      if (newUserBool) {
+        let userData = {
+          username: username,
+          password: password,
+          fullname: fullName,
+          email: email
+        }
+        console.log(userData)
+        console.log(fullName + email)
+        createAccount(userData);
+        // getLoggedInUserData(username);
+
+        // change this route to go back to the login screen
+        setSwitchBool(false)
+        setNewUserBool(false)
+        handleNewUserBool();
       }
-      console.log(userData)
-      console.log(fullName + email)
-      createAccount(userData);
-      // getLoggedInUserData(username);
-      
-      // change this route to go back to the login screen
-      setSwitchBool(false)
-      setNewUserBool(false)
-      handleNewUserBool();
     }
+    else {
+      alert("Please enter a valid email !")
+    }
+
   }
 
 
@@ -118,12 +132,12 @@ export default function Home() {
               Please login using your personal <br /> information to stay connected <br /> with us here at <br /> court monitor
             </h3>
           </div>
- 
+
           <div className="min-w-96 min-h-390 p-8 rounded-lg lg:rounded-r-lg lg:rounded-l-none  bg-white ">
             <div className="items-center pb-7">
               <h1 className="text-center text-4xl font-bebas text-black ">Fill out your information</h1>
             </div>
-            <form className="flex max-w-md flex-col gap-4">
+            <div className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
                   <p>Full Name:</p>
@@ -136,7 +150,7 @@ export default function Home() {
                     <p>Email:</p>
                   </div>
                 </div>
-                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" minLength={10} required onChange={(e) => setEmail(e.target.value)} />
+                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" minLength={10} required onChange={handleEmailChange} />
               </div>
               <br />
               <div className=" flex justify-between gap-3">
@@ -150,7 +164,7 @@ export default function Home() {
 
 
               {/* <Button onClick={() => router.push('/HomePage')}>Submit</Button> */}
-            </form>
+            </div>
             <br />
           </div>
 
@@ -179,12 +193,12 @@ export default function Home() {
             <div className="items-center pb-8">
               <h1 className="text-center text-5xl font-bebas text-black ">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
-            <form className="flex max-w-md flex-col gap-4">
+            <div className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-black ">
                   <p>Username:</p>
                 </div>
-                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44"minLength={2} maxLength={24} required onChange={(e) => setUsername(e.target.value)} />
+                <input id="username" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" minLength={2} maxLength={24} required onChange={(e) => setUsername(e.target.value)} />
               </div>
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block">
@@ -203,11 +217,14 @@ export default function Home() {
               <div className="flex items-center place-content-center gap-2">
                 <button className="text-3xl font-titillium text-black" onClick={handleSwtich}>
                   <p className=" hover:text-blue-600 text-xl">{switchBool ? 'Already have an Account?' : 'Sign up'}</p>
-                  
+
                 </button>
               </div>
               {/* <Button onClick={() => router.push('/HomePage')}>Submit</Button> */}
-            </form>
+            </div>
+
+
+
           </div>
 
         </div>

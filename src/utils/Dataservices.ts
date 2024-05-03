@@ -1,4 +1,6 @@
 import { IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import validator from 'validator';
+
 
 //Connecting Backend / Fetches
 const url = "https://apicourtmonitor.azurewebsites.net"
@@ -190,4 +192,9 @@ export const formatTime = (timeString:string) => {
         return ""
     }
     
+    
 }
+export const isValidEmailFunction = (email:string) => {
+        return validator.isEmail(email);
+      };
+      
