@@ -129,6 +129,25 @@ export const resetPassword = async (newPassword: IResetPassword) => {
     const data: IToken = await res.json();
     return data;
 }
+
+export const createProgram = async (newProgram: ICreateProgram) => {
+    const res = await fetch( url + "", {
+        method: "POST",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body: JSON.stringify(newProgram)
+    });
+
+    if(!res.ok){
+        const message = "An Error has occured" + res.status;
+        throw new Error(message);
+    }
+
+    const data: IToken = await res.json();
+    return data;
+}
+
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};

@@ -24,6 +24,9 @@ const ProfilePage = () => {
   const [openCancelModal, setOpenCancelModal] = useState(false);
   const emailInputRef = useRef<HTMLInputElement>(null);
 
+
+
+
   const [programs, setPrograms] = useState<string>(" ")
   const [birthday, setBirthday] = useState<string>(" ")
   const [image, setImage] = useState<string>(" ")
@@ -91,7 +94,7 @@ const ProfilePage = () => {
       for (const key in diffs) {
         switch (key) {
           case "funFact":
-            console.log("fun fact hanged")
+            console.log("fun fact changed")
             stringObj.funFactString = ("funfact=" + encodeURIComponent(dummy.funFact))
             break;
           case "realName":
@@ -125,6 +128,7 @@ const ProfilePage = () => {
       const fetchData = resetPassword(newPassword);
 
     }
+
 
     updateDummy()
     const newPasswordDummy: IResetPassword = {
@@ -171,27 +175,12 @@ const ProfilePage = () => {
   }, [])
 
   const getDate = (e: any) => {
-    console.log('test')
+    // console.log('test')
     console.log(e.target.value)
-    // setBirthday(e)
+    setBirthday(e)
   }
   
-  const [openPfpModal, setOpenPfpModal] = useState(false);
-const [openConfirmPfpModal, setOpenConfirmPfpModal] = useState(false);
-const [openCancelPfpModal, setOpenCancelPfpModal] = useState(false);
-const [newPfp, setNewPfp] =useState<string>("");
 
-
-const handleClosePfpModals = () => {
-  setOpenPfpModal(false);
-  setOpenConfirmPfpModal(false);
-  setOpenCancelPfpModal(false);
-}
-const handleNewProgram = () => {
-  setOpenPfpModal(false);
-  setOpenConfirmPfpModal(false);
-  setOpenCancelPfpModal(false);
-}
 
   return (
     <>
@@ -200,74 +189,7 @@ const handleNewProgram = () => {
       <div className="grid grid-cols-6 mx-7 py-8 ">
         <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
           <div className="flex justify-center">
-            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 md:h-[45vh] rounded-3xl" onClick={() => setOpenPfpModal(true)}>
-              <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openPfpModal}>
-              <Modal.Header>
-            <p className='text-gray-900 dark:text-white'>Create New Program</p>
-          </Modal.Header>
-          <Modal.Body>
-                <div className="space-y-6">
-                  <h1>
-                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300" onClick={()=> router.push('/SportsSelectionPage')}>'Sport Selection'</a>  page and click on a new one.</p>
-                  </h1>
-
-
-
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="programName" value="Enter the name of your Program"/>
-                    </div>
-                    <TextInput onChange={(e) => setNewPfp(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
-                  </div>
-                  <div>
-                    <div className="mb-2 block">
-                      <Label htmlFor="programDescription" value="Enter a description" />
-                    </div>
-                    <TextInput onChange={(e) => setNewPfp(e.target.value)} id="New Program" minLength={4} required />
-                  </div>
-
-
-                  <div className="w-full flex flex-row justify-between">
-                    <Button onClick={() => setOpenCancelPfpModal(true)} className="!bg-red-500">Cancel</Button>
-                    <Modal show={openCancelModal} size="md" >
-
-                      <Modal.Body>
-                        <div className="space-y-6">
-                          <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                            Are you sure you would like to discard these changes?
-                          </h3>
-
-                          <div className="w-full flex flex-row justify-between">
-                            <Button className="!bg-red-500" onClick={() => setOpenCancelPfpModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" onClick={handleClosePfpModals}>Confirm</Button>
-                          </div>
-
-                        </div>
-                      </Modal.Body>
-                    </Modal>
-                    <Button onClick={() => setOpenConfirmPfpModal(true)} className="!bg-green-500">Create Program</Button>
-                    <Modal show={openConfirmPfpModal} size="md">
-                      <Modal.Body>
-                        <div className="space-y-6">
-                          <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                            Are you sure you would like to save these changes?
-                          </h3>
-
-                          <div className="w-full flex flex-row justify-between">
-                            <Button className="!bg-red-500" onClick={() => setOpenConfirmPfpModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" >Confirm</Button>
-
-                          </div>
-
-                        </div>
-                      </Modal.Body>
-                    </Modal>
-
-                  </div>
-
-                </div>
-              </Modal.Body>
-              </Modal>
+            <div className="lg:my-4 lg:border-2 border-black placeholder w-[80%] h-40 md:h-[45vh] rounded-3xl" >
               {/* where image goes */}
             </div>
           </div>
@@ -377,7 +299,7 @@ const handleNewProgram = () => {
 
                           <div className="w-full flex flex-row justify-between">
                             <Button className="!bg-red-500" onClick={() => setOpenCancelModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" onClick={handleCloseModals}>Confirm</Button>
+                            <Button className="!bg-green-500" onClick={() => handleCloseModals()}>Confirm</Button>
                           </div>
 
                         </div>

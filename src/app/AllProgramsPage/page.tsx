@@ -14,7 +14,10 @@ const AllProgramsPage = () => {
 const [openModal, setOpenModal] = useState(false);
 const [openConfirmModal, setOpenConfirmModal] = useState(false);
 const [openCancelModal, setOpenCancelModal] = useState(false);
-const [newProgram, setNewProgram] =useState<string>("");
+const [newProgramTitle, setNewProgramTitle] = useState<string>("");
+const [newProgramDescription, setNewProgramDescription] = useState<string>("");
+
+// const [tempModal, setTempModal] = useState(false);
 
 const router = useRouter();
 
@@ -33,7 +36,7 @@ const handleNewProgram = () => {
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
       <NavbarComponent />
       <div className="flex flex-row text-3xl font-titillium font-bold pt-14 justify-evenly items-end">
-        <p className=' absolute items-center'>All Programs</p>
+        <p className=' items-center'>All Programs</p>
         <Button className='border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg' onClick={() => setOpenModal(true)}>Create new program</Button>
         <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
           <Modal.Header>
@@ -51,13 +54,13 @@ const handleNewProgram = () => {
                     <div className="mb-2 block">
                       <Label htmlFor="programName" value="Enter the name of your Program"/>
                     </div>
-                    <TextInput onChange={(e) => setNewProgram(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
+                    <TextInput onChange={(e) => setNewProgramTitle(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
                   </div>
                   <div>
                     <div className="mb-2 block">
                       <Label htmlFor="programDescription" value="Enter a description" />
                     </div>
-                    <Textarea onChange={(e) => setNewProgram(e.target.value)} id="New Program" minLength={4} required />
+                    <Textarea onChange={(e) => setNewProgramDescription(e.target.value)} id="New Program" minLength={4} required />
                   </div>
 
 
@@ -73,7 +76,7 @@ const handleNewProgram = () => {
 
                           <div className="w-full flex flex-row justify-between">
                             <Button className="!bg-red-500" onClick={() => setOpenCancelModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" onClick={handleCloseModals}>Confirm</Button>
+                            <Button className="!bg-green-500" onClick={() => handleCloseModals()}>Confirm</Button>
                           </div>
 
                         </div>
@@ -89,8 +92,13 @@ const handleNewProgram = () => {
 
                           <div className="w-full flex flex-row justify-between">
                             <Button className="!bg-red-500" onClick={() => setOpenConfirmModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" >Confirm</Button>
-
+                            <Button className="!bg-green-500" onClick={() => handleNewProgram()} >Confirm</Button>
+                            {/* <Modal popup onClose={() => setTempModal(false)} show={tempModal} size="md">
+                              <Modal.Header/>
+                              <Modal.Body>
+                                <h3>This feature is in progres</h3>
+                              </Modal.Body>
+                            </Modal> */}
                           </div>
 
                         </div>
