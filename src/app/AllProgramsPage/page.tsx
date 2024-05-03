@@ -45,7 +45,7 @@ const handleNewProgram = () => {
           <Modal.Body>
                 <div className="space-y-6">
                   <h1>
-                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300" onClick={()=> router.push('/SportsSelectionPage')}>'Sport Selection'</a>  page and click on a new one.</p>
+                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300" onClick={()=> router.push('/SportsSelectionPage')}>Sport Selection</a>  page and click on a new one.</p>
                   </h1>
 
 
