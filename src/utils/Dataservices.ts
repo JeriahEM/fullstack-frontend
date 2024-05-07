@@ -1,4 +1,5 @@
 import { ICreateProgram, IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { createContext } from "react";
 import validator from 'validator';
 
 
@@ -45,6 +46,8 @@ export const login = async (LoginUser: IUserInfo) => {
 
     const data: IToken = await res.json();
     sessionStorage.setItem("user", LoginUser.username)
+    const UserContext = createContext("tennis");
+
     return data;
 }
 
@@ -160,6 +163,20 @@ export const createProgram = async (newProgram: ICreateProgram) => {
     return data;
 }
 
+export const getProgramByID = async (id:number) => {
+    const res = await fetch(url + '/Program/GetProgramById/' + id);
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
+export const getEventsByProgramId = async (id:number) => {
+    const res = await fetch(url + '/Event/GetEventsByProgramID/' + id);
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};

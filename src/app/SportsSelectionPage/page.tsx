@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import golf from "../assets/images/golf.jpg";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,8 @@ import { checkForUserOnRefresh } from "@/utils/Dataservices";
 
 
 const SportsSelectionPage = () => {
+  
+
   useEffect(() =>{
     checkForUserOnRefresh()
   },[])
