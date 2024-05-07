@@ -293,7 +293,9 @@ const HomePage = () => {
 
 
       </div>
+      <br /><br />
     </div>
+
   )
 }
 
