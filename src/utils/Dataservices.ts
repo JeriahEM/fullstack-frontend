@@ -129,7 +129,7 @@ export const resetPassword = async (newPassword: IResetPassword) => {
 }
 
 export const createProgram = async (newProgram: ICreateProgram) => {
-    const res = await fetch( url + "", {
+    const res = await fetch( url + "/Program/CreateProgram", {
         method: "POST",
         headers: {
             'Content-Type' : "application/json"
