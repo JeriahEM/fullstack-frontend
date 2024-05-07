@@ -6,7 +6,19 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Button, Label, Modal, TextInput, Textarea } from 'flowbite-react';
 import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
-
+import SportsTennisOutlinedIcon from '@mui/icons-material/SportsTennisOutlined';
+import SportsFootballOutlinedIcon from '@mui/icons-material/SportsFootballOutlined';
+import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
+import SportsSoccerOutlinedIcon from '@mui/icons-material/SportsSoccerOutlined';
+import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
+import SportsVolleyballOutlinedIcon from '@mui/icons-material/SportsVolleyballOutlined';
+import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined';
+import GolfCourseOutlinedIcon from '@mui/icons-material/GolfCourseOutlined';
+import PoolOutlinedIcon from '@mui/icons-material/PoolOutlined';
+import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
+import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
+import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
+import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
 
 
 const AllProgramsPage = () => {
@@ -36,6 +48,14 @@ const handleNewProgram = () => {
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
       <NavbarComponent />
       <div className="flex flex-row text-3xl font-titillium font-bold pt-14 justify-evenly items-end">
+        <div className='flex flex-row items-center'>
+          <SportsVolleyballRoundedIcon fontSize="small"/><PoolOutlinedIcon fontSize="large"/>
+          <p className='pl-3'>Water Polo</p>
+        </div>
+        {/* <div className='flex flex-row items-center'>
+          <SportsSoccerOutlinedIcon  fontSize="large"/>
+          <p className='pl-3'>Soccer</p>
+        </div> */}
         <p className=' items-center'>All Programs</p>
         <Button className='border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg' onClick={() => setOpenModal(true)}>Create new program</Button>
         <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
