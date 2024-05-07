@@ -16,12 +16,15 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { createEvent, formatDate, formatTime, getAllEvents } from '@/utils/Dataservices';
+import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents } from '@/utils/Dataservices';
 
 import DummyEvents from '@/utils/DummyEvent.json'
 import { IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
 
   useEffect(() => {
     const currentDate = new Date();
@@ -42,7 +45,7 @@ const HomePage = () => {
 
   var idCounter = 0;
  
-  const [programID, setProgramID] = useState<number>(2);
+  const [programID, setProgramID] = useState<number>(1);
   const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)

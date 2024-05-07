@@ -1,10 +1,14 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { checkForUserOnRefresh } from "@/utils/Dataservices";
 
 const NotificationsPage = () => {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+ },[])
 
 
   const styles = {

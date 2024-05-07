@@ -11,7 +11,7 @@ import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 
 
 
-import { checkToken, loggedinData } from '@/utils/Dataservices';
+import { checkForUserOnRefresh, checkToken, loggedinData } from '@/utils/Dataservices';
 const NavbarComponent = () => {
 
   const [username, setUsername] = useState<string>("")
@@ -19,6 +19,7 @@ const NavbarComponent = () => {
   useEffect(() => {
 
     const getLoggedinData = async () => {
+      await checkForUserOnRefresh()
       const loggedIn = await loggedinData();
       console.log(loggedIn.userID)
       console.log(loggedIn.username)
@@ -42,6 +43,10 @@ const NavbarComponent = () => {
   }, [])
 
 
+  const logout = () =>{
+    router.push('/');
+    sessionStorage.clear();
+  }
 
 
     const router = useRouter();
@@ -101,7 +106,7 @@ const NavbarComponent = () => {
                 </div>
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={()=> router.push('/')}>
+              <Dropdown.Item onClick={()=> logout()}>
               <div className='flex flex-row items-center'>
                     <LogoutOutlinedIcon/>
                     <p className='pl-2'>Sign out</p>

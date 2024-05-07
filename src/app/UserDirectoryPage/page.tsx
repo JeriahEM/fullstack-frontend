@@ -1,21 +1,25 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import Image from "next/image";
 import image1 from "../assets/images/image1.png";
 import phUser from "../assets/images/Group13.png";
 import dummyUsers from "@/utils/DummyUser.json";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import { checkForUserOnRefresh } from "@/utils/Dataservices";
 
 // For this page we will need to call users id, pfp, username, status
 
-const programOwner = ["Roger Federer"];
+// const programOwner = ["Roger Federer"];
 
-const coaches = ["Kyle Yok Eyh Ma"];
+// const coaches = ["Kyle Yok Eyh Ma"];
 
-const user = ["Billy Willy"];
+// const user = ["Billy Willy"];
 
 const UserDirectoryPage = () => {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
 
   const createAdmin = ()  => {
     let users = dummyUsers.filter(item => item.IsAdmin===true);

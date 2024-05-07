@@ -1,15 +1,18 @@
 'use client'
 
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createAccount, getLoggedInUserData, isValidEmailFunction, login } from "@/utils/Dataservices";
+import { checkForUserOnRefresh, createAccount, getLoggedInUserData, isValidEmailFunction, login } from "@/utils/Dataservices";
 import { IToken } from "./Interfaces/Interfaces";
 import NavbarComponent from "./Components/NavbarComponent";
 
 
 
 export default function Home() {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 

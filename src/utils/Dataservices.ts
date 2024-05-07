@@ -44,7 +44,19 @@ export const login = async (LoginUser: IUserInfo) => {
     }
 
     const data: IToken = await res.json();
+    sessionStorage.setItem("user", LoginUser.username)
     return data;
+}
+
+export const checkForUserOnRefresh = async () =>{
+    const item = sessionStorage.getItem("user");
+    if(item){
+        console.log("user detected")
+        await getLoggedInUserData(item)
+    }
+    else{
+        console.log("no user")
+    }
 }
 
 export const getLoggedInUserData = async (username: string) => {

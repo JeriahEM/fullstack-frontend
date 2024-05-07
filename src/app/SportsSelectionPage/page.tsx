@@ -1,23 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import golf from "../assets/images/golf.jpg";
 import { useRouter } from "next/navigation";
-// import basketball from "../assets/images/basketball.jpg";
-// import football from "../assets/images/football.jpg";
-// import baseball from "../assets/images/baseball.jpg";
-// import gymnastics from "../assets/images/gymnastics.jpg";
-// import hockey from "../assets/images/hockey.jpg";
-// import soccer from "../assets/images/soccer.jpg";
-// import swimming from "../assets/images/swimming.jpg";
-// import track from "../assets/images/trackandfield.jpg";
-// import volleyball from "../assets/images/volleyball.jpg";
-// import waterpolo from "../assets/images/waterpolo.jpg";
-// import wrestling from "../assets/images/wrestling.jpg";
-// import tennis from "../assets/images/marianna-smiley-Y4YeUSYLFsw-unsplash 1.png";
+import { checkForUserOnRefresh } from "@/utils/Dataservices";
+
 
 const SportsSelectionPage = () => {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
   const router = useRouter();
   const sports = [
     "Tennis",

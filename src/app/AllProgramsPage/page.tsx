@@ -1,15 +1,19 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Button, Label, Modal, TextInput, Textarea } from 'flowbite-react';
 import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
+import { checkForUserOnRefresh } from '@/utils/Dataservices';
 
 
 
 const AllProgramsPage = () => {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
 
 const [openModal, setOpenModal] = useState(false);
 const [openConfirmModal, setOpenConfirmModal] = useState(false);
