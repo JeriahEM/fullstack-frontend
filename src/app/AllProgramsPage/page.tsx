@@ -1,27 +1,19 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Button, Label, Modal, TextInput, Textarea } from 'flowbite-react';
 import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
-import SportsTennisOutlinedIcon from '@mui/icons-material/SportsTennisOutlined';
-import SportsFootballOutlinedIcon from '@mui/icons-material/SportsFootballOutlined';
-import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
-import SportsSoccerOutlinedIcon from '@mui/icons-material/SportsSoccerOutlined';
-import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
-import SportsVolleyballOutlinedIcon from '@mui/icons-material/SportsVolleyballOutlined';
-import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined';
-import GolfCourseOutlinedIcon from '@mui/icons-material/GolfCourseOutlined';
-import PoolOutlinedIcon from '@mui/icons-material/PoolOutlined';
-import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
-import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
-import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
-import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
+import { checkForUserOnRefresh } from '@/utils/Dataservices';
+
 
 
 const AllProgramsPage = () => {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
 
 const [openModal, setOpenModal] = useState(false);
 const [openConfirmModal, setOpenConfirmModal] = useState(false);

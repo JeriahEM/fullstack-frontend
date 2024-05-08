@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button, Checkbox, Datepicker, Label, Modal, ModalBody, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
-import { findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile } from "@/utils/Dataservices";
+import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile } from "@/utils/Dataservices";
 import { IResetPassword, IUserdata } from "../Interfaces/Interfaces";
 import { encode } from "punycode";
 import { ClassNames } from "@emotion/react";
@@ -17,6 +17,33 @@ const ProfilePage = () => {
   //   UserName: string,
   //   Password: string,
   // }
+
+  useEffect(() =>{
+    
+    const waitForData = async () =>{
+     await checkForUserOnRefresh()
+     const loggedIn = await loggedinData();
+      setUsername(loggedIn.username);
+      setTrueUsername(loggedIn.username)
+      setBirthday(loggedIn.birthday);
+      setImage(loggedIn.image);
+      setPrograms(loggedIn.programs);
+      setFunFact(loggedIn.funFact);
+      setEmail(loggedIn.email);
+      setSports(loggedIn.sports);
+      setName(loggedIn.realName);
+      setUserID(loggedIn.userID);
+      setFunFact(loggedIn.funFact)
+      console.log(loggedIn)
+
+      dummy = loggedIn;
+      setUser(dummy)
+      findDifferences(user, dummy)
+    }
+    waitForData();
+    // getLoggedinData();
+  },[])
+
   const [user, setUser] = useState<IUserdata>({} as IUserdata)
 
   const [openModal, setOpenModal] = useState(false);
@@ -150,27 +177,7 @@ const ProfilePage = () => {
 
   // updateUserProfile(username, "string goes here")
   useEffect(() => {
-    const getLoggedinData = async () => {
-      const loggedIn = await loggedinData();
-      setUsername(loggedIn.username);
-      setTrueUsername(loggedIn.username)
-      setBirthday(loggedIn.birthday);
-      setImage(loggedIn.image);
-      setPrograms(loggedIn.programs);
-      setFunFact(loggedIn.funFact);
-      setEmail(loggedIn.email);
-      setSports(loggedIn.sports);
-      setName(loggedIn.realName);
-      setUserID(loggedIn.userID);
-      setFunFact(loggedIn.funFact)
-      console.log(loggedIn)
-
-      dummy = loggedIn;
-      setUser(dummy)
-      findDifferences(user, dummy)
-
-    }
-    getLoggedinData()
+    
 
   }, [])
 

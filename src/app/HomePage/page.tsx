@@ -16,33 +16,39 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { createEvent, formatDate, formatTime, getAllEvents } from '@/utils/Dataservices';
+import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getProgramByID } from '@/utils/Dataservices';
 
 import DummyEvents from '@/utils/DummyEvent.json'
 import { IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
+  const router = useRouter();
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
 
   useEffect(() => {
     const currentDate = new Date();
     const options:any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
-    setAllEvents(DummyEvents)
-    // const getEvents = async () => {
-    //   const fetchedEvents = await getAllEvents();
-    //   idCounter = fetchedEvents.length;
-    //   console.log("you have this many events : " + idCounter)
-    //   setAllEvents(fetchedEvents)
-    // }
-    // getEvents()
+    // setAllEvents(DummyEvents)
+    const getEvents = async () => {
+      const fetchedProgram = await getProgramByID(1);
+      console.log(fetchedProgram)
+      const fetchedEvents = await getAllEvents()
+      idCounter = fetchedEvents.length;
+      console.log("you have this many events : " + idCounter)
+      setAllEvents(fetchedEvents)
+    }
+    getEvents()
     console.log(allEvents)
 
 }, []);
 
   var idCounter = 0;
- 
-  const [programID, setProgramID] = useState<number>(2);
+  const [isAdmin, setIsAdmin] = useState<Boolean>(true)
+  const [programID, setProgramID] = useState<string>("0");
   const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -79,10 +85,7 @@ const HomePage = () => {
     setDisplayEvents(currentEvents)
     
   }
-  // function addEvent(data: DropArg) {
-  //   const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
-  //   setAllEvents([...allEvents, event])
-  // }
+ 
 
   function handleDeleteModal(data: { event: { id: string } }) {
     setShowDeleteModal(true)
@@ -164,7 +167,7 @@ const HomePage = () => {
 
   
 
-    const router = useRouter();
+    
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
     <NavbarComponent/>

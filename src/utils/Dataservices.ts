@@ -1,4 +1,5 @@
 import { ICreateProgram, IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { createContext } from "react";
 import validator from 'validator';
 
 
@@ -44,7 +45,21 @@ export const login = async (LoginUser: IUserInfo) => {
     }
 
     const data: IToken = await res.json();
+    sessionStorage.setItem("user", LoginUser.username)
+    const UserContext = createContext("tennis");
+
     return data;
+}
+
+export const checkForUserOnRefresh = async () =>{
+    const item = sessionStorage.getItem("user");
+    if(item){
+        console.log("user detected")
+        await getLoggedInUserData(item)
+    }
+    else{
+        console.log("no user")
+    }
 }
 
 export const getLoggedInUserData = async (username: string) => {
@@ -70,8 +85,8 @@ export const checkToken = () => {
 }
 
 export const updateUserProfile = async (username:string, inputString:string) => {
-    console.log(url + '/User/UpdateUser/' + username + "/birthday/image/programs/funfact/email/sports/realname?" + inputString);
-    const res = await fetch(url + '/User/UpdateUser/' + username + "/birthday/image/programs/funfact/email/sports/realname?" + inputString, {
+    console.log(url + '/User/UpdateUser/' + username + "/birthday/image/funfact/email/realname?" + inputString);
+    const res = await fetch(url + '/User/UpdateUser/' + username + "/birthday/image/funfact/email/realname?" + inputString, {
         method: "PUT"
     })
 
@@ -80,6 +95,7 @@ export const updateUserProfile = async (username:string, inputString:string) => 
         throw new Error(message);
     }
     const data = await res.json();
+    console.log(data)
     return data
 }
 
@@ -148,6 +164,20 @@ export const createProgram = async (newProgram: ICreateProgram) => {
     return data;
 }
 
+export const getProgramByID = async (id:number) => {
+    const res = await fetch(url + '/Program/GetProgramById/' + id);
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
+export const getEventsByProgramId = async (id:number) => {
+    const res = await fetch(url + '/Event/GetEventsByProgramID/' + id);
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};

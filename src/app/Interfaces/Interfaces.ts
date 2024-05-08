@@ -37,7 +37,7 @@ export interface IEvent {
     end: string,
     color: string,
     allDay: boolean,
-    programID: number, 
+    programID: string, 
 }
 
 export interface IResetPassword {
