@@ -31,6 +31,18 @@ const handleCloseModals = () => {
   setOpenCancelModal(false);
 }
 const handleNewProgram = () => {
+  // Create a new program with hardcoded programSport and logged-in user's adminID
+  const newProgram = {
+    id: 0, // You can generate a unique ID or let the backend handle it
+    programName: newProgramTitle,
+    programSport: "Tennis", // Hardcoded sport
+    description: newProgramDescription,
+    adminID: 0, // Logged-in user's ID
+  };
+
+  // Here, you can send the newProgram data to your backend API
+  console.log(newProgram);
+
   setOpenModal(false);
   setOpenConfirmModal(false);
   setOpenCancelModal(false);
