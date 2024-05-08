@@ -22,6 +22,7 @@ import DummyEvents from '@/utils/DummyEvent.json'
 import { IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
+  const router = useRouter();
   useEffect(() =>{
     checkForUserOnRefresh()
   },[])
@@ -46,7 +47,7 @@ const HomePage = () => {
 }, []);
 
   var idCounter = 0;
- 
+  const [isAdmin, setIsAdmin] = useState<Boolean>(true)
   const [programID, setProgramID] = useState<string>("0");
   const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
@@ -84,10 +85,7 @@ const HomePage = () => {
     setDisplayEvents(currentEvents)
     
   }
-  // function addEvent(data: DropArg) {
-  //   const event = { ...newEvent, start: data.date.toISOString(), title: data.draggedEl.innerText, allDay: data.allDay, id: new Date().getTime() }
-  //   setAllEvents([...allEvents, event])
-  // }
+ 
 
   function handleDeleteModal(data: { event: { id: string } }) {
     setShowDeleteModal(true)
@@ -169,7 +167,7 @@ const HomePage = () => {
 
   
 
-    const router = useRouter();
+    
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
     <NavbarComponent/>
