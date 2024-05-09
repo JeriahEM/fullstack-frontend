@@ -7,7 +7,20 @@ import { Button, Label, Modal, TextInput, Textarea } from 'flowbite-react';
 import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
 import { checkForUserOnRefresh } from '@/utils/Dataservices';
-
+import SportsTennisOutlinedIcon from '@mui/icons-material/SportsTennisOutlined';
+import SportsFootballOutlinedIcon from '@mui/icons-material/SportsFootballOutlined';
+import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
+import SportsSoccerOutlinedIcon from '@mui/icons-material/SportsSoccerOutlined';
+import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
+import SportsVolleyballOutlinedIcon from '@mui/icons-material/SportsVolleyballOutlined';
+import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined';
+import GolfCourseOutlinedIcon from '@mui/icons-material/GolfCourseOutlined';
+import PoolOutlinedIcon from '@mui/icons-material/PoolOutlined';
+import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
+import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
+import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
+import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
+import { SportsGolfOutlined } from '@mui/icons-material';
 
 
 const AllProgramsPage = () => {
@@ -36,14 +49,92 @@ const handleNewProgram = () => {
   setOpenCancelModal(false);
 }
 
+const handleSport = (sport:string | null) =>{
+  
+    switch (sport){
+      case "Tennis":
+        return(<div className='flex flex-row items-center'>
+        <SportsTennisOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Tennis</p>
+      </div>)
+      case "Football":
+        return(<div className='flex flex-row items-center'>
+        <SportsFootballOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Football</p>
+      </div>)
+      case "Basketball":
+        return(<div className='flex flex-row items-center'>
+        <SportsBasketballOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Basketball</p>
+      </div>)
+      case "Soccer":
+        return(<div className='flex flex-row items-center'>
+        <SportsSoccerOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Soccer</p>
+      </div>)
+      case "Baseball":
+        return(<div className='flex flex-row items-center'>
+        <SportsBaseballOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Baseball</p>
+      </div>)
+      case "Volleyball":
+        return(<div className='flex flex-row items-center'>
+        <SportsVolleyballOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Volleyball</p>
+      </div>)
+      case "Wrestling":
+        return(<div className='flex flex-row items-center'>
+        <SportsKabaddiOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Wrestling</p>
+      </div>)
+      case "Golf":
+        return(<div className='flex flex-row items-center'>
+        <GolfCourseOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Golf</p>
+      </div>)
+      case "Swimming":
+        return(<div className='flex flex-row items-center'>
+        <PoolOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Swimming</p>
+      </div>)
+      case "Hockey":
+        return(<div className='flex flex-row items-center'>
+        <SportsHockeyOutlinedIcon  fontSize="large"/>
+        <p className='pl-3'>Hockey</p>
+      </div>)
+      case "Gymnastics":
+        return(<div className='flex flex-row items-center'>
+        <SportsGymnasticsOutlinedIcon fontSize="large"/>
+        <p className='pl-3'>Gymnastics</p>
+      </div>)
+      case "Track-and-Field":
+        return(<div className='flex flex-row items-center'>
+        <DirectionsRunOutlinedIcon fontSize="large"/>
+        <p className='pl-3'>Track and Field</p>
+      </div>)
+      case "Water-Polo":
+        return(
+          <div className='flex flex-row items-center'>
+          <SportsVolleyballRoundedIcon fontSize="small"/><PoolOutlinedIcon fontSize="large"/>
+          <p className='pl-3'>Water Polo</p>
+        </div>
+        )
+    
+      default:
+        break;
+    }
+  
+}
+
   return (
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
       <NavbarComponent />
       <div className="flex flex-row text-3xl font-titillium font-bold pt-14 justify-evenly items-end">
-        <div className='flex flex-row items-center'>
+        {handleSport(sessionStorage.getItem('sport'))}
+        {/* <div className='flex flex-row items-center'>
           <SportsVolleyballRoundedIcon fontSize="small"/><PoolOutlinedIcon fontSize="large"/>
           <p className='pl-3'>Water Polo</p>
-        </div>
+        </div> */}
         {/* <div className='flex flex-row items-center'>
           <SportsSoccerOutlinedIcon  fontSize="large"/>
           <p className='pl-3'>Soccer</p>

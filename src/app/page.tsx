@@ -12,7 +12,9 @@ import NavbarComponent from "./Components/NavbarComponent";
 export default function Home() {
   useEffect(() =>{
     checkForUserOnRefresh()
+    
   },[])
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 

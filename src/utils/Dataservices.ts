@@ -18,15 +18,19 @@ export const createAccount = async (createdUser: INewUser) => {
     })
 
     if(!res.ok){
-        const message = "An error has occured" + res.status;
+        const message = "An error has occured" + res.status; 
         throw new Error(message);
     }
-    else{
-        alert("Your Account has been sucessfully created!")
-    }
+    
 
     const data = await res.json();
     console.log(data);
+    if(!data){
+        alert("username or email taken")
+    }else{
+        alert("Account created")
+    }
+    console.log(res.ok)
 }
 
 export const login = async (LoginUser: IUserInfo) => {
@@ -39,14 +43,15 @@ export const login = async (LoginUser: IUserInfo) => {
     });
 
     if(!res.ok){
+        alert("Username and Password combination not found. Try again")
         const message = "An Error has occured" + res.status;
         throw new Error(message);
-        alert("Username and Password combination not found. Try again")
     }
 
     const data: IToken = await res.json();
     sessionStorage.setItem("user", LoginUser.username)
-    const UserContext = createContext("tennis");
+    sessionStorage.setItem("sport", "tennis")
+    // const UserContext = createContext("tennis");
 
     return data;
 }

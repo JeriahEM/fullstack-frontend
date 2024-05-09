@@ -30,12 +30,17 @@ const SportsSelectionPage = () => {
     "Water-Polo",
   ];
 
+  const handleBtn = (sport:string) =>{
+    router.push('/AllProgramsPage')
+    sessionStorage.setItem("sport", sport)
+  }
+
   const SportsList = ({ sports: [] }) => {
     
     return sports.map((sport, index) => (
       <div key={index} className=" flex justify-center py-4">
         <button className={`${sport} h-32 lg:h-44 w-[90%] rounded-lg text-6xl font-bold `} 
-        onClick={()=> router.push('/AllProgramsPage')}>
+        onClick={()=>handleBtn(sport)}>
           <p className="textShadow">{sport}</p>
         </button>
       </div>
