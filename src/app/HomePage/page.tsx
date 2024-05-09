@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import React, {Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent';
 
 
@@ -17,19 +17,21 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
 import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getProgramByID } from '@/utils/Dataservices';
-
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DummyEvents from '@/utils/DummyEvent.json'
 import { IEvent } from '../Interfaces/Interfaces';
+import { Modal } from 'flowbite-react';
+import { colors } from '@mui/material';
 
 const HomePage = () => {
   const router = useRouter();
-  useEffect(() =>{
+  useEffect(() => {
     checkForUserOnRefresh()
-  },[])
+  }, [])
 
   useEffect(() => {
     const currentDate = new Date();
-    const options:any = { month: 'long', day: 'numeric', year: 'numeric' };
+    const options: any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
     // setAllEvents(DummyEvents)
@@ -44,7 +46,7 @@ const HomePage = () => {
     getEvents()
     console.log(allEvents)
 
-}, []);
+  }, []);
 
   var idCounter = 0;
   const [isAdmin, setIsAdmin] = useState<Boolean>(true)
@@ -83,9 +85,9 @@ const HomePage = () => {
     const currentEvents = allEvents.filter(obj => obj.start.includes(arg.dateStr))
     console.log(currentEvents)
     setDisplayEvents(currentEvents)
-    
+
   }
- 
+
 
   function handleDeleteModal(data: { event: { id: string } }) {
     setShowDeleteModal(true)
@@ -121,21 +123,21 @@ const HomePage = () => {
       title: e.target.value
     })
   }
-  const handleEndTimeChange = (time:string): void => {
+  const handleEndTimeChange = (time: string): void => {
     setNewEvent({
       ...newEvent,
-      end: (endTime + time ),
+      end: (endTime + time),
       allDay: false,
     })
   }
-  const handleStartTimeChange = (time:string): void => {
+  const handleStartTimeChange = (time: string): void => {
     setNewEvent({
       ...newEvent,
       start: (startTime + time),
       allDay: false,
     })
   }
-  const handleColorChange = (color:string): void => {
+  const handleColorChange = (color: string): void => {
     setNewEvent({
       ...newEvent,
       color: color
@@ -153,7 +155,7 @@ const HomePage = () => {
     setDisplayEvents([...displayEvents, newEvent])
     setShowModal(false)
     console.log(newEvent)
-    
+
     setNewEvent({
       title: '',
       start: '',
@@ -165,18 +167,20 @@ const HomePage = () => {
     })
   }
 
-  
+  const [descriptionModal, setDescriptionModal] = useState(false)
 
-    
+
+
+
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
-    <NavbarComponent/>
+      <NavbarComponent />
 
       <div className=" grid grid-cols-7 lg:mx-7">
-          <div className=" col-span-7 lg:col-span-3 w-full py-3 lg:py-8 ">
-            
+        <div className=" col-span-7 lg:col-span-3 w-full py-3 lg:py-8 ">
+
           <main className="lg:p-3 h-full">
-        
+
             <FullCalendar
               plugins={[
                 dayGridPlugin,
@@ -201,59 +205,70 @@ const HomePage = () => {
               viewClassNames={"bg-white"}
               dayHeaderClassNames={"bg-white"}
               height={600}
-              
-              
-              
+
+
+
             />
-          
-
-          <AddEventModal 
-          showModal={showModal}
-          setShowModal={setShowModal}
-          handleSubmit={handleSubmit}
-          handleTitleChange={handleTitleChange}
-          handleEndTimeChange={handleEndTimeChange}
-          handleStartTimeChange={handleStartTimeChange}
-          newEvent={newEvent}
-          handleCloseModal={handleCloseModal}
-          handleColorChange={handleColorChange}
-        />
-        <DeleteEventModal
-         showDeleteModal={showDeleteModal}
-         setShowDeleteModal={setShowDeleteModal}
-         handleDelete={handleDelete}
-         handleCloseModal={handleCloseModal}
-         eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
-        />
 
 
-        
-        
-      </main>
-            
-          </div>
-        
+            <AddEventModal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              handleSubmit={handleSubmit}
+              handleTitleChange={handleTitleChange}
+              handleEndTimeChange={handleEndTimeChange}
+              handleStartTimeChange={handleStartTimeChange}
+              newEvent={newEvent}
+              handleCloseModal={handleCloseModal}
+              handleColorChange={handleColorChange}
+            />
+            <DeleteEventModal
+              showDeleteModal={showDeleteModal}
+              setShowDeleteModal={setShowDeleteModal}
+              handleDelete={handleDelete}
+              handleCloseModal={handleCloseModal}
+              eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
+            />
 
-        <div className=" col-span-7 lg:col-span-4 lg:px-10">
-          <div className="py-3 lg:py-8">
+
+
+
+          </main>
+
+        </div>
+
+
+        <div className=" col-span-7 lg:col-span-4 lg:px-10 ">
+          <div className="py-3 lg:py-8 flex flex-row row-span-6 justify-center ">
             <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
-            <div className=" text-xl p-5">
+            <div className='hover:text-slate-600 hover:cursor-pointer row-span-1 justify-center pl-3 mt-1'>
+              <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
+              <Modal popup onClose={() => setDescriptionModal(false)} show={descriptionModal} size="md">
+                <Modal.Header />
+                <Modal.Body>
+                  <p className=' font-titillium text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ad voluptatum, dolorum optio sit praesentium quasi eligendi quos laborum, incidunt velit sunt quibusdam sint quidem at harum ex neque cumque!</p>
+                </Modal.Body>
+              </Modal>
+            </div>
+
+
+          </div>
+          <div className=" text-xl p-5 px-0">
               <ul style={{ listStyleType: 'square' }}>
                 {/* <li className="my-3 font-titillium">EVENT 1</li>
                 <li className="my-3 font-titillium">EVENT 2</li>
                 <li className="my-3 font-titillium">EVENT 3 </li> */}
                 {displayEvents.map((event, index) => (
-                    <li className='font-titillium py-3' key={index}>
-                        <strong>{event.title}</strong> - {formatDate(event.start)} | 
-                        {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
-                        {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
-                    </li>
+                  <li className='font-titillium py-3' key={index}>
+                    <strong>{event.title}</strong> - {formatDate(event.start)} |
+                    {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
+                    {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
+
+                  </li>
                 ))}
               </ul>
+
             </div>
-
-
-          </div>
         </div>
 
       </div>
@@ -262,37 +277,37 @@ const HomePage = () => {
       <div className="border-4 border-black lg:mx-7 rounded-lg">
 
 
-      <main className="lg:p-3 h-full">
-        
-        <FullCalendar
-          plugins={[
-            interactionPlugin,
-            timeGridPlugin
-          ]}
-          headerToolbar={{
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-          }}
-          events={allEvents as EventSourceInput}
-          nowIndicator={true}
-          height={600}
-          expandRows={true}
-          
-          
+        <main className="lg:p-3 h-full">
+
+          <FullCalendar
+            plugins={[
+              interactionPlugin,
+              timeGridPlugin
+            ]}
+            headerToolbar={{
+              left: 'prev,next',
+              center: 'title',
+              right: 'today'
+            }}
+            events={allEvents as EventSourceInput}
+            nowIndicator={true}
+            height={600}
+            expandRows={true}
+
+
           // editable={true}
           // droppable={true}
           // selectable={true}
           // selectMirror={true}
           // dateClick={handleDateClick}
-          
-          // eventClick={(data) => handleDeleteModal(data)}
-        />
-      
 
-    
-    
-  </main>
+          // eventClick={(data) => handleDeleteModal(data)}
+          />
+
+
+
+
+        </main>
 
 
       </div>

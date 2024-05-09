@@ -46,7 +46,7 @@ const handleCloseModals = () => {
 const handleNewProgram = async () => {
   
   const newProgram: ICreateProgram = {
-    id: 1,
+    id: 2,
     programName: newProgramTitle,
     programSport: "Tennis",
     description: newProgramDescription,
@@ -70,7 +70,7 @@ const handleNewProgram = async () => {
   return (
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
       <NavbarComponent />
-      <div className="flex flex-row lg:text-3xl font-titillium font-bold pt-14 justify-evenly lg:gap-52 items-end">
+      <div className="flex flex-row lg:text-3xl font-titillium font-bold pt-14 justify-evenly lg:gap-52  items-end">
         <div className='flex flex-row items-center'>
           <SportsVolleyballRoundedIcon fontSize="small"/><PoolOutlinedIcon fontSize="large"/>
           <p className='pl-3 '>Water Polo</p>
@@ -79,7 +79,7 @@ const handleNewProgram = async () => {
           <SportsSoccerOutlinedIcon  fontSize="large"/>
           <p className='pl-3'>Soccer</p>
         </div> */}
-        <p className=' items-center'>All Programs</p>
+        <p className=' items-center mb-2 text-xl lg:text-3xl'>All Programs</p>
         <Button className='border-2 border-black bg-neutral-100  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg text-black hover:text-white' onClick={() => setOpenModal(true)}>Create Program</Button>
         <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
           <Modal.Header>
@@ -88,7 +88,7 @@ const handleNewProgram = async () => {
           <Modal.Body>
                 <div className="space-y-6">
                   <h1>
-                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4 font-titillium' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300 font-titillium" onClick={()=> router.push('/SportsSelectionPage')}>Sport Selection</a>  page and click on a new one.</p>
+                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4 font-titillium' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300 font-titillium" onClick={()=> router.push('/SportsSelectionPage')}>Sport Selection</a>  page and click on a new one. <p className='text-xs text-gray-500'>(include location pleas)</p></p>
                   </h1>
 
 
