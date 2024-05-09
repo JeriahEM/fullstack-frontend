@@ -158,9 +158,11 @@ export const createProgram = async (newProgram: ICreateProgram) => {
     if(!res.ok){
         const message = "An Error has occured" + res.status;
         throw new Error(message);
+    }else{
+        alert("Program Created!")
     }
 
-    const data: IToken = await res.json();
+    const data = await res.json();
     return data;
 }
 

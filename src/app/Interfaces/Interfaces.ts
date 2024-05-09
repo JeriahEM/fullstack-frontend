@@ -46,9 +46,9 @@ export interface IResetPassword {
 }
 
 export interface ICreateProgram {
-    "id": 0,
-    "programName": "string",
-    "programSport": "string",
-    "description": "string",
-    "adminID": 0
+    "id": number,
+    "programName": string,
+    "programSport": string,
+    "description": string,
+    "adminID": number
   }
