@@ -19,32 +19,31 @@ import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
 import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
 import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
 import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
-import { checkForUserOnRefresh, createProgram } from '@/utils/Dataservices';
-import SportsTennisOutlinedIcon from '@mui/icons-material/SportsTennisOutlined';
-import SportsFootballOutlinedIcon from '@mui/icons-material/SportsFootballOutlined';
-import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
-import SportsSoccerOutlinedIcon from '@mui/icons-material/SportsSoccerOutlined';
-import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
-import SportsVolleyballOutlinedIcon from '@mui/icons-material/SportsVolleyballOutlined';
-import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined';
-import GolfCourseOutlinedIcon from '@mui/icons-material/GolfCourseOutlined';
-import PoolOutlinedIcon from '@mui/icons-material/PoolOutlined';
-import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
-import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
-import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
-import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
-import { SportsGolfOutlined } from '@mui/icons-material';import { ICreateProgram } from '../Interfaces/Interfaces';
+import { checkForUserOnRefresh, createProgram, getAllPrograms, getProgramBySport, loggedinData } from '@/utils/Dataservices';
+
+import { SportsGolfOutlined } from '@mui/icons-material';import { ICreateProgram, IDisplayProgram } from '../Interfaces/Interfaces';
 
 const AllProgramsPage = () => {
+  const initialPrograms: IDisplayProgram[] = [];
   useEffect(() =>{
+    
     checkForUserOnRefresh()
+    setUserID(sessionStorage.getItem("userID"))
+    const grabPrograms = async () =>{
+      setDisplayPrograms(await getProgramBySport(sessionStorage.getItem("sport")))
+    }
+    grabPrograms();
+    
   },[])
 
+const [displayPrograms, setDisplayPrograms] = useState<IDisplayProgram[]>(initialPrograms)
 const [openModal, setOpenModal] = useState(false);
 const [openConfirmModal, setOpenConfirmModal] = useState(false);
 const [openCancelModal, setOpenCancelModal] = useState(false);
 const [newProgramTitle, setNewProgramTitle] = useState<string>("");
 const [newProgramDescription, setNewProgramDescription] = useState<string>("");
+
+const [userID, setUserID] = useState<string | null>("0")
 
 // const [tempModal, setTempModal] = useState(false);
 
@@ -54,25 +53,29 @@ const handleCloseModals = () => {
   setOpenModal(false);
   setOpenConfirmModal(false);
   setOpenCancelModal(false);
+  console.log("this is the user id" + userID)
 }
 
 const handleNewProgram = async () => {
   
   const newProgram: ICreateProgram = {
-    id: 1,
+    id: 0,
     programName: newProgramTitle,
-    programSport: "Tennis",
+    programSport: sessionStorage.getItem('sport'),
     description: newProgramDescription,
-    adminID: 1,
+    adminID: userID
   };
 
-  try {
-    const createdProgram = await createProgram(newProgram);
-    console.log(createdProgram);
-  } catch (error) {
-    console.error(error);
+  // try {
+  //   const createdProgram = await createProgram(newProgram);
+  //   console.log(createdProgram);
+  // } catch (error) {
+  //   console.error(error);
+  // }
+  const addProgram = async () =>{
+    await createProgram(newProgram);
   }
-
+  addProgram();
   console.log(newProgram)
   setOpenModal(false);
   setOpenConfirmModal(false);
@@ -86,7 +89,7 @@ const handleSport = (sport:string | null) =>{
       case "Tennis":
         return(<div className='flex flex-row items-center'>
         <SportsTennisOutlinedIcon  fontSize="large"/>
-        <p className='pl-3'>Tennis</p>
+        <p className='pl-3 hidden md:block'>Tennis</p>
       </div>)
       case "Football":
         return(<div className='flex flex-row items-center'>
@@ -157,6 +160,14 @@ const handleSport = (sport:string | null) =>{
   
 }
 
+const makeDisplayPrograms = () =>{
+  return displayPrograms.map((program:IDisplayProgram, index)=>(
+    <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+            <LocationOnOutlinedIcon/>
+            {program.programName}
+          </div>
+  ))
+}
   return (
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
       <NavbarComponent />
@@ -171,7 +182,7 @@ const handleSport = (sport:string | null) =>{
           <p className='pl-3'>Soccer</p>
         </div> */}
         <p className=' items-center'>All Programs</p>
-        <Button className='border-2 border-black bg-neutral-100  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg text-black hover:text-white' onClick={() => setOpenModal(true)}>Create Program</Button>
+        <Button className='border-2 border-black bg-neutral-100 rounded-lg font-titillium bg-none w-[4rem] text-black hover:text-white' onClick={() => setOpenModal(true)}>Create Program</Button>
         <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
           <Modal.Header>
             <p className='text-gray-900 dark:text-white font-titillium'>Create New Program</p>
@@ -250,8 +261,11 @@ const handleSport = (sport:string | null) =>{
 
           <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <LocationOnOutlinedIcon/>
-            <p>Billy Willy</p>
+            
+            {/* <p>Billy Willy</p> */}
+            
           </div>
+          {makeDisplayPrograms()}
         <br />
         <br />
       </div>

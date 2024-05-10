@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button, Checkbox, Datepicker, Label, Modal, ModalBody, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
-import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile } from "@/utils/Dataservices";
+import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile, isValidEmailFunction } from "@/utils/Dataservices";
 import { IResetPassword, IUserdata } from "../Interfaces/Interfaces";
 import { encode } from "punycode";
 import { ClassNames } from "@emotion/react";
@@ -52,7 +52,7 @@ const ProfilePage = () => {
   const emailInputRef = useRef<HTMLInputElement>(null);
 
 
-
+  const [validEmail, setValidEmail] = useState<boolean>(true);
 
   const [programs, setPrograms] = useState<string>(" ")
   const [birthday, setBirthday] = useState<string>(" ")
@@ -100,6 +100,13 @@ const ProfilePage = () => {
     dummy.email = email;
     dummy.sports = sports;
     dummy.realName = name;
+
+    if(isValidEmailFunction(email)){
+      setValidEmail(true)
+    }
+    else{
+      setValidEmail(false)
+    }
   }
 
   const handleEditChange = () => {

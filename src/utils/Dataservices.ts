@@ -1,4 +1,4 @@
-import { ICreateProgram, IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 import { createContext } from "react";
 import validator from 'validator';
 
@@ -71,6 +71,7 @@ export const getLoggedInUserData = async (username: string) => {
     const res = await fetch(url + '/User/GetUserByUsername/' + username);
     const data = await res.json();
     userData = data;
+    sessionStorage.setItem("userID", userData.userID.toString())
     console.log(userData)
 }
 
@@ -171,12 +172,28 @@ export const createProgram = async (newProgram: ICreateProgram) => {
     return data;
 }
 
+export const getProgramBySport = async (sport:string | null) => {
+    const res = await fetch(url + '/Program/GetProgramsBySport/' + sport);
+    const data = await res.json();
+    
+    console.log(data)
+    return data
+}
+
 export const getProgramByID = async (id:number) => {
     const res = await fetch(url + '/Program/GetProgramById/' + id);
     const data = await res.json();
     
     console.log(data)
     return  data
+}
+
+export const getAllPrograms = async () => {
+    const res = await fetch(url + '/Program/GetAllPrograms');
+    const data = await res.json();
+    
+    console.log(data)
+    return data
 }
 export const getEventsByProgramId = async (id:number) => {
     const res = await fetch(url + '/Event/GetEventsByProgramID/' + id);
