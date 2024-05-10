@@ -6,7 +6,6 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Button, Label, Modal, TextInput, Textarea } from 'flowbite-react';
 import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
-import { checkForUserOnRefresh } from '@/utils/Dataservices';
 import SportsTennisOutlinedIcon from '@mui/icons-material/SportsTennisOutlined';
 import SportsFootballOutlinedIcon from '@mui/icons-material/SportsFootballOutlined';
 import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
@@ -20,8 +19,21 @@ import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
 import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
 import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
 import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
-import { SportsGolfOutlined } from '@mui/icons-material';
-
+import { checkForUserOnRefresh, createProgram } from '@/utils/Dataservices';
+import SportsTennisOutlinedIcon from '@mui/icons-material/SportsTennisOutlined';
+import SportsFootballOutlinedIcon from '@mui/icons-material/SportsFootballOutlined';
+import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
+import SportsSoccerOutlinedIcon from '@mui/icons-material/SportsSoccerOutlined';
+import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
+import SportsVolleyballOutlinedIcon from '@mui/icons-material/SportsVolleyballOutlined';
+import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined';
+import GolfCourseOutlinedIcon from '@mui/icons-material/GolfCourseOutlined';
+import PoolOutlinedIcon from '@mui/icons-material/PoolOutlined';
+import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
+import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
+import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
+import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
+import { SportsGolfOutlined } from '@mui/icons-material';import { ICreateProgram } from '../Interfaces/Interfaces';
 
 const AllProgramsPage = () => {
   useEffect(() =>{
@@ -43,11 +55,30 @@ const handleCloseModals = () => {
   setOpenConfirmModal(false);
   setOpenCancelModal(false);
 }
-const handleNewProgram = () => {
+
+const handleNewProgram = async () => {
+  
+  const newProgram: ICreateProgram = {
+    id: 1,
+    programName: newProgramTitle,
+    programSport: "Tennis",
+    description: newProgramDescription,
+    adminID: 1,
+  };
+
+  try {
+    const createdProgram = await createProgram(newProgram);
+    console.log(createdProgram);
+  } catch (error) {
+    console.error(error);
+  }
+
+  console.log(newProgram)
   setOpenModal(false);
   setOpenConfirmModal(false);
   setOpenCancelModal(false);
-}
+};
+
 
 const handleSport = (sport:string | null) =>{
   
@@ -140,27 +171,27 @@ const handleSport = (sport:string | null) =>{
           <p className='pl-3'>Soccer</p>
         </div> */}
         <p className=' items-center'>All Programs</p>
-        <Button className='border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg' onClick={() => setOpenModal(true)}>Create new program</Button>
+        <Button className='border-2 border-black bg-neutral-100  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg text-black hover:text-white' onClick={() => setOpenModal(true)}>Create Program</Button>
         <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
           <Modal.Header>
-            <p className='text-gray-900 dark:text-white'>Create New Program</p>
+            <p className='text-gray-900 dark:text-white font-titillium'>Create New Program</p>
           </Modal.Header>
           <Modal.Body>
                 <div className="space-y-6">
                   <h1>
-                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300" onClick={()=> router.push('/SportsSelectionPage')}>Sport Selection</a>  page and click on a new one.</p>
+                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4 font-titillium' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300 font-titillium" onClick={()=> router.push('/SportsSelectionPage')}>Sport Selection</a>  page and click on a new one.</p>
                   </h1>
 
 
 
                   <div>
-                    <div className="mb-2 block">
+                    <div className="mb-2 block font-titillium">
                       <Label htmlFor="programName" value="Enter the name of your Program"/>
                     </div>
                     <TextInput onChange={(e) => setNewProgramTitle(e.target.value)} id="New Program" minLength={4} required maxLength={60}/>
                   </div>
                   <div>
-                    <div className="mb-2 block">
+                    <div className="mb-2 block font-titillium">
                       <Label htmlFor="programDescription" value="Enter a description" />
                     </div>
                     <Textarea onChange={(e) => setNewProgramDescription(e.target.value)} id="New Program" minLength={4} required />
@@ -168,32 +199,32 @@ const handleSport = (sport:string | null) =>{
 
 
                   <div className="w-full flex flex-row justify-between">
-                    <Button onClick={() => setOpenCancelModal(true)} className="!bg-red-500">Cancel</Button>
+                    <Button onClick={() => setOpenCancelModal(true)} className="!bg-red-500 font-titillium">Cancel</Button>
                     <Modal show={openCancelModal} size="md" >
 
                       <Modal.Body>
                         <div className="space-y-6">
-                          <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                          <h3 className="text-xl font-medium text-gray-900 dark:text-white font-titillium">
                             Are you sure you would like to discard these changes?
                           </h3>
 
                           <div className="w-full flex flex-row justify-between">
-                            <Button className="!bg-red-500" onClick={() => setOpenCancelModal(false)}>Cancel</Button>
-                            <Button className="!bg-green-500" onClick={() => handleCloseModals()}>Confirm</Button>
+                            <Button className="!bg-red-500 font-titillium" onClick={() => setOpenCancelModal(false)}>Cancel</Button>
+                            <Button className="!bg-green-500 font-titillium" onClick={() => handleCloseModals()}>Confirm</Button>
                           </div>
 
                         </div>
                       </Modal.Body>
                     </Modal>
-                    <Button onClick={() => setOpenConfirmModal(true)} className="!bg-green-500">Create Program</Button>
+                    <Button onClick={() => setOpenConfirmModal(true)} className="!bg-green-500 font-titillium">Create Program</Button>
                     <Modal show={openConfirmModal} size="md">
                       <Modal.Body>
                         <div className="space-y-6">
-                          <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                          <h3 className="text-xl font-medium text-gray-900 dark:text-white font-titillium">
                             Are you sure you would like to save these changes?
                           </h3>
 
-                          <div className="w-full flex flex-row justify-between">
+                          <div className="w-full flex flex-row justify-between font-titillium">
                             <Button className="!bg-red-500" onClick={() => setOpenConfirmModal(false)}>Cancel</Button>
                             <Button className="!bg-green-500" onClick={() => handleNewProgram()} >Confirm</Button>
                             {/* <Modal popup onClose={() => setTempModal(false)} show={tempModal} size="md">
