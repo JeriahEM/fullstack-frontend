@@ -50,7 +50,7 @@ export const login = async (LoginUser: IUserInfo) => {
 
     const data: IToken = await res.json();
     sessionStorage.setItem("user", LoginUser.username)
-    sessionStorage.setItem("sport", "tennis")
+    sessionStorage.setItem("sport", "Tennis")
     // const UserContext = createContext("tennis");
 
     return data;
