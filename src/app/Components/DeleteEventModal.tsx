@@ -2,7 +2,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
-import { formatTime } from '@/utils/Dataservices';
+import { formatTime } from '@/app/utils/Dataservices';
 import { IEvent } from '../Interfaces/Interfaces';
 
 interface DeleteEventModalProps{

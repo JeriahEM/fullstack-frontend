@@ -11,7 +11,7 @@ import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 
 
 
-import { checkForUserOnRefresh, checkToken, loggedinData } from '@/utils/Dataservices';
+import { checkForUserOnRefresh, checkToken, loggedinData } from '@/app/utils/Dataservices';
 const NavbarComponent = () => {
 
   const [username, setUsername] = useState<string>("")

@@ -4,9 +4,9 @@ import NavbarComponent from "../Components/NavbarComponent";
 import Image from "next/image";
 import image1 from "../assets/images/image1.png";
 import phUser from "../assets/images/Group13.png";
-import dummyUsers from "@/utils/DummyUser.json";
+import dummyUsers from "@/app/utils/DummyUser.json";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import { checkForUserOnRefresh } from "@/utils/Dataservices";
+import { checkForUserOnRefresh } from "@/app/utils/Dataservices";
 
 // For this page we will need to call users id, pfp, username, status
 

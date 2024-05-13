@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import golf from "../assets/images/golf.jpg";
 import { useRouter } from "next/navigation";
-import { checkForUserOnRefresh } from "@/utils/Dataservices";
+import { checkForUserOnRefresh } from "@/app/utils/Dataservices";
 
 
 const SportsSelectionPage = () => {

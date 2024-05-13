@@ -19,7 +19,7 @@ import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
 import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
 import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
 import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
-import { checkForUserOnRefresh, createProgram, getAllPrograms, getProgramBySport, loggedinData } from '@/utils/Dataservices';
+import { checkForUserOnRefresh, createProgram, getAllPrograms, getProgramBySport, loggedinData } from '@/app/utils/Dataservices';
 
 import { SportsGolfOutlined } from '@mui/icons-material';import { ICreateProgram, IDisplayProgram } from '../Interfaces/Interfaces';
 
