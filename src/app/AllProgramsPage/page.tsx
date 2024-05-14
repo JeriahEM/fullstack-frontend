@@ -19,9 +19,11 @@ import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
 import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
 import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
 import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
-import { checkForUserOnRefresh, createProgram, getAllPrograms, getProgramBySport, loggedinData } from '@/app/utils/Dataservices';
+import { checkForUserOnRefresh, createProgram } from '@/utils/Dataservices';
+import { ICreateProgram } from '../Interfaces/Interfaces';
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import Image from 'next/image';
 
-import { SportsGolfOutlined } from '@mui/icons-material';import { ICreateProgram, IDisplayProgram } from '../Interfaces/Interfaces';
 
 const AllProgramsPage = () => {
   const initialPrograms: IDisplayProgram[] = [];
@@ -59,7 +61,7 @@ const handleCloseModals = () => {
 const handleNewProgram = async () => {
   
   const newProgram: ICreateProgram = {
-    id: 0,
+    id: 2,
     programName: newProgramTitle,
     programSport: sessionStorage.getItem('sport'),
     description: newProgramDescription,
@@ -171,7 +173,8 @@ const makeDisplayPrograms = () =>{
   return (
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
       <NavbarComponent />
-      <div className="flex flex-row text-3xl font-titillium font-bold pt-14 justify-evenly items-end">
+      
+      <div className="flex flex-row text-3xl font-titillium font-bold pt-14 justify-center  items-end">
         {handleSport(sessionStorage.getItem('sport'))}
         {/* <div className='flex flex-row items-center'>
           <SportsVolleyballRoundedIcon fontSize="small"/><PoolOutlinedIcon fontSize="large"/>
@@ -181,8 +184,21 @@ const makeDisplayPrograms = () =>{
           <SportsSoccerOutlinedIcon  fontSize="large"/>
           <p className='pl-3'>Soccer</p>
         </div> */}
-        <p className=' items-center'>All Programs</p>
-        <Button className='border-2 border-black bg-neutral-100 rounded-lg font-titillium bg-none w-[4rem] text-black hover:text-white' onClick={() => setOpenModal(true)}>Create Program</Button>
+        
+      </div>
+      <div className="grid grid-cols-1 mx-7">
+          <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />
+          <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+            <div className="grow-0">
+            <LocationOnOutlinedIcon className='invisible'/>
+            </div>
+            <div className="grow">
+              <p className=' cursor-pointer lg:pl-16 font-bold' onClick={() => setOpenModal(true)}>Add Program</p>
+            </div>
+            
+            <div className="grow-0 grid grid-cols-2 font-titillium ">
+              <p className=' md:pt-3 lg:pt-2 font-bold'>Members</p>
+              <Button className='border-2 border-black bg-neutral-100 rounded-lg font-titillium bg-none w-[4rem] text-black hover:text-white' onClick={() => setOpenModal(true)}>Create Program</Button>
         <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
           <Modal.Header>
             <p className='text-gray-900 dark:text-white font-titillium'>Create New Program</p>
@@ -190,7 +206,7 @@ const makeDisplayPrograms = () =>{
           <Modal.Body>
                 <div className="space-y-6">
                   <h1>
-                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4 font-titillium' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300 font-titillium" onClick={()=> router.push('/SportsSelectionPage')}>Sport Selection</a>  page and click on a new one.</p>
+                    <p className=' text-sm leading-relaxed text-gray-900 dark:text-white py-4 font-titillium' >Create your own unique group now! Add users to your program and get started with organizing your calendar! <br /> Each program will automatically be assigned to the sport you are currently in. To filter programs by a different sport go to the <a className="text-blue-600 hover:text-blue-300 font-titillium" onClick={()=> router.push('/SportsSelectionPage')}>Sport Selection</a>  page and click on a new one. <p className='text-xs text-gray-500'>(include location please)</p></p>
                   </h1>
 
 
@@ -255,15 +271,39 @@ const makeDisplayPrograms = () =>{
                 </div>
               </Modal.Body>
         </Modal>
-      </div>
-      <div className="grid grid-cols-1 mx-7">
-          <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />
+              
+            </div>
+          </div>
+
+          
+          <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+            <div className="grow-0">
+            <LocationOnOutlinedIcon/>
+            </div>
+            <div className="grow">
+              <p>Billy Willy's Swimmy Win Team</p>
+            </div>
+            
+            <div className="grow-0 grid grid-cols-2 font-titillium">
+              <p>#{}</p>
+              <Button className='border-2 border-black bg-green-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Join</Button>
+              
+            </div>
+          </div>
 
           <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+            <div className="grow-0">
             <LocationOnOutlinedIcon/>
+            </div>
+            <div className="grow">
+              <p>Roger Federer Tennis Group</p>
+            </div>
             
-            {/* <p>Billy Willy</p> */}
-            
+            <div className="grow-0 grid grid-cols-2 font-titillium">
+              <p>#{}</p>
+              <Button className='border-2 border-black bg-green-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Join</Button>
+              
+            </div>
           </div>
           {makeDisplayPrograms()}
         <br />

@@ -1,19 +1,28 @@
 'use client'
 
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { checkForUserOnRefresh, createAccount, getLoggedInUserData, isValidEmailFunction, login } from "@/app/utils/Dataservices";
-import { IToken } from "./Interfaces/Interfaces";
+import { checkForUserOnRefresh, createAccount, getLoggedInUserData, isValidEmailFunction, login, resetPassword } from "@/utils/Dataservices";
+import { IResetPassword, IToken } from "./Interfaces/Interfaces";
 import NavbarComponent from "./Components/NavbarComponent";
 
 
 
 export default function Home() {
-  useEffect(() =>{
+
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [rpModal, setRPModal] = useState<boolean>(false)
+
+  const handleCloseModals = () => {
+    setOpenModal(false);
+    setRPModal(false);
+  }
+
+  useEffect(() => {
     checkForUserOnRefresh()
     
-  },[])
+  }, [])
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -115,6 +124,27 @@ export default function Home() {
 
   }
 
+  const newPassword = async (newPassword: IResetPassword) => {
+    const fetchData = resetPassword(newPassword);
+
+  }
+
+
+//   updateDummy()
+//   const newPasswordDummy: IResetPassword = {
+//     email: email,
+//     newPassword: password
+//   }
+//   newPassword(newPasswordDummy)
+//   setUser(dummy)
+//   const urlString = createString()
+//   updateUserProfile(trueusername, urlString)
+
+//   setOpenModal(false);
+//   setRPModal(false);
+
+// }
+
 
   return (
     <div className="min-h-screen w-full Tennis ">
@@ -213,8 +243,48 @@ export default function Home() {
                 </div>
                 <input id="password1" type="password" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" maxLength={24} required onChange={(e) => setPassword(e.target.value)} />
               </div>
-              <p className=" hover:text-blue-400 text-blue-600 text-md min-h-7">{switchBool ? '' : 'Forgot password?'}</p>
-
+              <p onClick={() => setOpenModal(true)} className=" hover:text-blue-400 text-blue-600 text-md min-h-7">{switchBool ? '' : 'Forgot password?'} </p>
+              <Modal show={openModal} size="md">
+                <Modal.Body className=" min-h-72">
+                <div className=" text-center min-h-11 my-3">
+                        <p className="text-2xl">Forgot Password?</p>
+                </div>
+                <p className="text-sm pb-1 hidden md:block">Enter Email of the account you need the password for</p>
+                  <div className="min-h-11 my-3">
+                    <div className=" block ">
+                      <Label htmlFor="email" value="Email" />
+                    </div>
+                    <TextInput minLength={4} required maxLength={24} />
+                  </div>
+                  <div className="w-full flex flex-row justify-between min-h-11 my-3">
+                    <Button className="!bg-red-500 min-w-24 "  onClick={() => setOpenModal(false)}>Cancel</Button>
+                    <Button className="!bg-green-500 min-w-24" onClick={() => setRPModal(true)}>Confirm</Button>
+                  </div>
+                  <Modal show={rpModal} size="md">
+                    <Modal.Body className=" min-h-72">
+                      {/* <div className=" text-center">
+                        <p className="text-2xl">Reset Password</p>
+                      </div> */}
+                    <div className=" min-h-11 my-3">
+                    <div className="mb-2 block">
+                      <Label htmlFor="password" value="Password" />
+                    </div>
+                    <TextInput minLength={4} required maxLength={24} />
+                  </div>
+                  <div className=" min-h-11 my-3">
+                    <div className="mb-2 block">
+                      <Label htmlFor="cpassword" value="Confirm Password" />
+                    </div>
+                    <TextInput minLength={4} required maxLength={24} />
+                  </div>
+                  <div className="w-full flex flex-row justify-between min-h-11 my-3">
+                    <Button className="!bg-red-500 min-w-24" onClick={() => setRPModal(false)}>Back</Button>
+                    <Button className="!bg-green-500 min-w-24" onClick={() => handleCloseModals()}>Confirm</Button>
+                  </div>
+                    </Modal.Body>
+                  </Modal>
+                </Modal.Body>
+              </Modal>
               <Button onClick={handleSubmit} className=" text-black font-titillium bg-lime-300">
                 <p className="text-3xl">{switchBool ? 'Next' : 'Enter'}</p>
               </Button>
