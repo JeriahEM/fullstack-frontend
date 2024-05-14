@@ -161,9 +161,9 @@ const HomePage = () => {
     newEvent.id = idCounter;
     setIdCounter(idCounter + 1);
     setAllEvents([...allEvents, newEvent])
-    console.log(allEvents)
+   
     setDisplayEvents([...displayEvents, newEvent])
-    console.log(displayEvents)
+    
     setShowModal(false)
     console.log(newEvent)
 

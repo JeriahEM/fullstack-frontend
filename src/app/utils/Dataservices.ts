@@ -1,4 +1,4 @@
-import { ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 import { createContext } from "react";
 import validator from 'validator';
 
@@ -91,15 +91,21 @@ export const checkToken = () => {
     return result
 }
 
-export const updateUserProfile = async (username:string, inputString:string) => {
-    console.log(url + '/User/UpdateUser/' + username + "/birthday/image/funfact/email/realname?" + inputString);
-    const res = await fetch(url + '/User/UpdateUser/' + username + "/birthday/image/funfact/email/realname?" + inputString, {
-        method: "PUT"
+export const updateUserProfile = async (user:IUpdateUser) => {
+    const res = await fetch(url + '/User/UpdateUser/',  {
+        method: "PUT",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body:JSON.stringify(user)
     })
 
     if(!res.ok){
         const message = "An error has occured" + res.status;
         throw new Error(message);
+    }
+    else{
+        
     }
     const data = await res.json();
     console.log(data)
