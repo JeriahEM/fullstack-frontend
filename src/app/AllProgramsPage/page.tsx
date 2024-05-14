@@ -19,10 +19,11 @@ import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
 import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
 import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
 import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
-import { checkForUserOnRefresh, createProgram } from '@/utils/Dataservices';
-import { ICreateProgram } from '../Interfaces/Interfaces';
+import { checkForUserOnRefresh, createProgram } from '@/app/utils/Dataservices';
+import { ICreateProgram, IDisplayProgram } from '../Interfaces/Interfaces';
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import Image from 'next/image';
+import { getProgramBySport } from '../utils/Dataservices';
 
 
 const AllProgramsPage = () => {

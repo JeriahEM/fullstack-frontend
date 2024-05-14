@@ -3,7 +3,7 @@
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { checkForUserOnRefresh, createAccount, getLoggedInUserData, isValidEmailFunction, login, resetPassword } from "@/utils/Dataservices";
+import { checkForUserOnRefresh, createAccount, getLoggedInUserData, isValidEmailFunction, login, resetPassword } from "@/app/utils/Dataservices";
 import { IResetPassword, IToken } from "./Interfaces/Interfaces";
 import NavbarComponent from "./Components/NavbarComponent";
 

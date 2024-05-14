@@ -16,9 +16,9 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getProgramByID } from '@/utils/Dataservices';
+import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getProgramByID } from '@/app/utils/Dataservices';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import DummyEvents from '@/utils/DummyEvent.json'
+import DummyEvents from '@/app/utils/DummyEvent.json'
 import { IEvent } from '../Interfaces/Interfaces';
 import { Button, Modal } from 'flowbite-react';
 import { colors } from '@mui/material';
