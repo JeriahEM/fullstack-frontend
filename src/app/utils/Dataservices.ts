@@ -72,6 +72,7 @@ export const getLoggedInUserData = async (username: string) => {
     const data = await res.json();
     userData = data;
     sessionStorage.setItem("userID", userData.userID.toString())
+    sessionStorage.setItem('programs', userData.programs)
     console.log(userData)
 }
 
@@ -202,6 +203,20 @@ export const getEventsByProgramId = async (id:number) => {
     console.log(data)
     return  data
 }
+export const getEventsByProgramName = async (name:string) => {
+    const res = await fetch(url + '/Event/GetEventsByProgramName/' + name);
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
+export const getProgramByName = async (name:string) => {
+    const res = await fetch(url + '/Program/GetProgramByName/' + name);
+    const data = await res.json();
+    
+    console.log(data)
+    return data
+}
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};
@@ -270,4 +285,18 @@ export const formatTime = (timeString:string) => {
 export const isValidEmailFunction = (email:string) => {
         return validator.isEmail(email);
       };
+
+
+export const splitStringToArray = (inputString: string | null) => {
+    console.log(inputString)
+    // Split the string by comma and remove any leading/trailing whitespace
+    if(inputString && inputString.includes(',')){
+       return inputString.split(',').map(item => item.trim()); 
+    }
+    else if(inputString) {
+        return [inputString]
+    }
+    
+  };
+  
       

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import React, {Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent';
 
 
@@ -16,35 +16,42 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getProgramByID } from '@/app/utils/Dataservices';
+import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, splitStringToArray } from '@/app/utils/Dataservices';
 
 import DummyEvents from '@/app/utils/DummyEvent.json'
 import { IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
   const router = useRouter();
-  useEffect(() =>{
+  useEffect(() => {
     checkForUserOnRefresh()
-  },[])
+  }, [])
 
   useEffect(() => {
     const currentDate = new Date();
-    const options:any = { month: 'long', day: 'numeric', year: 'numeric' };
+    const options: any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
-      const fetchedProgram = await getProgramByID(1);
-      console.log(fetchedProgram)
-      const fetchedEvents = await getAllEvents()
-      idCounter = fetchedEvents.length;
-      console.log("you have this many events : " + idCounter)
-      setAllEvents(fetchedEvents)
+      const programArr = splitStringToArray(sessionStorage.getItem('programs'))
+      
+      if (programArr ) {
+        console.log(programArr[0])
+        const currentProg = await getProgramByName(programArr[0])
+        console.log(currentProg)
+        //set the program id and the description and fetch events 
+        const fetchedEvents = await getEventsByProgramName(programArr[0])
+        idCounter = fetchedEvents.length;
+        console.log("you have this many events : " + idCounter)
+        setAllEvents(fetchedEvents)
+      }
+
     }
     getEvents()
     console.log(allEvents)
 
-}, []);
+  }, []);
 
   var idCounter = 0;
   const [isAdmin, setIsAdmin] = useState<Boolean>(true)
@@ -83,9 +90,9 @@ const HomePage = () => {
     const currentEvents = allEvents.filter(obj => obj.start.includes(arg.dateStr))
     console.log(currentEvents)
     setDisplayEvents(currentEvents)
-    
+
   }
- 
+
 
   function handleDeleteModal(data: { event: { id: string } }) {
     setShowDeleteModal(true)
@@ -121,21 +128,21 @@ const HomePage = () => {
       title: e.target.value
     })
   }
-  const handleEndTimeChange = (time:string): void => {
+  const handleEndTimeChange = (time: string): void => {
     setNewEvent({
       ...newEvent,
-      end: (endTime + time ),
+      end: (endTime + time),
       allDay: false,
     })
   }
-  const handleStartTimeChange = (time:string): void => {
+  const handleStartTimeChange = (time: string): void => {
     setNewEvent({
       ...newEvent,
       start: (startTime + time),
       allDay: false,
     })
   }
-  const handleColorChange = (color:string): void => {
+  const handleColorChange = (color: string): void => {
     setNewEvent({
       ...newEvent,
       color: color
@@ -153,7 +160,7 @@ const HomePage = () => {
     setDisplayEvents([...displayEvents, newEvent])
     setShowModal(false)
     console.log(newEvent)
-    
+
     setNewEvent({
       title: '',
       start: '',
@@ -165,18 +172,18 @@ const HomePage = () => {
     })
   }
 
-  
 
-    
+
+
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
-    <NavbarComponent/>
+      <NavbarComponent />
 
       <div className=" grid grid-cols-7 lg:mx-7">
-          <div className=" col-span-7 lg:col-span-3 w-full py-3 lg:py-8 ">
-            
+        <div className=" col-span-7 lg:col-span-3 w-full py-3 lg:py-8 ">
+
           <main className="lg:p-3 h-full">
-        
+
             <FullCalendar
               plugins={[
                 dayGridPlugin,
@@ -201,38 +208,38 @@ const HomePage = () => {
               viewClassNames={"bg-white"}
               dayHeaderClassNames={"bg-white"}
               height={600}
-              
-              
-              
+
+
+
             />
-          
-
-          <AddEventModal 
-          showModal={showModal}
-          setShowModal={setShowModal}
-          handleSubmit={handleSubmit}
-          handleTitleChange={handleTitleChange}
-          handleEndTimeChange={handleEndTimeChange}
-          handleStartTimeChange={handleStartTimeChange}
-          newEvent={newEvent}
-          handleCloseModal={handleCloseModal}
-          handleColorChange={handleColorChange}
-        />
-        <DeleteEventModal
-         showDeleteModal={showDeleteModal}
-         setShowDeleteModal={setShowDeleteModal}
-         handleDelete={handleDelete}
-         handleCloseModal={handleCloseModal}
-         eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
-        />
 
 
-        
-        
-      </main>
-            
-          </div>
-        
+            <AddEventModal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              handleSubmit={handleSubmit}
+              handleTitleChange={handleTitleChange}
+              handleEndTimeChange={handleEndTimeChange}
+              handleStartTimeChange={handleStartTimeChange}
+              newEvent={newEvent}
+              handleCloseModal={handleCloseModal}
+              handleColorChange={handleColorChange}
+            />
+            <DeleteEventModal
+              showDeleteModal={showDeleteModal}
+              setShowDeleteModal={setShowDeleteModal}
+              handleDelete={handleDelete}
+              handleCloseModal={handleCloseModal}
+              eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
+            />
+
+
+
+
+          </main>
+
+        </div>
+
 
         <div className=" col-span-7 lg:col-span-4 lg:px-10">
           <div className="py-3 lg:py-8">
@@ -243,11 +250,11 @@ const HomePage = () => {
                 <li className="my-3 font-titillium">EVENT 2</li>
                 <li className="my-3 font-titillium">EVENT 3 </li> */}
                 {displayEvents.map((event, index) => (
-                    <li className='font-titillium py-3' key={index}>
-                        <strong>{event.title}</strong> - {formatDate(event.start)} | 
-                        {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
-                        {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
-                    </li>
+                  <li className='font-titillium py-3' key={index}>
+                    <strong>{event.title}</strong> - {formatDate(event.start)} |
+                    {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
+                    {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -262,37 +269,37 @@ const HomePage = () => {
       <div className="border-4 border-black lg:mx-7 rounded-lg">
 
 
-      <main className="lg:p-3 h-full">
-        
-        <FullCalendar
-          plugins={[
-            interactionPlugin,
-            timeGridPlugin
-          ]}
-          headerToolbar={{
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-          }}
-          events={allEvents as EventSourceInput}
-          nowIndicator={true}
-          height={600}
-          expandRows={true}
-          
-          
+        <main className="lg:p-3 h-full">
+
+          <FullCalendar
+            plugins={[
+              interactionPlugin,
+              timeGridPlugin
+            ]}
+            headerToolbar={{
+              left: 'prev,next',
+              center: 'title',
+              right: 'today'
+            }}
+            events={allEvents as EventSourceInput}
+            nowIndicator={true}
+            height={600}
+            expandRows={true}
+
+
           // editable={true}
           // droppable={true}
           // selectable={true}
           // selectMirror={true}
           // dateClick={handleDateClick}
-          
-          // eventClick={(data) => handleDeleteModal(data)}
-        />
-      
 
-    
-    
-  </main>
+          // eventClick={(data) => handleDeleteModal(data)}
+          />
+
+
+
+
+        </main>
 
 
       </div>
