@@ -56,7 +56,7 @@ export interface ICreateProgram {
 export interface IDisplayProgram {
     adminID: string
     coachID: string | null
-    discription: string
+    description: string
     genUserID: string | null
     programName: string
     programSport: string

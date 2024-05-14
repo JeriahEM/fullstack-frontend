@@ -36,18 +36,30 @@ const HomePage = () => {
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
       const programArr = splitStringToArray(sessionStorage.getItem('programs'))
-      
-      if (programArr ) {
+
+      if (programArr) {
         console.log(programArr[0])
-        const currentProg:IDisplayProgram = await getProgramByName(programArr[0])
-        console.log(currentProg)
+        const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
+        console.log(currentProg.programID)
         setProgramID(currentProg.programID)
+        setProgramDes(currentProg.description)
         // setProgramID(currentProg.programName)
         //set the program id and the description and fetch events 
+
         const fetchedEvents = await getEventsByProgramName(programArr[0])
+        console.log(fetchedEvents.length)
         setIdCounter(fetchedEvents.length);
+        console.log("this is idCounter " + idCounter)
         console.log("you have this many events : " + idCounter)
         setAllEvents(fetchedEvents)
+
+        const today = new Date();
+        console.log("this is program id" + programID)
+        const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        setNewEvent({ ...newEvent, start: dateStr, allDay: true, id: 0, programID: programID.toString() })
+
+        setStartTime(dateStr + " ")
+        setEndTime(dateStr + " ")
       }
 
     }
@@ -55,6 +67,7 @@ const HomePage = () => {
 
   }, []);
 
+  const [programDesc, setProgramDes] = useState<string>('')
   const [idCounter, setIdCounter] = useState(0);
   const [isAdmin, setIsAdmin] = useState<Boolean>(true)
   const [programID, setProgramID] = useState<number>(0);
@@ -83,7 +96,7 @@ const HomePage = () => {
     // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
     console.log(idCounter)
     setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0, programID: programID.toString() })
-    setShowModal(true)
+    // setShowModal(true)
     console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
@@ -157,13 +170,14 @@ const HomePage = () => {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(newEvent)
+    newEvent.id = 0
     await createEvent(newEvent);
     newEvent.id = idCounter;
     setIdCounter(idCounter + 1);
     setAllEvents([...allEvents, newEvent])
-   
+
     setDisplayEvents([...displayEvents, newEvent])
-    
+
     setShowModal(false)
     console.log(newEvent)
 
@@ -179,7 +193,11 @@ const HomePage = () => {
   }
 
 
-
+  const handleCreate = () =>{
+    console.log(newEvent)
+    console.log(programDesc)
+    setShowModal(true)
+  }
 
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
@@ -250,7 +268,7 @@ const HomePage = () => {
         <div className=" col-span-7 lg:col-span-4 lg:px-10">
           <div className="py-3 lg:py-8">
             <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
-            <div className=" text-xl p-5">
+            <div className=" text-xl p-5 ">
               <ul style={{ listStyleType: 'square' }}>
                 {/* <li className="my-3 font-titillium">EVENT 1</li>
                 <li className="my-3 font-titillium">EVENT 2</li>
@@ -263,6 +281,10 @@ const HomePage = () => {
                   </li>
                 ))}
               </ul>
+              <div className="relative h-[90px] flex justify-center items-end">
+                <button onClick={() => handleCreate()} className='absolute text-white py-2 px-4 rounded bg-violet-500 hover:bg-violet-800'> Create New Event</button>
+              </div>
+
             </div>
 
 
