@@ -19,10 +19,11 @@ import DeleteEventModal from '../Components/DeleteEventModal';
 import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, splitStringToArray } from '@/app/utils/Dataservices';
 
 import DummyEvents from '@/app/utils/DummyEvent.json'
-import { IEvent } from '../Interfaces/Interfaces';
+import { IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
   const router = useRouter();
+
   useEffect(() => {
     checkForUserOnRefresh()
   }, [])
@@ -38,24 +39,25 @@ const HomePage = () => {
       
       if (programArr ) {
         console.log(programArr[0])
-        const currentProg = await getProgramByName(programArr[0])
+        const currentProg:IDisplayProgram = await getProgramByName(programArr[0])
         console.log(currentProg)
+        setProgramID(currentProg.programID)
+        // setProgramID(currentProg.programName)
         //set the program id and the description and fetch events 
         const fetchedEvents = await getEventsByProgramName(programArr[0])
-        idCounter = fetchedEvents.length;
+        setIdCounter(fetchedEvents.length);
         console.log("you have this many events : " + idCounter)
         setAllEvents(fetchedEvents)
       }
 
     }
     getEvents()
-    console.log(allEvents)
 
   }, []);
 
-  var idCounter = 0;
+  const [idCounter, setIdCounter] = useState(0);
   const [isAdmin, setIsAdmin] = useState<Boolean>(true)
-  const [programID, setProgramID] = useState<string>("0");
+  const [programID, setProgramID] = useState<number>(0);
   const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -65,9 +67,9 @@ const HomePage = () => {
     start: '',
     end: '',
     allDay: false,
-    id: 0,
+    id: idCounter,
     color: '',
-    programID: programID
+    programID: programID.toString()
   })
 
   const [startTime, setStartTime] = useState<string>("");
@@ -79,11 +81,13 @@ const HomePage = () => {
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
     //setting up useState for the modal
     // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
-    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0 })
+    console.log(idCounter)
+    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0, programID: programID.toString() })
     setShowModal(true)
     console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
+    console.log(allEvents)
 
     //showing the events on the other div
     setClickedDate(arg.dateStr)
@@ -112,9 +116,9 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      id: 0,
+      id: idCounter,
       color: '',
-      programID: programID,
+      programID: programID.toString(),
     })
     setStartTime("")
     setEndTime("")
@@ -155,9 +159,11 @@ const HomePage = () => {
     console.log(newEvent)
     await createEvent(newEvent);
     newEvent.id = idCounter;
-    idCounter++;
+    setIdCounter(idCounter + 1);
     setAllEvents([...allEvents, newEvent])
+    console.log(allEvents)
     setDisplayEvents([...displayEvents, newEvent])
+    console.log(displayEvents)
     setShowModal(false)
     console.log(newEvent)
 
@@ -165,10 +171,10 @@ const HomePage = () => {
       title: '',
       start: '',
       end: '',
-      allDay: false,
-      id: 0,
+      allDay: true,
+      id: idCounter,
       color: '',
-      programID: programID,
+      programID: programID.toString(),
     })
   }
 

@@ -120,7 +120,7 @@ export const createEvent = async (event: IEvent) => {
         throw new Error(message);
     }
     else{
-        alert("Event Created")
+        
     }
 
     const data = await res.json();

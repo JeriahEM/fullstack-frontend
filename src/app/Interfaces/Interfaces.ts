@@ -60,6 +60,7 @@ export interface IDisplayProgram {
     genUserID: string | null
     programName: string
     programSport: string
+    programID: number
 }
 
 export interface IUpdateUser {
