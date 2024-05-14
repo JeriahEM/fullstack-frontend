@@ -20,7 +20,7 @@ import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvent
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DummyEvents from '@/utils/DummyEvent.json'
 import { IEvent } from '../Interfaces/Interfaces';
-import { Modal } from 'flowbite-react';
+import { Button, Modal } from 'flowbite-react';
 import { colors } from '@mui/material';
 
 const HomePage = () => {
@@ -247,6 +247,8 @@ const HomePage = () => {
                 <Modal.Header />
                 <Modal.Body>
                   <p className=' font-titillium text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ad voluptatum, dolorum optio sit praesentium quasi eligendi quos laborum, incidunt velit sunt quibusdam sint quidem at harum ex neque cumque!</p>
+                  <br />
+                  <Button className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>
                 </Modal.Body>
               </Modal>
             </div>
