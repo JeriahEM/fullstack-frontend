@@ -269,9 +269,15 @@ const HomePage = () => {
 
         <div className=" col-span-7 lg:col-span-4 lg:px-10">
           <div className="py-3 lg:py-8">
+            <div className='flex justify-center'>
           <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
-            <div className='hover:text-slate-600 hover:cursor-pointer row-span-1 justify-center pl-3 mt-1'>
+          <div className='flex  items-center ps-2'>
               <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
+
+          </div>
+
+            </div>
+            <div className='hover:text-slate-600 hover:cursor-pointer row-span-1 justify-center pl-3 mt-1'>
               <Modal popup onClose={() => setDescriptionModal(false)} show={descriptionModal} size="md">
                 <Modal.Header />
                 <Modal.Body>
@@ -281,6 +287,7 @@ const HomePage = () => {
                 </Modal.Body>
               </Modal>
             </div>
+
             <div className=" text-xl p-5 ">
               <ul style={{ listStyleType: 'square' }}>
                 {/* <li className="my-3 font-titillium">EVENT 1</li>
