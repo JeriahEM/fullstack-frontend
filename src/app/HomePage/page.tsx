@@ -10,8 +10,6 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
 
-import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
@@ -42,8 +40,8 @@ const HomePage = () => {
         const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
         console.log(currentProg.programID)
         setProgramID(currentProg.programID)
+        setNewEvent({...newEvent, programID : currentProg.programID.toString()})  
         setProgramDes(currentProg.description)
-        // setProgramID(currentProg.programName)
         //set the program id and the description and fetch events 
 
         const fetchedEvents = await getEventsByProgramName(programArr[0])
@@ -194,6 +192,7 @@ const HomePage = () => {
 
 
   const handleCreate = () =>{
+    setNewEvent({...newEvent, programID : programID.toString()})    
     console.log(newEvent)
     console.log(programDesc)
     setShowModal(true)
