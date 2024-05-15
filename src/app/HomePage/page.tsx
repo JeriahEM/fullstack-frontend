@@ -11,13 +11,14 @@ import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction
 import timeGridPlugin from '@fullcalendar/timegrid'
 
 import { EventSourceInput } from '@fullcalendar/core/index.js'
-
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
 import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, splitStringToArray } from '@/app/utils/Dataservices';
 
 import DummyEvents from '@/app/utils/DummyEvent.json'
 import { IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
+import { Button, Modal } from 'flowbite-react';
 
 const HomePage = () => {
   const router = useRouter();
@@ -198,6 +199,8 @@ const HomePage = () => {
     setShowModal(true)
   }
 
+  const [descriptionModal, setDescriptionModal] = useState(false)
+
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
       <NavbarComponent />
@@ -266,24 +269,17 @@ const HomePage = () => {
 
         <div className=" col-span-7 lg:col-span-4 lg:px-10">
           <div className="py-3 lg:py-8">
-            <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
-            <div className=" text-xl p-5 ">
-              <ul style={{ listStyleType: 'square' }}>
-                {/* <li className="my-3 font-titillium">EVENT 1</li>
-                <li className="my-3 font-titillium">EVENT 2</li>
-                <li className="my-3 font-titillium">EVENT 3 </li> */}
-                {displayEvents.map((event, index) => (
-                  <li className='font-titillium py-3' key={index}>
-                    <strong>{event.title}</strong> - {formatDate(event.start)} |
-                    {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
-                    {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
-                  </li>
-                ))}
-              </ul>
-              <div className="relative h-[90px] flex justify-center items-end">
-                <button onClick={() => handleCreate()} className='absolute text-white py-2 px-4 rounded bg-violet-500 hover:bg-violet-800'> Create New Event</button>
-              </div>
-
+          <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
+            <div className='hover:text-slate-600 hover:cursor-pointer row-span-1 justify-center pl-3 mt-1'>
+              <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
+              <Modal popup onClose={() => setDescriptionModal(false)} show={descriptionModal} size="md">
+                <Modal.Header />
+                <Modal.Body>
+                  <p className=' font-titillium text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ad voluptatum, dolorum optio sit praesentium quasi eligendi quos laborum, incidunt velit sunt quibusdam sint quidem at harum ex neque cumque!</p>
+                  <br />
+                  <Button className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>
+                </Modal.Body>
+              </Modal>
             </div>
 
 

@@ -199,7 +199,7 @@ const makeDisplayPrograms = () =>{
             
             <div className="grow-0 grid grid-cols-2 font-titillium ">
               <p className=' md:pt-3 lg:pt-2 font-bold'>Members</p>
-              <Button className='border-2 border-black bg-neutral-100 rounded-lg font-titillium bg-none w-[4rem] text-black hover:text-white' onClick={() => setOpenModal(true)}>Create Program</Button>
+              <Button className='border-2 border-black bg-neutral-100 rounded-lg font-titillium bg-none w-[4rem] text-black hover:text-white min-w-36 h-14' onClick={() => setOpenModal(true)}>Create Program</Button>
         <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
           <Modal.Header>
             <p className='text-gray-900 dark:text-white font-titillium'>Create New Program</p>
