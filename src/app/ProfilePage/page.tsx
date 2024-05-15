@@ -158,12 +158,22 @@ const ProfilePage = () => {
     if(programArr){
       return programArr.map((program, index)=>(
       <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
-              <LocationOnOutlinedIcon/>
-              {program}
+              <div className="text-5xl">
+                <LocationOnOutlinedIcon fontSize="inherit"/>
+                </div>
+              <button onClick={()=>handleProgramClick(program)} className=" hover:cursor-pointer hover:font-bold hover:text-blue-600">
+                {program}
+              </button>
+              
             </div>
     ))
     }
     
+  }
+
+  const handleProgramClick = (program:string) =>{
+    sessionStorage.setItem('currentProgram', program)
+    router.push('/HomePage')
   }
 
   return (
