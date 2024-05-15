@@ -51,6 +51,8 @@ export const login = async (LoginUser: IUserInfo) => {
     const data: IToken = await res.json();
     sessionStorage.setItem("user", LoginUser.username)
     sessionStorage.setItem("sport", "Tennis")
+    
+    
     // const UserContext = createContext("tennis");
 
     return data;
@@ -73,6 +75,10 @@ export const getLoggedInUserData = async (username: string) => {
     userData = data;
     sessionStorage.setItem("userID", userData.userID.toString())
     sessionStorage.setItem('programs', userData.programs)
+    const programArr = splitStringToArray(userData.programs);
+    if(programArr){
+      sessionStorage.setItem('currentProgram', programArr[0])   
+    }
     console.log(userData)
 }
 
