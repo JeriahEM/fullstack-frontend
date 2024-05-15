@@ -28,9 +28,7 @@ const NavbarComponent = () => {
     ))
   }    
 
-  useEffect(()=>{
 
-  },[currentProg])
 
   useEffect(() => {
 

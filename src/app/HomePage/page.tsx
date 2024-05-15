@@ -20,12 +20,15 @@ import DummyEvents from '@/app/utils/DummyEvent.json'
 import { IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
 import { Button, Modal } from 'flowbite-react';
 
+
+
 const HomePage = () => {
   const router = useRouter();
 
   useEffect(() => {
     checkForUserOnRefresh()
   }, [])
+
 
   useEffect(() => {
     const currentDate = new Date();
@@ -41,7 +44,7 @@ const HomePage = () => {
         const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
         console.log(currentProg.programID)
         setProgramID(currentProg.programID)
-        setNewEvent({...newEvent, programID : currentProg.programID.toString()})  
+        setNewEvent({ ...newEvent, programID: currentProg.programID.toString() })
         setProgramDes(currentProg.description)
         //set the program id and the description and fetch events 
 
@@ -192,8 +195,8 @@ const HomePage = () => {
   }
 
 
-  const handleCreate = () =>{
-    setNewEvent({...newEvent, programID : programID.toString()})    
+  const handleCreate = () => {
+    setNewEvent({ ...newEvent, programID: programID.toString() })
     console.log(newEvent)
     console.log(programDesc)
     setShowModal(true)
@@ -270,11 +273,11 @@ const HomePage = () => {
         <div className=" col-span-7 lg:col-span-4 lg:px-10">
           <div className="py-3 lg:py-8">
             <div className='flex justify-center'>
-          <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
-          <div className='flex  items-center ps-2'>
-              <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
+              <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
+              <div className='flex  items-center ps-2'>
+                <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
 
-          </div>
+              </div>
 
             </div>
             <div className='hover:text-slate-600 hover:cursor-pointer row-span-1 justify-center pl-3 mt-1'>
@@ -301,12 +304,12 @@ const HomePage = () => {
                   </li>
                 ))}
               </ul>
-              </div>
-            <div className="relative h-[90px] flex justify-center items-end">
-                <button onClick={() => handleCreate()} className='absolute text-white py-2 px-4 rounded bg-violet-500 hover:bg-violet-800'> Create New Event</button>
-              </div>
-
             </div>
+            <div className="relative h-[90px] flex justify-center items-end">
+              <button onClick={() => handleCreate()} className='absolute text-white py-2 px-4 rounded bg-violet-500 hover:bg-violet-800'> Create New Event</button>
+            </div>
+
+          </div>
         </div>
 
       </div>
