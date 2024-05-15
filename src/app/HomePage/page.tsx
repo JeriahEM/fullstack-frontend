@@ -281,7 +281,23 @@ const HomePage = () => {
                 </Modal.Body>
               </Modal>
             </div>
-
+            <div className=" text-xl p-5 ">
+              <ul style={{ listStyleType: 'square' }}>
+                {/* <li className="my-3 font-titillium">EVENT 1</li>
+                <li className="my-3 font-titillium">EVENT 2</li>
+                <li className="my-3 font-titillium">EVENT 3 </li> */}
+                {displayEvents.map((event, index) => (
+                  <li className='font-titillium py-3' key={index}>
+                    <strong>{event.title}</strong> - {formatDate(event.start)} |
+                    {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
+                    {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
+                  </li>
+                ))}
+              </ul>
+              </div>
+            <div className="relative h-[90px] flex justify-center items-end">
+                <button onClick={() => handleCreate()} className='absolute text-white py-2 px-4 rounded bg-violet-500 hover:bg-violet-800'> Create New Event</button>
+              </div>
 
             </div>
         </div>
