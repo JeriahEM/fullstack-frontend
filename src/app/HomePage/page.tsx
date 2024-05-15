@@ -198,7 +198,7 @@ const HomePage = () => {
   const handleCreate = () => {
     setNewEvent({ ...newEvent, programID: programID.toString() })
     console.log(newEvent)
-    console.log(programDesc)
+   
     setShowModal(true)
   }
 
@@ -284,7 +284,9 @@ const HomePage = () => {
               <Modal popup onClose={() => setDescriptionModal(false)} show={descriptionModal} size="md">
                 <Modal.Header />
                 <Modal.Body>
-                  <p className=' font-titillium text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ad voluptatum, dolorum optio sit praesentium quasi eligendi quos laborum, incidunt velit sunt quibusdam sint quidem at harum ex neque cumque!</p>
+                  <p className=' font-titillium text-xl'>
+                    Program Description: {programDesc}
+                    </p>
                   <br />
                   <Button className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>
                 </Modal.Body>
