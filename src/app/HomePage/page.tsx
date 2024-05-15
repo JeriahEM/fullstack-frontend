@@ -10,21 +10,18 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
 
-import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 import { EventSourceInput } from '@fullcalendar/core/index.js'
 
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getProgramByID } from '@/app/utils/Dataservices';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, splitStringToArray } from '@/app/utils/Dataservices';
+
 import DummyEvents from '@/app/utils/DummyEvent.json'
-import { IEvent } from '../Interfaces/Interfaces';
-import { Button, Modal } from 'flowbite-react';
-import { colors } from '@mui/material';
+import { IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
 
 const HomePage = () => {
   const router = useRouter();
+
   useEffect(() => {
     checkForUserOnRefresh()
   }, [])
@@ -36,21 +33,42 @@ const HomePage = () => {
     setClickedDate(formattedDateString);
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
-      const fetchedProgram = await getProgramByID(1);
-      console.log(fetchedProgram)
-      const fetchedEvents = await getAllEvents()
-      idCounter = fetchedEvents.length;
-      console.log("you have this many events : " + idCounter)
-      setAllEvents(fetchedEvents)
+      const programArr = splitStringToArray(sessionStorage.getItem('programs'))
+
+      if (programArr) {
+        console.log(programArr[0])
+        const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
+        console.log(currentProg.programID)
+        setProgramID(currentProg.programID)
+        setNewEvent({...newEvent, programID : currentProg.programID.toString()})  
+        setProgramDes(currentProg.description)
+        //set the program id and the description and fetch events 
+
+        const fetchedEvents = await getEventsByProgramName(programArr[0])
+        console.log(fetchedEvents.length)
+        setIdCounter(fetchedEvents.length);
+        console.log("this is idCounter " + idCounter)
+        console.log("you have this many events : " + idCounter)
+        setAllEvents(fetchedEvents)
+
+        const today = new Date();
+        console.log("this is program id" + programID)
+        const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        setNewEvent({ ...newEvent, start: dateStr, allDay: true, id: 0, programID: programID.toString() })
+
+        setStartTime(dateStr + " ")
+        setEndTime(dateStr + " ")
+      }
+
     }
     getEvents()
-    console.log(allEvents)
 
   }, []);
 
-  var idCounter = 0;
+  const [programDesc, setProgramDes] = useState<string>('')
+  const [idCounter, setIdCounter] = useState(0);
   const [isAdmin, setIsAdmin] = useState<Boolean>(true)
-  const [programID, setProgramID] = useState<string>("0");
+  const [programID, setProgramID] = useState<number>(0);
   const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -60,9 +78,9 @@ const HomePage = () => {
     start: '',
     end: '',
     allDay: false,
-    id: 0,
+    id: idCounter,
     color: '',
-    programID: programID
+    programID: programID.toString()
   })
 
   const [startTime, setStartTime] = useState<string>("");
@@ -74,11 +92,13 @@ const HomePage = () => {
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
     //setting up useState for the modal
     // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
-    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0 })
-    setShowModal(true)
+    console.log(idCounter)
+    setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0, programID: programID.toString() })
+    // setShowModal(true)
     console.log(arg.dateStr)
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
+    console.log(allEvents)
 
     //showing the events on the other div
     setClickedDate(arg.dateStr)
@@ -107,9 +127,9 @@ const HomePage = () => {
       start: '',
       end: '',
       allDay: false,
-      id: 0,
+      id: idCounter,
       color: '',
-      programID: programID,
+      programID: programID.toString(),
     })
     setStartTime("")
     setEndTime("")
@@ -148,11 +168,14 @@ const HomePage = () => {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(newEvent)
+    newEvent.id = 0
     await createEvent(newEvent);
     newEvent.id = idCounter;
-    idCounter++;
+    setIdCounter(idCounter + 1);
     setAllEvents([...allEvents, newEvent])
+
     setDisplayEvents([...displayEvents, newEvent])
+
     setShowModal(false)
     console.log(newEvent)
 
@@ -160,17 +183,20 @@ const HomePage = () => {
       title: '',
       start: '',
       end: '',
-      allDay: false,
-      id: 0,
+      allDay: true,
+      id: idCounter,
       color: '',
-      programID: programID,
+      programID: programID.toString(),
     })
   }
 
-  const [descriptionModal, setDescriptionModal] = useState(false)
 
-
-
+  const handleCreate = () =>{
+    setNewEvent({...newEvent, programID : programID.toString()})    
+    console.log(newEvent)
+    console.log(programDesc)
+    setShowModal(true)
+  }
 
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
@@ -241,21 +267,7 @@ const HomePage = () => {
         <div className=" col-span-7 lg:col-span-4 lg:px-10 ">
           <div className="py-3 lg:py-8 flex flex-row row-span-6 justify-center ">
             <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
-            <div className='hover:text-slate-600 hover:cursor-pointer row-span-1 justify-center pl-3 mt-1'>
-              <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
-              <Modal popup onClose={() => setDescriptionModal(false)} show={descriptionModal} size="md">
-                <Modal.Header />
-                <Modal.Body>
-                  <p className=' font-titillium text-xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ad voluptatum, dolorum optio sit praesentium quasi eligendi quos laborum, incidunt velit sunt quibusdam sint quidem at harum ex neque cumque!</p>
-                  <br />
-                  <Button className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>
-                </Modal.Body>
-              </Modal>
-            </div>
-
-
-          </div>
-          <div className=" text-xl p-5 px-0">
+            <div className=" text-xl p-5 ">
               <ul style={{ listStyleType: 'square' }}>
                 {/* <li className="my-3 font-titillium">EVENT 1</li>
                 <li className="my-3 font-titillium">EVENT 2</li>
@@ -265,10 +277,15 @@ const HomePage = () => {
                     <strong>{event.title}</strong> - {formatDate(event.start)} |
                     {event.allDay ? " All Day" : ` Start Time: ${formatTime(event.start)}`}
                     {event.allDay ? "" : `, End Time: ${formatTime(event.end)}`}
-
                   </li>
                 ))}
               </ul>
+              <div className="relative h-[90px] flex justify-center items-end">
+                <button onClick={() => handleCreate()} className='absolute text-white py-2 px-4 rounded bg-violet-500 hover:bg-violet-800'> Create New Event</button>
+              </div>
+
+            </div>
+
 
             </div>
         </div>

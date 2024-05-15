@@ -1,4 +1,4 @@
-import { ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 import { createContext } from "react";
 import validator from 'validator';
 
@@ -72,6 +72,7 @@ export const getLoggedInUserData = async (username: string) => {
     const data = await res.json();
     userData = data;
     sessionStorage.setItem("userID", userData.userID.toString())
+    sessionStorage.setItem('programs', userData.programs)
     console.log(userData)
 }
 
@@ -90,15 +91,21 @@ export const checkToken = () => {
     return result
 }
 
-export const updateUserProfile = async (username:string, inputString:string) => {
-    console.log(url + '/User/UpdateUser/' + username + "/birthday/image/funfact/email/realname?" + inputString);
-    const res = await fetch(url + '/User/UpdateUser/' + username + "/birthday/image/funfact/email/realname?" + inputString, {
-        method: "PUT"
+export const updateUserProfile = async (user:IUpdateUser) => {
+    const res = await fetch(url + '/User/UpdateUser/',  {
+        method: "PUT",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body:JSON.stringify(user)
     })
 
     if(!res.ok){
         const message = "An error has occured" + res.status;
         throw new Error(message);
+    }
+    else{
+        
     }
     const data = await res.json();
     console.log(data)
@@ -119,7 +126,7 @@ export const createEvent = async (event: IEvent) => {
         throw new Error(message);
     }
     else{
-        alert("Event Created")
+        
     }
 
     const data = await res.json();
@@ -202,6 +209,20 @@ export const getEventsByProgramId = async (id:number) => {
     console.log(data)
     return  data
 }
+export const getEventsByProgramName = async (name:string) => {
+    const res = await fetch(url + '/Event/GetEventsByProgramName/' + name);
+    const data = await res.json();
+    
+    console.log(data)
+    return  data
+}
+export const getProgramByName = async (name:string) => {
+    const res = await fetch(url + '/Program/GetProgramByName/' + name);
+    const data = await res.json();
+    
+    console.log(data)
+    return data
+}
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};
@@ -270,4 +291,18 @@ export const formatTime = (timeString:string) => {
 export const isValidEmailFunction = (email:string) => {
         return validator.isEmail(email);
       };
+
+
+export const splitStringToArray = (inputString: string | null) => {
+    console.log(inputString)
+    // Split the string by comma and remove any leading/trailing whitespace
+    if(inputString && inputString.includes(',')){
+       return inputString.split(',').map(item => item.trim()); 
+    }
+    else if(inputString) {
+        return [inputString]
+    }
+    
+  };
+  
       
