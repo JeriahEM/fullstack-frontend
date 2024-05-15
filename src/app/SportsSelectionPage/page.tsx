@@ -8,8 +8,6 @@ import { checkForUserOnRefresh } from "@/app/utils/Dataservices";
 
 
 const SportsSelectionPage = () => {
-  
-
   useEffect(() =>{
     checkForUserOnRefresh()
   },[])
