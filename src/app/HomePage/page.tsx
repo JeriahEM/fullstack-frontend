@@ -264,8 +264,8 @@ const HomePage = () => {
         </div>
 
 
-        <div className=" col-span-7 lg:col-span-4 lg:px-10 ">
-          <div className="py-3 lg:py-8 flex flex-row row-span-6 justify-center ">
+        <div className=" col-span-7 lg:col-span-4 lg:px-10">
+          <div className="py-3 lg:py-8">
             <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
             <div className=" text-xl p-5 ">
               <ul style={{ listStyleType: 'square' }}>
