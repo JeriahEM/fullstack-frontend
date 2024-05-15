@@ -3,16 +3,19 @@ import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button, Checkbox, Datepicker, FileInput, Label, Modal, ModalBody, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
-import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile, isValidEmailFunction } from "@/app/utils/Dataservices";
-import { IResetPassword, IUserdata } from "../Interfaces/Interfaces";
+import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile, isValidEmailFunction, splitStringToArray } from "@/app/utils/Dataservices";
+import { IDisplayProgram, IResetPassword, IUserdata } from "../Interfaces/Interfaces";
 import { encode } from "punycode";
 import { ClassNames } from "@emotion/react";
+
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import placehold from "../assets/images/Group13.png"
 import Image from "next/image";
 
 
 
 const ProfilePage = () => {
+  const router = useRouter();
   // interface Iuserprofile {
   //   Name: string,
   //   Birthday: string,
@@ -41,7 +44,7 @@ const ProfilePage = () => {
 
       dummy = loggedIn;
       setUser(dummy)
-      findDifferences(user, dummy)
+      // findDifferences(user, dummy)
     }
     waitForData();
     // getLoggedinData();
@@ -118,151 +121,109 @@ const ProfilePage = () => {
   }
 
   const handleEditChange = () => {
-    const createString = () => {
 
-      interface StringObject {
-        [key: string]: string;
-      }
-
-      let stringObj: StringObject = {
-        birthdayString: "",
-        funFactString: "",
-        realNameString: "",
-        imageString: "",
-      }
-
-
-      const diffs = findDifferences(user, dummy)
-      for (const key in diffs) {
-        switch (key) {
-          case "funFact":
-            console.log("fun fact changed")
-            stringObj.funFactString = ("funfact=" + encodeURIComponent(dummy.funFact))
-            break;
-          case "realName":
-            console.log("real name changed")
-            stringObj.realNameString = ("realName=" + encodeURIComponent(dummy.realName))
-            break;
-          case "image":
-            console.log("image changed")
-            break;
-          case "birthday":
-            console.log("birthday changed")
-            stringObj.birthdayString = ("birthday=" + encodeURIComponent(dummy.birthday))
-            break;
-          default:
-          // code block
-        }
-      }
-      //birthday funfact realname
-      const changedStrings = Object.entries(stringObj).map(([key, value]) => {
-        if (value !== "") {
-          console.log(stringObj[key])
-          return `${stringObj[key]}`;
-        }
-      }).filter(Boolean).join('&');
-
-      console.log(changedStrings)
-      return (changedStrings)
-    }
 
     const newPassword = async (newPassword: IResetPassword) => {
       const fetchData = resetPassword(newPassword);
-
     }
 
-
-    updateDummy()
-    const newPasswordDummy: IResetPassword = {
-      email: email,
-      newPassword: password
-    }
-    newPassword(newPasswordDummy)
+    updateUserProfile(
+      {
+        userName: username,
+        realName: name,
+        image: image,
+        birthday: birthday,
+        funFact: funFact,
+        email: email
+      }
+    )
+    updateDummy();
     setUser(dummy)
-    const urlString = createString()
-    updateUserProfile(trueusername, urlString)
 
     setOpenModal(false);
     setOpenSaveModal(false);
     setOpenCancelModal(false);
   }
 
-  const router = useRouter();
-
-
   // updateUserProfile(username, "string goes here")
-  useEffect(() => {
 
-
-  }, [])
 
   const getDate = (e: any) => {
-    // console.log('test')
     console.log(e.target.value)
     setBirthday(e)
   }
 
-
-
+  const makeDisplayPrograms = () =>{
+    const programArr = splitStringToArray(sessionStorage.getItem('programs'))
+    if(programArr){
+      return programArr.map((program, index)=>(
+      <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+              <LocationOnOutlinedIcon/>
+              {program}
+            </div>
+    ))
+    }
+    
+  }
 
   return (
     <>
       <NavbarComponent />
       <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
-        <div className="grid grid-cols-6 mx-7 py-8 ">
-          <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
-            <div className="flex justify-center">
-              <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl" >
-                <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={placehold} />
+          <div className="grid grid-cols-6 mx-7 py-8 ">
+            <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
+              <div className="flex justify-center">
+                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl" >
+                  <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={placehold} />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className=" col-span-6 md:col-span-3 lg:col-span-4 lg:px-16 flex flex-col justify-between">
-            <div className="">
-              <ul style={{ listStyleType: "none" }}>
-                <li className="my-3">
-                  <div className="flex flex-row text-2xl font-titillium">
-                    <p className="pe-3 font-bold">Name:</p>
-                    <p>{user.realName}</p>
-                  </div>
-                </li>
-                <li className="my-3">
-                  <div className="flex flex-row text-2xl font-titillium">
-                    <p className="pe-3 font-bold">Birthday:</p>
-                    <p>{formatDate(user.birthday)}</p>
-                    {/* <p>{user.birthday}</p> */}
-                  </div>
-                </li>
-                <li className="my-3">
-                  <div className="flex flex-row text-2xl font-titillium">
-                    <p className="pe-3 font-bold">Status:</p>
-                    <p>User</p>
-                  </div>
-                </li>
-                <li className="my-3">
-                  <div className="flex flex-row text-2xl font-titillium">
-                    <p className="pe-3 font-bold">Fun Fact:</p>
-                    <p>{user.funFact}</p>
-                  </div>
-                </li>
-                <li className="my-3">
-                  <div className="flex flex-row text-2xl font-titillium">
-                    <p className="pe-3 font-bold">User Name:</p>
-                    <p>{user.username}</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="mt-auto flex justify-center">
-              <button onClick={() => setOpenModal(true)} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </button>
-              <Modal show={openModal} size="md" popup onClose={() => setOpenModal(false)} initialFocus={emailInputRef} >
-                <Modal.Header />
-                <Modal.Body>
-                  <div className="space-y-6">
-                    <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                      Edit your account
-                    </h3>
+            <div className=" col-span-6 md:col-span-3 lg:col-span-4 lg:px-16 flex flex-col justify-between">
+              <div className="">
+                <ul style={{ listStyleType: "none" }}>
+                  <li className="my-3">
+                    <div className="flex flex-row text-2xl font-titillium">
+                      <p className="pe-3 font-bold">Name:</p>
+                      <p>{user.realName}</p>
+                    </div>
+                  </li>
+                  <li className="my-3">
+                    <div className="flex flex-row text-2xl font-titillium">
+                      <p className="pe-3 font-bold">Birthday:</p>
+                      <p>{formatDate(user.birthday)}</p>
+                      {/* <p>{user.birthday}</p> */}
+                    </div>
+                  </li>
+                  <li className="my-3">
+                    <div className="flex flex-row text-2xl font-titillium">
+                      <p className="pe-3 font-bold">Status:</p>
+                      <p>User</p>
+                    </div>
+                  </li>
+                  <li className="my-3">
+                    <div className="flex flex-row text-2xl font-titillium">
+                      <p className="pe-3 font-bold">Fun Fact:</p>
+                      <p>{user.funFact}</p>
+                    </div>
+                  </li>
+                  <li className="my-3">
+                    <div className="flex flex-row text-2xl font-titillium">
+                      <p className="pe-3 font-bold">User Name:</p>
+                      <p>{user.username}</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div className="mt-auto flex justify-center">
+                <button onClick={() => setOpenModal(true)} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </button>
+                <Modal show={openModal} size="md" popup onClose={() => setOpenModal(false)} initialFocus={emailInputRef} >
+                  <Modal.Header />
+                  <Modal.Body>
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                        Edit your account
+                      </h3>
 
                     <div>
                       <div className="mb-2 block">
@@ -297,24 +258,24 @@ const ProfilePage = () => {
                       <TextInput onChange={(e) => setUsername(e.target.value)} id="username" maxLength={24} />
                     </div>
 
-                    <div>
-                      <div className="mb-2 block">
-                        <Label htmlFor="password" value="Edit Password" />
+                      <div>
+                        <div className="mb-2 block">
+                          <Label htmlFor="password" value="Edit Password" />
+                        </div>
+                        <TextInput onChange={(e) => setPassword(e.target.value)} id="password" type="password" maxLength={24} />
                       </div>
-                      <TextInput onChange={(e) => setPassword(e.target.value)} id="password" type="password" maxLength={24} />
-                    </div>
-                    <div>
-                      <div className="mb-2 block">
-                        <Label htmlFor="password" value="Edit Email" />
-                      </div>
-                      <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password" maxLength={24} />
+                      <div>
+                        <div className="mb-2 block">
+                          <Label htmlFor="password" value="Edit Email" />
+                        </div>
+                        <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password" maxLength={24}  />
                     </div>
                     <div className="mb-2 block">
                       <div>
                         <Label htmlFor="small-file-upload" value="Edit Profile Picture" />
                       </div>
                       <FileInput id="small-file-upload" sizing="md" />
-                    </div>
+                      </div>
 
                     <div className="w-full flex flex-row justify-between">
                       <Button onClick={() => setOpenCancelModal(true)} className="!bg-red-500">Cancel</Button>
@@ -361,8 +322,10 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        <h1 className="text-center text-3xl font-bold py-4 font-titillium">My Programs</h1>
-        <div className="border-2 border-red-600 h-[40vh] mx-7"></div>
+          <h1 className="text-center text-3xl font-bold py-4 font-titillium">My Programs</h1>
+          <div className="border-2 border-red-600 h-[40vh] mx-7 ">
+          {makeDisplayPrograms()}
+        </div>
       </div>
     </>
   )

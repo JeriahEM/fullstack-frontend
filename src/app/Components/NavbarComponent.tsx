@@ -21,8 +21,8 @@ const NavbarComponent = () => {
     const getLoggedinData = async () => {
       await checkForUserOnRefresh()
       const loggedIn = await loggedinData();
-      console.log(loggedIn.userID)
-      console.log(loggedIn.username)
+      // console.log(loggedIn.userID)
+      // console.log(loggedIn.username)
       setUsername(loggedIn.username)
       // let userBlogItems: IBlogItems[] = await getBlogItemsByUserId(loggedIn.userId)
 

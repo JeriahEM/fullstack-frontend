@@ -5,10 +5,10 @@ export interface IToken {
 export interface IUserInfo {
     username: string,
     password: string,
- 
+
 }
 
-export interface INewUser{
+export interface INewUser {
     username: string,
     password: string,
     fullname: string,
@@ -18,10 +18,10 @@ export interface INewUser{
 export interface IUserdata {
     userID: number,
     username: string,
-    birthday:string,
-    image:string,
+    birthday: string,
+    image: string,
     programs: string,
-    funFact:string,
+    funFact: string,
     email: string,
     sports: string,
     realName: string,
@@ -30,14 +30,14 @@ export interface IUserdata {
     isUser: boolean,
 }
 
-export interface IEvent { 
+export interface IEvent {
     id: number,
-    title: string, 
-    start: string, 
+    title: string,
+    start: string,
     end: string,
     color: string,
     allDay: boolean,
-    programID: string, 
+    programID: string,
 }
 
 export interface IResetPassword {
@@ -51,13 +51,23 @@ export interface ICreateProgram {
     programSport: string | null,
     description: string,
     adminID: string | null
-  }
+}
 
-export interface IDisplayProgram{
+export interface IDisplayProgram {
     adminID: string
     coachID: string | null
-    discription: string
+    description: string
     genUserID: string | null
     programName: string
     programSport: string
+    programID: number
+}
+
+export interface IUpdateUser {
+    userName: string,
+    realName: string,
+    image: string,
+    birthday: string,
+    funFact: string,
+    email: string
 }
