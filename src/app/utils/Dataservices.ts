@@ -63,7 +63,7 @@ export const login = async (LoginUser: IUserInfo) => {
 
 export const checkForUserOnRefresh = async () =>{
     const item = sessionStorage.getItem("user");
-    sessionStorage.setItem('firstLoad', "true");
+   
     if(item){
         console.log("user detected")
         await getLoggedInUserData(item)

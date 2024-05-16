@@ -36,6 +36,9 @@ const HomePage = () => {
     const currentDate = new Date();
     const options: any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
+
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
     setClickedDate(formattedDateString);
 
     const getEvents = async () => {
@@ -44,7 +47,7 @@ const HomePage = () => {
       // setNewEvent({ ...newEvent, programID: currentProg.programID.toString() });
       setProgramDes(currentProg.description);
       const fetchedEvents = await getEventsByProgramName(contextData.currentProgramContext)
-      console.log(fetchedEvents.length)
+      console.log(fetchedEvents)
       setIdCounter(fetchedEvents.length);
       setAllEvents(fetchedEvents)
 
@@ -54,9 +57,14 @@ const HomePage = () => {
 
       setStartTime(dateStr + " ")
       setEndTime(dateStr + " ")
+
+      //setting display events on load
+      const currentEvents = fetchedEvents.filter((obj: { start: string | string[]; }) => obj.start.includes(dateStr))
+      setDisplayEvents(currentEvents)
     }
     getEvents()
-
+    
+    
   }, [contextData.currentProgramContext])
 
   useEffect(() => {
@@ -67,37 +75,41 @@ const HomePage = () => {
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
       const programArr = splitStringToArray(sessionStorage.getItem('programs'))
-      
-      if (programArr && (sessionStorage.getItem('firstLoad') !== "true")) {
-        console.log(programArr[0])
-        contextData.setCurrentProgramContext(programArr[0])
-        const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
-        console.log(currentProg.programID)
-        setProgramID(currentProg.programID)
-        setNewEvent({ ...newEvent, programID: currentProg.programID.toString() })
-        setProgramDes(currentProg.description)
-        //set the program id and the description and fetch events 
 
-        const fetchedEvents = await getEventsByProgramName(programArr[0])
-        console.log(fetchedEvents.length)
-        setIdCounter(fetchedEvents.length);
-        console.log("this is idCounter " + idCounter)
-        console.log("you have this many events : " + idCounter)
-        setAllEvents(fetchedEvents)
+      if (programArr) {
+        if (sessionStorage.getItem('firstLoad') === "true") {
+          console.log(sessionStorage.getItem('firstLoad'))
+          console.log(programArr[0])
+          contextData.setCurrentProgramContext(programArr[0])
+          const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
+          console.log(currentProg.programID)
+          setProgramID(currentProg.programID)
+          setNewEvent({ ...newEvent, programID: currentProg.programID.toString() })
+          setProgramDes(currentProg.description)
+          //set the program id and the description and fetch events 
 
-        const today = new Date();
-        console.log("this is program id" + programID)
-        const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-        setNewEvent({ ...newEvent, start: dateStr, allDay: true, id: 0, programID: programID.toString() })
+          const fetchedEvents = await getEventsByProgramName(programArr[0])
+          console.log(fetchedEvents.length)
+          setIdCounter(fetchedEvents.length);
+          console.log("this is idCounter " + idCounter)
+          console.log("you have this many events : " + idCounter)
+          setAllEvents(fetchedEvents)
 
-        setStartTime(dateStr + " ")
-        setEndTime(dateStr + " ")
+          const today = new Date();
+          console.log("this is program id" + programID)
+          const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+          setNewEvent({ ...newEvent, start: dateStr, allDay: true, id: 0, programID: programID.toString() })
 
-        //setting display events on load
-        const currentEvents = allEvents.filter(obj => obj.start.includes(dateStr))
-        setDisplayEvents(currentEvents)
+          setStartTime(dateStr + " ")
+          setEndTime(dateStr + " ")
 
-        sessionStorage.setItem('firstLoad', "false")
+          //setting display events on load
+          const currentEvents = fetchedEvents.filter((obj: { start: string | string[]; }) => obj.start.includes(dateStr))
+      setDisplayEvents(currentEvents)
+
+          sessionStorage.setItem('firstLoad', "false")
+        }
+
       }
 
     }
@@ -234,7 +246,7 @@ const HomePage = () => {
   const handleCreate = () => {
     setNewEvent({ ...newEvent, programID: programID.toString() })
     console.log(newEvent)
-
+    console.log(displayEvents)
     setShowModal(true)
   }
 
