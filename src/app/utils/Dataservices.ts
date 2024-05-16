@@ -1,3 +1,4 @@
+import { useAppContext } from "@/Context/context";
 import { ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 import { createContext } from "react";
 import validator from 'validator';
@@ -75,10 +76,6 @@ export const getLoggedInUserData = async (username: string) => {
     userData = data;
     sessionStorage.setItem("userID", userData.userID.toString())
     sessionStorage.setItem('programs', userData.programs)
-    const programArr = splitStringToArray(userData.programs);
-    if(programArr){
-      sessionStorage.setItem('currentProgram', programArr[0])   
-    }
     console.log(userData)
 }
 

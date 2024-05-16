@@ -24,9 +24,12 @@ import { ICreateProgram, IDisplayProgram } from '../Interfaces/Interfaces';
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import Image from 'next/image';
 import { getProgramBySport } from '../utils/Dataservices';
+import { useAppContext } from '@/Context/context';
 
 
 const AllProgramsPage = () => {
+  const {currentProgramContext, setCurrentProgramContext} = useAppContext()
+
   const initialPrograms: IDisplayProgram[] = [];
   useEffect(() =>{
     

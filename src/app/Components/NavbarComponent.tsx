@@ -12,14 +12,18 @@ import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 
 
 import { checkForUserOnRefresh, checkToken, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
+import { useAppContext } from "@/Context/context";
 const NavbarComponent = () => {
+
+  const {currentProgramContext, setCurrentProgramContext} = useAppContext()
 
   const [username, setUsername] = useState<string>("")
   const [programArr, setProgramArr] = useState<string[]>()
   const [currentProg, setCurrentProg] = useState<string | null>(""); 
+
   const handleProgramClick = (program:string) =>{
     sessionStorage.setItem('currentProgram', program)
-    setCurrentProg(sessionStorage.getItem('currentProgram'))
+    setCurrentProgramContext(program)
     router.push('/HomePage')
   }
   const createDropDown = () =>{

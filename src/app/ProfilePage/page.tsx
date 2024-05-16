@@ -11,11 +11,13 @@ import { ClassNames } from "@emotion/react";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import placehold from "../assets/images/Group13.png"
 import Image from "next/image";
+import { useAppContext } from "@/Context/context";
 
 
 
 const ProfilePage = () => {
   const router = useRouter();
+  const {currentProgramContext, setCurrentProgramContext} = useAppContext()
   // interface Iuserprofile {
   //   Name: string,
   //   Birthday: string,
@@ -172,7 +174,7 @@ const ProfilePage = () => {
   }
 
   const handleProgramClick = (program:string) =>{
-    sessionStorage.setItem('currentProgram', program)
+    setCurrentProgramContext(program)
     router.push('/HomePage')
   }
 

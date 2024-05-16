@@ -19,16 +19,21 @@ import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvent
 import DummyEvents from '@/app/utils/DummyEvent.json'
 import { IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
 import { Button, Modal } from 'flowbite-react';
+import { useAppContext } from '@/Context/context';
 
 
 
 const HomePage = () => {
   const router = useRouter();
+  const contextData = useAppContext()
 
   useEffect(() => {
     checkForUserOnRefresh()
   }, [])
 
+  useEffect(() => {
+    console.log("this is a new program")
+  }, [contextData.currentProgramContext])
 
   useEffect(() => {
     const currentDate = new Date();
@@ -41,6 +46,7 @@ const HomePage = () => {
 
       if (programArr) {
         console.log(programArr[0])
+        contextData.setCurrentProgramContext(programArr[0])
         const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
         console.log(currentProg.programID)
         setProgramID(currentProg.programID)
