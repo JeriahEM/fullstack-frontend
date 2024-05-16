@@ -9,6 +9,7 @@ const url = "https://apicourtmonitor.azurewebsites.net"
 
 let userData: IUserdata
 
+
 export const createAccount = async (createdUser: INewUser) => {
     const res = await fetch(url + '/User/AddUser',  {
         method: "POST",
@@ -52,6 +53,7 @@ export const login = async (LoginUser: IUserInfo) => {
     const data: IToken = await res.json();
     sessionStorage.setItem("user", LoginUser.username)
     sessionStorage.setItem("sport", "Tennis")
+    sessionStorage.setItem('firstLoad', "true")
     
     
     // const UserContext = createContext("tennis");
@@ -61,6 +63,7 @@ export const login = async (LoginUser: IUserInfo) => {
 
 export const checkForUserOnRefresh = async () =>{
     const item = sessionStorage.getItem("user");
+    sessionStorage.setItem('firstLoad', "true");
     if(item){
         console.log("user detected")
         await getLoggedInUserData(item)

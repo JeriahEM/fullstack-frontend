@@ -33,6 +33,30 @@ const HomePage = () => {
 
   useEffect(() => {
     console.log("this is a new program")
+    const currentDate = new Date();
+    const options: any = { month: 'long', day: 'numeric', year: 'numeric' };
+    const formattedDateString = currentDate.toLocaleDateString('en-US', options);
+    setClickedDate(formattedDateString);
+
+    const getEvents = async () => {
+      const currentProg: IDisplayProgram = await getProgramByName(contextData.currentProgramContext);
+      setProgramID(currentProg.programID);
+      // setNewEvent({ ...newEvent, programID: currentProg.programID.toString() });
+      setProgramDes(currentProg.description);
+      const fetchedEvents = await getEventsByProgramName(contextData.currentProgramContext)
+      console.log(fetchedEvents.length)
+      setIdCounter(fetchedEvents.length);
+      setAllEvents(fetchedEvents)
+
+      const today = new Date();
+      const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      setNewEvent({ ...newEvent, start: dateStr, allDay: true, id: 0, programID: programID.toString() })
+
+      setStartTime(dateStr + " ")
+      setEndTime(dateStr + " ")
+    }
+    getEvents()
+
   }, [contextData.currentProgramContext])
 
   useEffect(() => {
@@ -43,8 +67,8 @@ const HomePage = () => {
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
       const programArr = splitStringToArray(sessionStorage.getItem('programs'))
-
-      if (programArr) {
+      
+      if (programArr && (sessionStorage.getItem('firstLoad') !== "true")) {
         console.log(programArr[0])
         contextData.setCurrentProgramContext(programArr[0])
         const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
@@ -68,6 +92,12 @@ const HomePage = () => {
 
         setStartTime(dateStr + " ")
         setEndTime(dateStr + " ")
+
+        //setting display events on load
+        const currentEvents = allEvents.filter(obj => obj.start.includes(dateStr))
+        setDisplayEvents(currentEvents)
+
+        sessionStorage.setItem('firstLoad', "false")
       }
 
     }
@@ -204,7 +234,7 @@ const HomePage = () => {
   const handleCreate = () => {
     setNewEvent({ ...newEvent, programID: programID.toString() })
     console.log(newEvent)
-   
+
     setShowModal(true)
   }
 
@@ -292,7 +322,7 @@ const HomePage = () => {
                 <Modal.Body>
                   <p className=' font-titillium text-xl'>
                     Program Description: {programDesc}
-                    </p>
+                  </p>
                   <br />
                   <Button className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>
                 </Modal.Body>

@@ -19,10 +19,9 @@ const NavbarComponent = () => {
 
   const [username, setUsername] = useState<string>("")
   const [programArr, setProgramArr] = useState<string[]>()
-  const [currentProg, setCurrentProg] = useState<string | null>(""); 
+  
 
   const handleProgramClick = (program:string) =>{
-    sessionStorage.setItem('currentProgram', program)
     setCurrentProgramContext(program)
     router.push('/HomePage')
   }
@@ -40,7 +39,7 @@ const NavbarComponent = () => {
       await checkForUserOnRefresh()
       const loggedIn = await loggedinData();
       setProgramArr(splitStringToArray(sessionStorage.getItem('programs')));
-      setCurrentProg(sessionStorage.getItem('currentProgram')) 
+      setCurrentProgramContext(currentProgramContext) 
 
       setUsername(loggedIn.username)
       // let userBlogItems: IBlogItems[] = await getBlogItemsByUserId(loggedIn.userId)
@@ -134,7 +133,7 @@ const NavbarComponent = () => {
         </Dropdown>
         <Navbar.Toggle />
       </div>
-      <Dropdown className='font-bebas text-6xl' label={currentProg} inline>
+      <Dropdown className='font-bebas text-6xl' label={currentProgramContext} inline>
         {/* <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
         <Dropdown.Item>US Open</Dropdown.Item> */}
         {createDropDown()}
