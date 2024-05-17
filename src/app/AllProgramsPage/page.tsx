@@ -28,11 +28,15 @@ import { useAppContext } from '@/Context/context';
 
 
 const AllProgramsPage = () => {
+  
   const { currentProgramContext, setCurrentProgramContext } = useAppContext()
 
   const initialPrograms: IDisplayProgram[] = [];
   useEffect(() => {
-
+    if (typeof sessionStorage !== 'undefined') {
+      // Code that uses sessionStorage
+  
+  
     checkForUserOnRefresh()
     setUserID(sessionStorage.getItem("userID"))
     const tempArr = splitStringToArray(sessionStorage.getItem('programs'))
@@ -43,7 +47,7 @@ const AllProgramsPage = () => {
       setDisplayPrograms(await getProgramBySport(sessionStorage.getItem("sport")))
     }
     grabPrograms();
-
+}
   }, [])
 
   const [displayPrograms, setDisplayPrograms] = useState<IDisplayProgram[]>(initialPrograms)
@@ -68,7 +72,10 @@ const AllProgramsPage = () => {
   }
 
   const handleNewProgram = async () => {
-
+    if (typeof sessionStorage !== 'undefined') {
+      // Code that uses sessionStorage
+  
+  
     const newProgram: ICreateProgram = {
       id: 2,
       programName: newProgramTitle,
@@ -104,6 +111,7 @@ const AllProgramsPage = () => {
     setOpenModal(false);
     setOpenConfirmModal(false);
     setOpenCancelModal(false);
+  }
   };
 
 
@@ -185,9 +193,14 @@ const AllProgramsPage = () => {
   }
 
   const handleViewBtn = (program: string) => {
+    if (typeof sessionStorage !== 'undefined') {
+      // Code that uses sessionStorage
+  
+  
     setCurrentProgramContext(program)
     sessionStorage.setItem('lastProgram', program)
     router.push("/HomePage")
+  }
   }
   const handleLeaveBtn = (programID: number, userID: string | null) => {
     // console.log("program number is: " + programID)
@@ -196,6 +209,10 @@ const AllProgramsPage = () => {
     alert("systems for leaving and deleting a program are being worked on, Sorry!")
   }
   const makeDisplayPrograms = () => {
+    if (typeof sessionStorage !== 'undefined') {
+      // Code that uses sessionStorage
+ 
+  
     return displayPrograms.map((program: IDisplayProgram, index) => (
       <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
         <div className="grow-0">
@@ -215,7 +232,7 @@ const AllProgramsPage = () => {
       </div>
 
 
-    ))
+    )) }
   }
   return (
     <div className="bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100% h-screen card w-full">
