@@ -82,6 +82,20 @@ const ProfilePage = () => {
   const isCoach = false
   const isUser = true
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handlePfpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let reader = new FileReader();
+    const file = e.target.files?.[0];
+    if (file) {
+      reader.onload = () => {
+        setImage(reader.result as string);
+      };
+      
+      reader.readAsDataURL(file);
+    }
+  };
+
 
   const handleCloseModals = () => {
     setOpenModal(false);
@@ -129,6 +143,15 @@ const ProfilePage = () => {
       const fetchData = resetPassword(newPassword);
     }
 
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  
+
     updateUserProfile(
       {
         userName: username,
@@ -140,6 +163,7 @@ const ProfilePage = () => {
       }
     )
     updateDummy();
+      console.log(image)
     setUser(dummy)
 
     setOpenModal(false);
@@ -186,8 +210,8 @@ const ProfilePage = () => {
           <div className="grid grid-cols-6 mx-7 py-8 ">
             <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
               <div className="flex justify-center">
-                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl" >
-                  <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={placehold} />
+                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl placeholder" >
+                  {/* <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={user.image || placehold} width={400} height={400}/> */}
                 </div>
               </div>
             </div>
@@ -287,7 +311,7 @@ const ProfilePage = () => {
                       <div>
                         <Label htmlFor="small-file-upload" value="Edit Profile Picture" />
                       </div>
-                      <FileInput id="small-file-upload" sizing="md" />
+                      <FileInput onChange={(e) => setImage(e.target.value)} id="small-file-upload" sizing="md" />
                       </div>
 
                     <div className="w-full flex flex-row justify-between">

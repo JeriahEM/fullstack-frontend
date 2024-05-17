@@ -103,12 +103,12 @@ const NavbarComponent = () => {
               <p className='pl-2'>Profile</p>
             </div>
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => router.push('/NotificationsPage')}>
+          {/* <Dropdown.Item onClick={() => router.push('/NotificationsPage')}>
             <div className='flex flex-row items-center'>
               <EmailOutlinedIcon />
               <p className='pl-2'>Notifications</p>
             </div>
-          </Dropdown.Item>
+          </Dropdown.Item> */}
           <Dropdown.Item onClick={() => router.push('/UserDirectoryPage')}>
             <div className='flex flex-row items-center'>
               <PersonSearchOutlinedIcon />
