@@ -12,6 +12,7 @@ import { useAppContext } from "@/Context/context";
 
 export default function Home() {
   const contextData = useAppContext()
+  contextData.setCurrentProgramContext("")
 
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [rpModal, setRPModal] = useState<boolean>(false)

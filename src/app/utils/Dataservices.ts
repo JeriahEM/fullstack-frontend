@@ -79,7 +79,13 @@ export const getLoggedInUserData = async (username: string) => {
     const data = await res.json();
     userData = data;
     sessionStorage.setItem("userID", userData.userID.toString())
-    sessionStorage.setItem('programs', userData.programs)
+    if(userData.programs){
+        sessionStorage.setItem('programs', userData.programs)
+    }
+    else{
+        sessionStorage.setItem('programs', "")
+    }
+    
     
     console.log(userData)
 }
