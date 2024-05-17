@@ -23,6 +23,7 @@ const NavbarComponent = () => {
 
   const handleProgramClick = (program:string) =>{
     setCurrentProgramContext(program)
+    sessionStorage.setItem('lastProgram', program)
     router.push('/HomePage')
   }
   const createDropDown = () =>{
@@ -40,7 +41,8 @@ const NavbarComponent = () => {
       const loggedIn = await loggedinData();
       setProgramArr(splitStringToArray(sessionStorage.getItem('programs')));
       if(programArr){
-        setCurrentProgramContext(programArr[0]) 
+        setCurrentProgramContext(programArr[0])
+        sessionStorage.setItem('lastProgram', programArr[0]) 
       }
       
       setUsername(loggedIn.username)

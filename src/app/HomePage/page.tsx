@@ -43,6 +43,7 @@ const HomePage = () => {
 
     const getEvents = async () => {
       const currentProg: IDisplayProgram = await getProgramByName(currentProgramContext);
+      checkForAdmin(currentProg);
       setProgramID(currentProg.programID);
       // setNewEvent({ ...newEvent, programID: currentProg.programID.toString() });
       setProgramDes(currentProg.description);
@@ -78,22 +79,26 @@ const HomePage = () => {
       const loggedIn = await loggedinData();
       await setLoggedUser(loggedIn)
       if (loggedIn.programs) {
+
         getEvents()
+      
       }
     }
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
-      const programArrTemp = splitStringToArray(sessionStorage.getItem('programs'))
-      if (programArrTemp) {
-        setProgramArr(programArrTemp);
-        setCurrentProgramContext(programArrTemp[0])
-      }
-      if (programArrTemp) {
-        if (sessionStorage.getItem('firstLoad') === "true") {
-          console.log(sessionStorage.getItem('firstLoad'))
-          console.log(programArrTemp[0])
+      if (sessionStorage.getItem('firstLoad') === "true") {
+        const programArrTemp = splitStringToArray(sessionStorage.getItem('programs'))
+
+        if (programArrTemp) {
+          setProgramArr(programArrTemp);
+      
           setCurrentProgramContext(programArrTemp[0])
+          sessionStorage.setItem('lastProgram', programArrTemp[0])
+        
+        if (programArrTemp && (sessionStorage.getItem('firstLoad') === "true")) {
+         
           const currentProg: IDisplayProgram = await getProgramByName(programArrTemp[0])
+          checkForAdmin(currentProg);
           console.log(currentProg.programID)
           setProgramID(currentProg.programID)
           setNewEvent({ ...newEvent, programID: currentProg.programID.toString() })
@@ -121,6 +126,16 @@ const HomePage = () => {
 
           sessionStorage.setItem('firstLoad', "false")
         }
+      }
+
+      }
+      else if (sessionStorage.getItem('firstLoad') === "false") {
+
+        const programArrTemp = sessionStorage.getItem('lastProgram')
+        if(programArrTemp){
+          setCurrentProgramContext(programArrTemp)
+        }
+      
 
       }
 
@@ -130,6 +145,17 @@ const HomePage = () => {
 
 
   }, []);
+
+  const checkForAdmin = (check: IDisplayProgram) => {
+    if (check.adminID === sessionStorage.getItem('userID')) {
+      setIsAdmin(true)
+      sessionStorage.setItem("userStatus", "admin")
+    }
+    else {
+      setIsAdmin(false)
+      sessionStorage.setItem("userStatus", "general")
+    }
+  }
 
   const [programDesc, setProgramDes] = useState<string>('')
   const [idCounter, setIdCounter] = useState(0);
@@ -263,7 +289,7 @@ const HomePage = () => {
     setNewEvent({ ...newEvent, programID: programID.toString() })
     console.log(newEvent)
     console.log(displayEvents)
-    console.log(programArr)
+    console.log(isAdmin)
     setShowModal(true)
   }
 

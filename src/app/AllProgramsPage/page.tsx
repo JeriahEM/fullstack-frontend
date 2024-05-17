@@ -173,6 +173,7 @@ const AllProgramsPage = () => {
 
   const handleViewBtn = (program:string) =>{
     setCurrentProgramContext(program)
+    sessionStorage.setItem('lastProgram', program)
     router.push("/HomePage")
   }
   const handleLeaveBtn = (programID:number, userID:string | null) =>{

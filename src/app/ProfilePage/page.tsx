@@ -175,6 +175,7 @@ const ProfilePage = () => {
 
   const handleProgramClick = (program:string) =>{
     setCurrentProgramContext(program)
+    sessionStorage.setItem('lastProgram', program)
     router.push('/HomePage')
   }
 
@@ -210,7 +211,7 @@ const ProfilePage = () => {
                   <li className="my-3">
                     <div className="flex flex-row text-2xl font-titillium">
                       <p className="pe-3 font-bold">Status:</p>
-                      <p>User</p>
+                      <p>{sessionStorage.getItem('userStatus')}</p>
                     </div>
                   </li>
                   <li className="my-3">
