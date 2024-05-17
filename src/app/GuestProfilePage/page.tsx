@@ -39,7 +39,7 @@ const GuestProfilepage = () => {
 
     useEffect(()=>{
         const getUser = async ()=>{
-           const userData:IUserdata = await getUserByUsername(sessionStorage.getItem("viewing"))
+           const userData:IUserdata = await getUserByUsername(typeof window !== 'undefined' ?sessionStorage.getItem("viewing") : null)
            setUser(userData)
            setPrograms(userData.programs)
         }
@@ -104,7 +104,7 @@ const GuestProfilepage = () => {
                                 <li className="my-3">
                                     <div className="flex flex-row text-2xl font-titillium">
                                         <p className="pe-3 font-bold">Status:</p>
-                                        <p>{sessionStorage.getItem('userStatus')}</p>
+                                        <p>{typeof window !== 'undefined' ?sessionStorage.getItem('userStatus'): null}</p>
                                     </div>
                                 </li>
                                 <li className="my-3">
