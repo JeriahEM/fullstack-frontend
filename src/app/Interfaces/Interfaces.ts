@@ -71,3 +71,9 @@ export interface IUpdateUser {
     funFact: string,
     email: string
 }
+
+export interface IAddUserToProgram{
+    programID: number,
+    userId: number,
+    status: string
+}
