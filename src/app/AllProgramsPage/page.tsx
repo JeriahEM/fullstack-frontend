@@ -76,6 +76,15 @@ const AllProgramsPage = () => {
       description: newProgramDescription,
       adminID: userID
     };
+    const newDisplay: IDisplayProgram = {
+      adminID: "1",
+      coachID: null,
+      description: newProgramDescription,
+      genUserID: null,
+      programName: newProgramTitle,
+      programSport: "",
+      programID: 0
+    }
 
     // try {
     //   const createdProgram = await createProgram(newProgram);
@@ -85,8 +94,12 @@ const AllProgramsPage = () => {
     // }
     const addProgram = async () => {
       await createProgram(newProgram);
+      
+
+     
     }
     addProgram();
+    setDisplayPrograms([...displayPrograms, newDisplay])
     console.log(newProgram)
     setOpenModal(false);
     setOpenConfirmModal(false);
