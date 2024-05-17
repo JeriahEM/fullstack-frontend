@@ -178,7 +178,7 @@ const AllProgramsPage = () => {
   const handleLeaveBtn = (programID:number, userID:string | null) =>{
     // console.log("program number is: " + programID)
     // console.log("userId is : " + userID)
-    // console.log(programArr)
+    console.log(programArr)
     alert("systems for leaving and deleting a program are being worked on, Sorry!")
   }
   const makeDisplayPrograms = () => {

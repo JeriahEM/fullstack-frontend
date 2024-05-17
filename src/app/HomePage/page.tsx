@@ -14,10 +14,10 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { AddUserToProgram, checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, splitStringToArray } from '@/app/utils/Dataservices';
+import { AddUserToProgram, checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
 
 import DummyEvents from '@/app/utils/DummyEvent.json'
-import { IAddUserToProgram, IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
+import { IAddUserToProgram, IDisplayProgram, IEvent, IUserdata } from '../Interfaces/Interfaces';
 import { Button, Modal } from 'flowbite-react';
 import { useAppContext } from '@/Context/context';
 
@@ -25,11 +25,11 @@ import { useAppContext } from '@/Context/context';
 
 const HomePage = () => {
   const router = useRouter();
-  const contextData = useAppContext()
+  const { currentProgramContext, setCurrentProgramContext } = useAppContext()
 
-  useEffect(() => {
-    checkForUserOnRefresh()
-  }, [])
+  const [loggedUser, setLoggedUser] = useState<IUserdata>()
+
+
 
   useEffect(() => {
     console.log("this is a new program")
@@ -42,11 +42,11 @@ const HomePage = () => {
     setClickedDate(formattedDateString);
 
     const getEvents = async () => {
-      const currentProg: IDisplayProgram = await getProgramByName(contextData.currentProgramContext);
+      const currentProg: IDisplayProgram = await getProgramByName(currentProgramContext);
       setProgramID(currentProg.programID);
       // setNewEvent({ ...newEvent, programID: currentProg.programID.toString() });
       setProgramDes(currentProg.description);
-      const fetchedEvents = await getEventsByProgramName(contextData.currentProgramContext)
+      const fetchedEvents = await getEventsByProgramName(currentProgramContext)
       console.log(fetchedEvents)
       setIdCounter(fetchedEvents.length);
       setAllEvents(fetchedEvents)
@@ -65,32 +65,42 @@ const HomePage = () => {
     getEvents()
 
 
-  }, [contextData.currentProgramContext])
+  }, [currentProgramContext])
 
   useEffect(() => {
     const currentDate = new Date();
     const options: any = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDateString = currentDate.toLocaleDateString('en-US', options);
     setClickedDate(formattedDateString);
+
+    const getLoggedinData = async () => {
+      await checkForUserOnRefresh()
+      const loggedIn = await loggedinData();
+      await setLoggedUser(loggedIn)
+      if (loggedIn.programs) {
+        getEvents()
+      }
+    }
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
-      const programArr = splitStringToArray(sessionStorage.getItem('programs'))
-      if (programArr) {
-        setProgramArr(programArr);
+      const programArrTemp = splitStringToArray(sessionStorage.getItem('programs'))
+      if (programArrTemp) {
+        setProgramArr(programArrTemp);
+        setCurrentProgramContext(programArrTemp[0])
       }
-      if (programArr) {
+      if (programArrTemp) {
         if (sessionStorage.getItem('firstLoad') === "true") {
           console.log(sessionStorage.getItem('firstLoad'))
-          console.log(programArr[0])
-          contextData.setCurrentProgramContext(programArr[0])
-          const currentProg: IDisplayProgram = await getProgramByName(programArr[0])
+          console.log(programArrTemp[0])
+          setCurrentProgramContext(programArrTemp[0])
+          const currentProg: IDisplayProgram = await getProgramByName(programArrTemp[0])
           console.log(currentProg.programID)
           setProgramID(currentProg.programID)
           setNewEvent({ ...newEvent, programID: currentProg.programID.toString() })
           setProgramDes(currentProg.description)
           //set the program id and the description and fetch events 
 
-          const fetchedEvents = await getEventsByProgramName(programArr[0])
+          const fetchedEvents = await getEventsByProgramName(programArrTemp[0])
           console.log(fetchedEvents.length)
           setIdCounter(fetchedEvents.length);
           console.log("this is idCounter " + idCounter)
@@ -115,7 +125,9 @@ const HomePage = () => {
       }
 
     }
-    getEvents()
+    getLoggedinData()
+
+
 
   }, []);
 
@@ -251,6 +263,7 @@ const HomePage = () => {
     setNewEvent({ ...newEvent, programID: programID.toString() })
     console.log(newEvent)
     console.log(displayEvents)
+    console.log(programArr)
     setShowModal(true)
   }
 
@@ -263,6 +276,11 @@ const HomePage = () => {
       status: "general"
     }
     AddUserToProgram(addInfo)
+    const addElement = (newElement: string) => {
+      setProgramArr(prevArray => [...prevArray, newElement]);
+      sessionStorage.setItem('programs', programArr.join(","))
+    };
+    addElement(currentProgramContext)
   }
 
   const [descriptionModal, setDescriptionModal] = useState(false)
@@ -356,7 +374,7 @@ const HomePage = () => {
 
                   <br />
                   <div className='flex justify-center'>
-                    {programArr.includes(contextData.currentProgramContext) ?
+                    {programArr.includes(currentProgramContext) ?
                       <Button className=' border-2 border-black bg-red-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Leave?</Button>
                       :
                       <Button onClick={() => handleJoinBtn()} className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>

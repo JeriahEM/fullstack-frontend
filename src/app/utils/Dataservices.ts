@@ -51,9 +51,10 @@ export const login = async (LoginUser: IUserInfo) => {
     }
 
     const data: IToken = await res.json();
-    sessionStorage.setItem("user", LoginUser.username)
-    sessionStorage.setItem("sport", "Tennis")
-    sessionStorage.setItem('firstLoad', "true")
+    await sessionStorage.setItem("user", LoginUser.username)
+    await sessionStorage.setItem("sport", "Tennis")
+    await sessionStorage.setItem('firstLoad', "true")
+    await getLoggedInUserData(LoginUser.username)
     
     
     // const UserContext = createContext("tennis");
@@ -79,6 +80,7 @@ export const getLoggedInUserData = async (username: string) => {
     userData = data;
     sessionStorage.setItem("userID", userData.userID.toString())
     sessionStorage.setItem('programs', userData.programs)
+    
     console.log(userData)
 }
 

@@ -6,10 +6,12 @@ import { useRouter } from "next/navigation";
 import { checkForUserOnRefresh, createAccount, getLoggedInUserData, isValidEmailFunction, login, resetPassword } from "@/app/utils/Dataservices";
 import { IResetPassword, IToken } from "./Interfaces/Interfaces";
 import NavbarComponent from "./Components/NavbarComponent";
+import { useAppContext } from "@/Context/context";
 
 
 
 export default function Home() {
+  const contextData = useAppContext()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [rpModal, setRPModal] = useState<boolean>(false)
@@ -21,6 +23,7 @@ export default function Home() {
 
   useEffect(() => {
     checkForUserOnRefresh()
+    
     
   }, [])
 
@@ -34,7 +37,6 @@ export default function Home() {
     const { value } = event.target;
     setEmail(value);
     setIsValidEmail(isValidEmailFunction(value)); // Update validity state on input change
-    console.log(isValidEmail)
   };
 
   const [switchBool, setSwitchBool] = useState<boolean>(false);
@@ -107,8 +109,7 @@ export default function Home() {
           fullname: fullName,
           email: email
         }
-        console.log(userData)
-        console.log(fullName + email)
+
         createAccount(userData);
         // getLoggedInUserData(username);
 
