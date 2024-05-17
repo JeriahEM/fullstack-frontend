@@ -27,8 +27,8 @@ const NavbarComponent = () => {
     router.push('/HomePage')
   }
   const createDropDown = () =>{
-    return programArr?.map((program)=>(
-      <Dropdown.Item onClick={()=>handleProgramClick(program)}>{program}</Dropdown.Item>
+    return programArr?.map((program,idx)=>(
+      <Dropdown.Item key={idx} onClick={()=>handleProgramClick(program)}>{program}</Dropdown.Item>
     ))
   }    
 
