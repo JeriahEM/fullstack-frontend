@@ -348,7 +348,11 @@ export const isValidEmailFunction = (email:string) => {
 export const splitStringToArray = (inputString: string | null) => {
     // Split the string by comma and remove any leading/trailing whitespace
     if(inputString && inputString.includes(',')){
-       return inputString.split(',').map(item => item.trim()); 
+        return inputString
+        .split(',')
+        .map(item => item.trim())
+        .filter(item => item !== '');
+
     }
     else if(inputString) {
         return [inputString]

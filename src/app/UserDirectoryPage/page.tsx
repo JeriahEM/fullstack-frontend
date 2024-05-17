@@ -32,6 +32,7 @@ const UserDirectoryPage = () => {
     const program = sessionStorage.getItem('lastProgram')
     const getUsers = async ()=>{
       const userData:userObject = await getUsersByProgramName(program)
+      console.log(userData)
       const item1: userReturn[] = userData["item1"];
       const item2: userReturn[] = userData["item2"];
       const item3: userReturn[] = userData["item3"];
@@ -63,7 +64,7 @@ const handleProfileChange = (user:string) =>{
         </div>
         <div className="grow flex">
           
-            <p>{user.realName}</p>
+            <p>{user.realName} ({user.userName})</p>
           
         </div>
         <div className="grow-0">
@@ -87,11 +88,11 @@ const handleProfileChange = (user:string) =>{
         key={idx}
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
-        <div className="grow-0">
-          <Image src={phUser} alt={""} />
+        <div className="grow-0 hover:cursor-pointer">
+          <Image onClick={()=>handleProfileChange(user.userName)}  src={phUser} alt={""} />
         </div>
         <div className="grow">
-          <p>{user.realName}</p>
+          <p>{user.realName} ({user.userName})</p>
         </div>
         <div className="grow-0">
           <MoreVertOutlinedIcon />
@@ -115,11 +116,11 @@ const handleProfileChange = (user:string) =>{
         key={idx}
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
-        <div className="grow-0">
-          <Image src={phUser} alt={""} />
+        <div className="grow-0 hover:cursor-pointer">
+          <Image onClick={()=>handleProfileChange(user.userName)}  src={phUser} alt={""} />
         </div>
         <div className="grow">
-          <p>{user.realName}</p>
+          <p>{user.realName} ({user.userName})</p>
         </div>
         <div className="grow-0">
           <MoreVertOutlinedIcon />
