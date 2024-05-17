@@ -1,12 +1,13 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import Image from "next/image";
 import image1 from "../assets/images/image1.png";
 import phUser from "../assets/images/Group13.png";
 import dummyUsers from "@/app/utils/DummyUser.json";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import { checkForUserOnRefresh } from "@/app/utils/Dataservices";
+import { checkForUserOnRefresh, getUsersByProgramName } from "@/app/utils/Dataservices";
+import { useRouter } from "next/navigation"
 
 // For this page we will need to call users id, pfp, username, status
 
@@ -16,24 +17,54 @@ import { checkForUserOnRefresh } from "@/app/utils/Dataservices";
 
 // const user = ["Billy Willy"];
 
+interface userReturn{
+  status: string,
+  userName: string,
+  realName: string,
+}
+interface userObject {
+  [key: string]: userReturn[];
+}
 const UserDirectoryPage = () => {
+  const router = useRouter();
   useEffect(() =>{
     checkForUserOnRefresh()
+    const program = sessionStorage.getItem('lastProgram')
+    const getUsers = async ()=>{
+      const userData:userObject = await getUsersByProgramName(program)
+      const item1: userReturn[] = userData["item1"];
+      const item2: userReturn[] = userData["item2"];
+      const item3: userReturn[] = userData["item3"];
+      setAdmins(item1)
+      setCoaches(item2)
+      setGeneral(item3)
+    }
+    getUsers()
+
   },[])
 
-  const createAdmin = ()  => {
-    let users = dummyUsers.filter(item => item.IsAdmin===true);
+const [admins, setAdmins] = useState<userReturn[]>([])
+const [coaches, setCoaches] = useState<userReturn[]>([])
+const [general, setGeneral] = useState<userReturn[]>([])
 
-    return users.map((user, idx) => (
+const handleProfileChange = (user:string) =>{
+  router.push('/GuestProfilePage')
+  sessionStorage.setItem('viewing', user)
+}
+
+  const createAdmin = ()  => {
+    return admins.map((user, idx) => (
       <div
         key={idx}
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
-        <div className="grow-0">
-          <Image src={phUser} alt={""} />
+        <div className="grow-0 hover:cursor-pointer">
+          <Image onClick={()=>handleProfileChange(user.userName)} src={phUser} alt={""} />
         </div>
-        <div className="grow">
-          <p>{user.RealName}</p>
+        <div className="grow flex">
+          
+            <p>{user.realName}</p>
+          
         </div>
         <div className="grow-0">
           <MoreVertOutlinedIcon />
@@ -43,10 +74,15 @@ const UserDirectoryPage = () => {
   }
 
   const createCoaches = () => {
-    let users = dummyUsers.filter(item => item.IsCoach===true);
-    users = users.filter(item => item.IsAdmin===false);
 
-    return users.map((user, idx) => (
+    if(coaches.length == 0){
+      return (
+        <div className="flex justify-center text-xl mt-6">
+          <p>There are no Coaches assigned</p>
+        </div>
+      )
+    } else{
+      return coaches.map((user, idx) => (
       <div
         key={idx}
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
@@ -55,7 +91,35 @@ const UserDirectoryPage = () => {
           <Image src={phUser} alt={""} />
         </div>
         <div className="grow">
-          <p>{user.RealName}</p>
+          <p>{user.realName}</p>
+        </div>
+        <div className="grow-0">
+          <MoreVertOutlinedIcon />
+        </div>
+      </div>
+    ));
+    }
+    
+  }
+
+  const createUser = () => {
+    if(general.length == 0){
+      return (
+        <div className="flex justify-center text-xl mt-6">
+          <p>Find some new users!</p>
+        </div>
+      )
+    } else{
+    return general.map((user, idx) => (
+      <div
+        key={idx}
+        className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
+      >
+        <div className="grow-0">
+          <Image src={phUser} alt={""} />
+        </div>
+        <div className="grow">
+          <p>{user.realName}</p>
         </div>
         <div className="grow-0">
           <MoreVertOutlinedIcon />
@@ -63,27 +127,6 @@ const UserDirectoryPage = () => {
       </div>
     ));
   }
-
-  const createUser = () => {
-    let users = dummyUsers.filter(item => item.IsAdmin===false);
-    users = users.filter(item => item.IsCoach===false);
-    
-    return users.map((user, idx) => (
-      <div
-        key={idx}
-        className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
-      >
-        <div className="grow-0">
-          <Image src={phUser} alt={""} />
-        </div>
-        <div className="grow">
-          <p>{user.RealName}</p>
-        </div>
-        <div className="grow-0">
-          <MoreVertOutlinedIcon />
-        </div>
-      </div>
-    ));
   };
 
   return (
@@ -96,7 +139,7 @@ const UserDirectoryPage = () => {
         <div>
           <p className="mt-4 text-3xl font-titillium">Program Owner</p>
           <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />
-          <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+          {/* <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
             <div className="grow-0">
               <Image src={image1} alt={""} />
             </div>
@@ -107,7 +150,7 @@ const UserDirectoryPage = () => {
             <div className="grow-0 ">
               <MoreVertOutlinedIcon />
             </div>
-          </div>
+          </div> */}
           {createAdmin()}
           <p className="mt-4 text-3xl font-titillium">Coaches</p>
           <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />

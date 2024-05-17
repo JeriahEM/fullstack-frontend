@@ -258,6 +258,23 @@ export const AddUserToProgram = async (addInfo: IAddUserToProgram) => {
     const data = await res.json();
     return data;
 }
+
+export const getUsersByProgramName = async (name:string | null) => {
+    const res = await fetch(url + '/Program/GetUsersByProgramName/' + name);
+    const data = await res.json();
+    
+    console.log(data)
+    return data
+}
+
+export const getUserByUsername = async (name:string | null) => {
+    const res = await fetch(url + '/User/GetUserByUsername/' + name);
+    const data = await res.json();
+    
+    console.log(data)
+    return data
+}
+
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {
     const differences: Partial<IUserdata> = {};

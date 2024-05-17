@@ -323,7 +323,7 @@ const AllProgramsPage = () => {
         </div>
 
 
-        <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+        {/* <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
           <div className="grow-0">
             <LocationOnOutlinedIcon />
           </div>
@@ -351,7 +351,7 @@ const AllProgramsPage = () => {
             <Button className='border-2 border-black bg-green-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Join</Button>
 
           </div>
-        </div>
+        </div> */}
         {makeDisplayPrograms()}
         <br />
         <br />
