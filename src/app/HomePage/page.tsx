@@ -425,10 +425,16 @@ const HomePage = () => {
                 ))}
               </ul>
             </div>
+
+            {isAdmin ? 
             <div className="relative h-[90px] flex justify-center items-end">
               <button onClick={() => handleCreate()} className='absolute text-white py-2 px-4 rounded bg-violet-500 hover:bg-violet-800'> Create New Event</button>
             </div>
-
+            :
+            <div>
+              
+            </div>
+            }
           </div>
         </div>
 

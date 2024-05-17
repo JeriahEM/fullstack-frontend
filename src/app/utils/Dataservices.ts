@@ -1,5 +1,6 @@
 import { useAppContext } from "@/Context/context";
 import { IAddUserToProgram, ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { unescape } from "querystring";
 import { createContext } from "react";
 import validator from 'validator';
 
@@ -328,7 +329,6 @@ export const isValidEmailFunction = (email:string) => {
 
 
 export const splitStringToArray = (inputString: string | null) => {
-    console.log(inputString)
     // Split the string by comma and remove any leading/trailing whitespace
     if(inputString && inputString.includes(',')){
        return inputString.split(',').map(item => item.trim()); 
@@ -338,5 +338,13 @@ export const splitStringToArray = (inputString: string | null) => {
     }
     
   };
+
+export const countUsersInProgram = (program:IDisplayProgram) =>{
+    const add1 = splitStringToArray(program.adminID)?.length ?? 0
+    const add2 = splitStringToArray(program.coachID)?.length ?? 0
+    const add3 = splitStringToArray(program.genUserID)?.length ?? 0
+
+    return (add1+add2+add3)
+}
   
       

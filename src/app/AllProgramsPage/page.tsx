@@ -19,7 +19,7 @@ import SportsHockeyOutlinedIcon from '@mui/icons-material/SportsHockeyOutlined';
 import SportsGymnasticsOutlinedIcon from '@mui/icons-material/SportsGymnasticsOutlined';
 import DirectionsRunOutlinedIcon from '@mui/icons-material/DirectionsRunOutlined';
 import SportsVolleyballRoundedIcon from '@mui/icons-material/SportsVolleyballRounded';
-import { checkForUserOnRefresh, createProgram, splitStringToArray } from '@/app/utils/Dataservices';
+import { checkForUserOnRefresh, countUsersInProgram, createProgram, splitStringToArray } from '@/app/utils/Dataservices';
 import { ICreateProgram, IDisplayProgram } from '../Interfaces/Interfaces';
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import Image from 'next/image';
@@ -36,8 +36,8 @@ const AllProgramsPage = () => {
     checkForUserOnRefresh()
     setUserID(sessionStorage.getItem("userID"))
     const tempArr = splitStringToArray(sessionStorage.getItem('programs'))
-    if(tempArr){
-     setProgramArr(tempArr); 
+    if (tempArr) {
+      setProgramArr(tempArr);
     }
     const grabPrograms = async () => {
       setDisplayPrograms(await getProgramBySport(sessionStorage.getItem("sport")))
@@ -171,12 +171,12 @@ const AllProgramsPage = () => {
 
   }
 
-  const handleViewBtn = (program:string) =>{
+  const handleViewBtn = (program: string) => {
     setCurrentProgramContext(program)
     sessionStorage.setItem('lastProgram', program)
     router.push("/HomePage")
   }
-  const handleLeaveBtn = (programID:number, userID:string | null) =>{
+  const handleLeaveBtn = (programID: number, userID: string | null) => {
     // console.log("program number is: " + programID)
     // console.log("userId is : " + userID)
     console.log(programArr)
@@ -189,14 +189,14 @@ const AllProgramsPage = () => {
           <LocationOnOutlinedIcon />
         </div>
         <div className="grow">{program.programName}</div>
-        
+
         <div className="grow-0 grid grid-cols-2 font-titillium">
-          <p>#{ }</p>
-          {programArr.includes(program.programName) ? 
-          <Button onClick={()=>handleLeaveBtn(program.programID, sessionStorage.getItem('userID'))} className='border-2 border-black bg-red-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Leave Program</Button>
-        :
-        <Button onClick={()=>handleViewBtn(program.programName)} className='border-2 border-black bg-green-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>View</Button>
-        }
+          <p># {countUsersInProgram(program)}</p>
+          {programArr.includes(program.programName) ?
+            <Button onClick={() => handleLeaveBtn(program.programID, sessionStorage.getItem('userID'))} className='border-2 border-black bg-red-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Leave Program</Button>
+            :
+            <Button onClick={() => handleViewBtn(program.programName)} className='border-2 border-black bg-green-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>View</Button>
+          }
 
         </div>
       </div>

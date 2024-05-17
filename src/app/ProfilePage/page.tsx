@@ -229,7 +229,7 @@ const ProfilePage = () => {
                 </ul>
               </div>
               <div className="mt-auto flex justify-center">
-                <button onClick={() => setOpenModal(true)} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </button>
+                <Button onClick={() => setOpenModal(true)} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </Button>
                 <Modal show={openModal} size="md" popup onClose={() => setOpenModal(false)} initialFocus={emailInputRef} >
                   <Modal.Header />
                   <Modal.Body>
@@ -336,7 +336,7 @@ const ProfilePage = () => {
         </div>
 
           <h1 className="text-center text-3xl font-bold py-4 font-titillium">My Programs</h1>
-          <div className="border-2 border-red-600 h-[40vh] mx-7 ">
+          <div className=" h-[40vh] mx-7 ">
           {makeDisplayPrograms()}
         </div>
       </div>
