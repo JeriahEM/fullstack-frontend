@@ -156,7 +156,7 @@ const ProfilePage = () => {
   }
 
   const makeDisplayPrograms = () =>{
-    const programArr = splitStringToArray(sessionStorage.getItem('programs'))
+    const programArr = typeof window !== 'undefined' ? splitStringToArray(sessionStorage.getItem('programs')) : null;
     if(programArr){
       return programArr.map((program, index)=>(
       <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
@@ -211,7 +211,7 @@ const ProfilePage = () => {
                   <li className="my-3">
                     <div className="flex flex-row text-2xl font-titillium">
                       <p className="pe-3 font-bold">Status:</p>
-                      <p>{sessionStorage.getItem('userStatus')}</p>
+                      <p>{typeof window !== 'undefined' ? sessionStorage.getItem('userStatus') : null}</p>
                     </div>
                   </li>
                   <li className="my-3">

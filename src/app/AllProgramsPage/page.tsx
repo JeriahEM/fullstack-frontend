@@ -34,13 +34,13 @@ const AllProgramsPage = () => {
   useEffect(() => {
 
     checkForUserOnRefresh()
-    setUserID(sessionStorage.getItem("userID"))
-    const tempArr = splitStringToArray(sessionStorage.getItem('programs'))
+    setUserID(typeof window !== 'undefined' ? sessionStorage.getItem("userID"): null)
+    const tempArr = splitStringToArray(typeof window !== 'undefined' ? sessionStorage.getItem('programs') : null)
     if (tempArr) {
       setProgramArr(tempArr);
     }
     const grabPrograms = async () => {
-      setDisplayPrograms(await getProgramBySport(sessionStorage.getItem("sport")))
+      setDisplayPrograms(await getProgramBySport(typeof window !== 'undefined' ? sessionStorage.getItem("sport"): "Tennis"))
     }
     grabPrograms();
 
@@ -72,7 +72,7 @@ const AllProgramsPage = () => {
     const newProgram: ICreateProgram = {
       id: 2,
       programName: newProgramTitle,
-      programSport: sessionStorage.getItem('sport'),
+      programSport: typeof window !== 'undefined' ? sessionStorage.getItem('sport') : 'Tennis',
       description: newProgramDescription,
       adminID: userID
     };
@@ -206,7 +206,7 @@ const AllProgramsPage = () => {
         <div className="grow-0 grid grid-cols-2 font-titillium">
           <p># {countUsersInProgram(program)}</p>
           {programArr.includes(program.programName) ?
-            <Button onClick={() => handleLeaveBtn(program.programID, sessionStorage.getItem('userID'))} className='border-2 border-black bg-red-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Leave Program</Button>
+            <Button onClick={() => handleLeaveBtn(program.programID, typeof window !== 'undefined' ? sessionStorage.getItem('userID'): null)} className='border-2 border-black bg-red-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Leave Program</Button>
             :
             <Button onClick={() => handleViewBtn(program.programName)} className='border-2 border-black bg-green-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>View</Button>
           }
@@ -222,7 +222,7 @@ const AllProgramsPage = () => {
       <NavbarComponent />
 
       <div className="flex flex-row text-3xl font-titillium font-bold pt-14 justify-center  items-end">
-        {handleSport(sessionStorage.getItem('sport'))}
+        {handleSport(typeof window !== 'undefined' ? sessionStorage.getItem('sport') : null)}
         {/* <div className='flex flex-row items-center'>
           <SportsVolleyballRoundedIcon fontSize="small"/><PoolOutlinedIcon fontSize="large"/>
           <p className='pl-3'>Water Polo</p>
