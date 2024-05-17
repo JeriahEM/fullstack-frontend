@@ -39,8 +39,10 @@ const NavbarComponent = () => {
       await checkForUserOnRefresh()
       const loggedIn = await loggedinData();
       setProgramArr(splitStringToArray(sessionStorage.getItem('programs')));
-      setCurrentProgramContext(currentProgramContext) 
-
+      if(programArr){
+        setCurrentProgramContext(programArr[0]) 
+      }
+      
       setUsername(loggedIn.username)
       // let userBlogItems: IBlogItems[] = await getBlogItemsByUserId(loggedIn.userId)
 

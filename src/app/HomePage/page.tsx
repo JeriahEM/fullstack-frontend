@@ -62,7 +62,7 @@ const HomePage = () => {
       const currentEvents = fetchedEvents.filter((obj: { start: string | string[]; }) => obj.start.includes(dateStr))
       setDisplayEvents(currentEvents)
     }
-    getEvents()
+   getEvents()
     
     
   }, [contextData.currentProgramContext])
