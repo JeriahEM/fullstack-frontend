@@ -14,10 +14,10 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, splitStringToArray } from '@/app/utils/Dataservices';
+import { AddUserToProgram, checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, splitStringToArray } from '@/app/utils/Dataservices';
 
 import DummyEvents from '@/app/utils/DummyEvent.json'
-import { IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
+import { IAddUserToProgram, IDisplayProgram, IEvent } from '../Interfaces/Interfaces';
 import { Button, Modal } from 'flowbite-react';
 import { useAppContext } from '@/Context/context';
 
@@ -62,9 +62,9 @@ const HomePage = () => {
       const currentEvents = fetchedEvents.filter((obj: { start: string | string[]; }) => obj.start.includes(dateStr))
       setDisplayEvents(currentEvents)
     }
-   getEvents()
-    
-    
+    getEvents()
+
+
   }, [contextData.currentProgramContext])
 
   useEffect(() => {
@@ -75,7 +75,9 @@ const HomePage = () => {
     // setAllEvents(DummyEvents)
     const getEvents = async () => {
       const programArr = splitStringToArray(sessionStorage.getItem('programs'))
-
+      if (programArr) {
+        setProgramArr(programArr);
+      }
       if (programArr) {
         if (sessionStorage.getItem('firstLoad') === "true") {
           console.log(sessionStorage.getItem('firstLoad'))
@@ -105,7 +107,7 @@ const HomePage = () => {
 
           //setting display events on load
           const currentEvents = fetchedEvents.filter((obj: { start: string | string[]; }) => obj.start.includes(dateStr))
-      setDisplayEvents(currentEvents)
+          setDisplayEvents(currentEvents)
 
           sessionStorage.setItem('firstLoad', "false")
         }
@@ -140,6 +142,8 @@ const HomePage = () => {
 
   const [clickedDate, setClickedDate] = useState<string>(new Date().toISOString())
   const [displayEvents, setDisplayEvents] = useState<IEvent[]>([])
+
+  const [programArr, setProgramArr] = useState<string[]>([])
 
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
     //setting up useState for the modal
@@ -250,6 +254,17 @@ const HomePage = () => {
     setShowModal(true)
   }
 
+  const handleJoinBtn = () => {
+    console.log("program number is: " + programID)
+    console.log("userId is : " + sessionStorage.getItem('userID'))
+    const addInfo: IAddUserToProgram = {
+      programID: programID,
+      userId: Number(sessionStorage.getItem('userID')),
+      status: "general"
+    }
+    AddUserToProgram(addInfo)
+  }
+
   const [descriptionModal, setDescriptionModal] = useState(false)
 
   return (
@@ -332,11 +347,22 @@ const HomePage = () => {
               <Modal popup onClose={() => setDescriptionModal(false)} show={descriptionModal} size="md">
                 <Modal.Header />
                 <Modal.Body>
-                  <p className=' font-titillium text-xl'>
-                    Program Description: {programDesc}
-                  </p>
+                  <div className=' font-titillium text-xl'>
+                    <p >
+                      Program Description:
+                    </p>
+                    <p>{programDesc}</p>
+                  </div>
+
                   <br />
-                  <Button className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>
+                  <div className='flex justify-center'>
+                    {programArr.includes(contextData.currentProgramContext) ?
+                      <Button className=' border-2 border-black bg-red-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Leave?</Button>
+                      :
+                      <Button onClick={() => handleJoinBtn()} className=' border-2 border-black bg-green-500  rounded-lg min-w-36 h-10 font-titillium bg-none w-14 text-lg hover:text-white'>Join Program</Button>
+                    }
+                  </div>
+
                 </Modal.Body>
               </Modal>
             </div>

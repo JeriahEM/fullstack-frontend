@@ -1,5 +1,5 @@
 import { useAppContext } from "@/Context/context";
-import { ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { IAddUserToProgram, ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 import { createContext } from "react";
 import validator from 'validator';
 
@@ -228,6 +228,26 @@ export const getProgramByName = async (name:string) => {
     
     console.log(data)
     return data
+}
+
+export const AddUserToProgram = async (addInfo: IAddUserToProgram) => {
+    const res = await fetch( url + "/Program/AddUserToProgram", {
+        method: "POST",
+        headers: {
+            'Content-Type' : "application/json"
+        },
+        body: JSON.stringify(addInfo)
+    });
+
+    if(!res.ok){
+        const message = "An Error has occured" + res.status;
+        throw new Error(message);
+    }else{
+        alert("You have been added")
+    }
+
+    const data = await res.json();
+    return data;
 }
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {

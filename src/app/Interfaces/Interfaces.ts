@@ -74,6 +74,6 @@ export interface IUpdateUser {
 
 export interface IAddUserToProgram{
     programID: number,
-    userId: number,
+    userId : number,
     status: string
 }
