@@ -21,6 +21,7 @@ interface userReturn{
   status: string,
   userName: string,
   realName: string,
+  image: any
 }
 interface userObject {
   [key: string]: userReturn[];
@@ -60,7 +61,7 @@ const handleProfileChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileChange(user.userName)} src={phUser} alt={""} />
+          <Image onClick={()=>handleProfileChange(user.userName)} src={user.image||phUser} alt={""} />
         </div>
         <div className="grow flex">
           
@@ -89,7 +90,7 @@ const handleProfileChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileChange(user.userName)}  src={phUser} alt={""} />
+          <Image onClick={()=>handleProfileChange(user.userName)}  src={user.image||phUser} alt={""} />
         </div>
         <div className="grow">
           <p>{user.realName} ({user.userName})</p>
@@ -117,7 +118,7 @@ const handleProfileChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileChange(user.userName)}  src={phUser} alt={""} />
+          <Image onClick={()=>handleProfileChange(user.userName)}  src={user.image||phUser } alt={""} />
         </div>
         <div className="grow">
           <p>{user.realName} ({user.userName})</p>

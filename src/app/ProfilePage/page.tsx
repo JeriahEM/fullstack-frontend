@@ -206,8 +206,8 @@ const ProfilePage = () => {
           <div className="grid grid-cols-6 mx-7 py-8 ">
             <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
               <div className="flex justify-center">
-                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl " >
-                  <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={user.image || placehold} width={400} height={400}/>
+                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh]  rounded-3xl" >
+                  <Image className="w-[80%] h-40 md:h-[45vh]  rounded-3xl " alt="Placeholder img/ User set profile picture" src={user.image || placehold} width={400} height={400}/>
                 </div>
               </div>
             </div>
@@ -249,7 +249,7 @@ const ProfilePage = () => {
                 </ul>
               </div>
               <div className="mt-auto flex justify-center">
-                <Button onClick={() => setOpenModal(true)} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </Button>
+                <Button onClick={() => setOpenModal(true)} className="border-2 border-black bg-neutral-100 rounded-lg text-black hover:bg-inherit hover:text-white min-w-36 h-14 font-titillium bg-none"> EDIT </Button>
                 <Modal show={openModal} size="md" popup onClose={() => setOpenModal(false)} initialFocus={emailInputRef} >
                   <Modal.Header />
                   <Modal.Body>

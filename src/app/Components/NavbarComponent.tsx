@@ -8,6 +8,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+import placehold from "../assets/images/Group13.png"
 
 
 
@@ -89,6 +90,7 @@ const NavbarComponent = () => {
           inline
           label={
             <Avatar className='pb-2' alt="User settings" img="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" rounded />
+            // <Image className="w-[80%] h-40 md:h-[45vh]  rounded-3xl " alt="Placeholder img" src={user.image || placehold} width={400} height={400}/>
           }
         >
           <Dropdown.Item onClick={() => router.push('/HomePage')}>
