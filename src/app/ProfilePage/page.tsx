@@ -69,7 +69,7 @@ const ProfilePage = () => {
 
   const [programs, setPrograms] = useState<string>(" ")
   const [birthday, setBirthday] = useState<string>(" ")
-  const [image, setImage] = useState<string>(" ")
+  const [image, setImage] = useState<any>(" ")
   const [email, setEmail] = useState<string>(" ")
   const [sports, setSports] = useState<string>("")
   const [funFact, setFunFact] = useState<string>(" ")
@@ -82,19 +82,8 @@ const ProfilePage = () => {
   const isCoach = false
   const isUser = true
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
 
-  const handlePfpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let reader = new FileReader();
-    const file = e.target.files?.[0];
-    if (file) {
-      reader.onload = () => {
-        setImage(reader.result as string);
-      };
-      
-      reader.readAsDataURL(file);
-    }
-  };
 
 
   const handleCloseModals = () => {
@@ -136,6 +125,19 @@ const ProfilePage = () => {
     }
   }
 
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let reader = new FileReader();
+    const file = e.target.files?.[0]
+
+    if(file){
+      reader.onload = () =>{
+        console.log(reader.result)
+        setImage(reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
   const handleEditChange = () => {
 
 
@@ -143,13 +145,7 @@ const ProfilePage = () => {
       const fetchData = resetPassword(newPassword);
     }
 
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
-    }
+
   
 
     updateUserProfile(
@@ -210,8 +206,8 @@ const ProfilePage = () => {
           <div className="grid grid-cols-6 mx-7 py-8 ">
             <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
               <div className="flex justify-center">
-                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl placeholder" >
-                  {/* <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={user.image || placehold} width={400} height={400}/> */}
+                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl " >
+                  <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={user.image || placehold} width={400} height={400}/>
                 </div>
               </div>
             </div>
@@ -309,9 +305,9 @@ const ProfilePage = () => {
                     </div>
                     <div className="mb-2 block">
                       <div>
-                        <Label htmlFor="small-file-upload" value="Edit Profile Picture" />
+                        <Label htmlFor="Picture" value="Edit Profile Picture" />
                       </div>
-                      <FileInput onChange={(e) => setImage(e.target.value)} id="small-file-upload" sizing="md" />
+                      <FileInput onChange={handleImage} accept="image/png, image/jpg" id="Picture" sizing="md" />
                       </div>
 
                     <div className="w-full flex flex-row justify-between">
