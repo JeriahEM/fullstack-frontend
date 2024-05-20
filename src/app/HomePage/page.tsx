@@ -14,7 +14,7 @@ import { EventSourceInput } from '@fullcalendar/core/index.js'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { AddUserToProgram, checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
+import { AddUserToProgram, DeleteEventByID, checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
 
 import DummyEvents from '@/app/utils/DummyEvent.json'
 import { IAddUserToProgram, IDisplayProgram, IEvent, IUserdata } from '../Interfaces/Interfaces';
@@ -150,16 +150,18 @@ const HomePage = () => {
     if (check.adminID === sessionStorage.getItem('userID')) {
       setIsAdmin(true)
       sessionStorage.setItem("userStatus", "admin")
+      console.log('this goes off')
     }
     else {
       setIsAdmin(false)
       sessionStorage.setItem("userStatus", "general")
+      console.log("this 2nd one goes off")
     }
   }
 
   const [programDesc, setProgramDes] = useState<string>('')
   const [idCounter, setIdCounter] = useState(0);
-  const [isAdmin, setIsAdmin] = useState<Boolean>(true)
+  const [isAdmin, setIsAdmin] = useState<Boolean>(false)
   const [programID, setProgramID] = useState<number>(0);
   const [allEvents, setAllEvents] = useState<IEvent[]>([])
   const [showModal, setShowModal] = useState(false)
@@ -186,30 +188,32 @@ const HomePage = () => {
   function handleDateClick(arg: { dateStr: any, allDay: boolean }) {
     //setting up useState for the modal
     // setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: new Date().getTime() })
-    console.log(idCounter)
+  
     setNewEvent({ ...newEvent, start: arg.dateStr, allDay: arg.allDay, id: 0, programID: programID.toString() })
     // setShowModal(true)
-    console.log(arg.dateStr)
+    
     setStartTime(arg.dateStr + " ")
     setEndTime(arg.dateStr + " ")
-    console.log(allEvents)
+    
 
     //showing the events on the other div
     setClickedDate(arg.dateStr)
     const currentEvents = allEvents.filter(obj => obj.start.includes(arg.dateStr))
-    console.log(currentEvents)
+ 
     setDisplayEvents(currentEvents)
 
   }
 
 
   function handleDeleteModal(data: { event: { id: string } }) {
+    console.log(data.event.id)
     setShowDeleteModal(true)
     setIdToDelete(Number(data.event.id))
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     setAllEvents(allEvents.filter(event => Number(event.id) !== Number(idToDelete)))
+    await DeleteEventByID(idToDelete)
     setShowDeleteModal(false)
     setIdToDelete(999999)
   }
@@ -266,7 +270,8 @@ const HomePage = () => {
     await createEvent(newEvent);
     newEvent.id = idCounter;
     setIdCounter(idCounter + 1);
-    setAllEvents([...allEvents, newEvent])
+    const newEvents = await getEventsByProgramName(currentProgramContext)
+    setAllEvents(newEvents)
 
     setDisplayEvents([...displayEvents, newEvent])
 
