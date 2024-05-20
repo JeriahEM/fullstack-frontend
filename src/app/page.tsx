@@ -187,7 +187,7 @@ export default function Home() {
                     <p>Email:</p>
                   </div>
                 </div>
-                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" minLength={10} required onChange={handleEmailChange} />
+                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={handleEmailChange} />
               </div>
               <br />
               <div className=" flex justify-between gap-3">
@@ -256,7 +256,7 @@ export default function Home() {
                     <div className=" block ">
                       <Label htmlFor="email" value="Email" />
                     </div>
-                    <TextInput minLength={4} required maxLength={24} />
+                    <TextInput  />
                   </div>
                   <div className="w-full flex flex-row justify-between min-h-11 my-3">
                     <Button className="!bg-red-500 min-w-24 "  onClick={() => setOpenModal(false)}>Cancel</Button>

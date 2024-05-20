@@ -299,9 +299,9 @@ const ProfilePage = () => {
                       </div>
                       <div>
                         <div className="mb-2 block">
-                          <Label htmlFor="password" value="Edit Email" />
+                          <Label htmlFor="email" value="Edit Email" />
                         </div>
-                        <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password" maxLength={24}  />
+                        <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password"  />
                     </div>
                     <div className="mb-2 block">
                       <div>
