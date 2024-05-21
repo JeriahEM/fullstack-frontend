@@ -16,22 +16,22 @@ import { checkForUserOnRefresh, checkToken, loggedinData, splitStringToArray } f
 import { useAppContext } from "@/Context/context";
 const NavbarComponent = () => {
 
-  const {currentProgramContext, setCurrentProgramContext} = useAppContext()
+  const { currentProgramContext, setCurrentProgramContext } = useAppContext()
 
   const [username, setUsername] = useState<string>("")
   const [programArr, setProgramArr] = useState<string[]>()
-  
 
-  const handleProgramClick = (program:string) =>{
+
+  const handleProgramClick = (program: string) => {
     setCurrentProgramContext(program)
     sessionStorage.setItem('lastProgram', program)
     router.push('/HomePage')
   }
-  const createDropDown = () =>{
-    return programArr?.map((program,idx)=>(
-      <Dropdown.Item key={idx} onClick={()=>handleProgramClick(program)}>{program}</Dropdown.Item>
+  const createDropDown = () => {
+    return programArr?.map((program, idx) => (
+      <Dropdown.Item key={idx} onClick={() => handleProgramClick(program)}>{program}</Dropdown.Item>
     ))
-  }    
+  }
 
 
 
@@ -41,11 +41,11 @@ const NavbarComponent = () => {
       await checkForUserOnRefresh()
       const loggedIn = await loggedinData();
       setProgramArr(splitStringToArray(sessionStorage.getItem('programs')));
-      if(programArr){
+      if (programArr) {
         setCurrentProgramContext(programArr[0])
-        sessionStorage.setItem('lastProgram', programArr[0]) 
+        sessionStorage.setItem('lastProgram', programArr[0])
       }
-      
+
       setUsername(loggedIn.username)
       // let userBlogItems: IBlogItems[] = await getBlogItemsByUserId(loggedIn.userId)
 
@@ -83,8 +83,14 @@ const NavbarComponent = () => {
           <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={() => router.push('/HomePage')}>Court Monitor</span>
         </div>
       </Navbar.Brand>
+    
+      <Dropdown className='font-bebas text-6xl' label={currentProgramContext} inline>
+        {/* <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
+        <Dropdown.Item>US Open</Dropdown.Item> */}
+        {createDropDown()}
+      </Dropdown>
       <div className="flex md:order-2">
-        <p className='pt-2 pr-2'>{username}</p>
+        <p className='pt-2 pr-2 hidden md:block'>{username}</p>
         <Dropdown
           arrowIcon={true}
           inline
@@ -137,14 +143,8 @@ const NavbarComponent = () => {
             </div>
           </Dropdown.Item>
         </Dropdown>
-        <Navbar.Toggle />
+        {/* <Navbar.Toggle /> */}
       </div>
-      <Dropdown className='font-bebas text-6xl' label={currentProgramContext} inline>
-        {/* <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
-        <Dropdown.Item>US Open</Dropdown.Item> */}
-        {createDropDown()}
-      </Dropdown>
-
     </Navbar>
   );
 }

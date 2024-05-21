@@ -179,8 +179,8 @@ const ProfilePage = () => {
     const programArr = typeof window !== 'undefined' ? splitStringToArray(sessionStorage.getItem('programs')) : null;
     if(programArr){
       return programArr.map((program, index)=>(
-      <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
-              <div className="text-5xl">
+      <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-2 md:gap-x-9">
+              <div className="text-2xl md:text-5xl">
                 <LocationOnOutlinedIcon fontSize="inherit"/>
                 </div>
               <button onClick={()=>handleProgramClick(program)} className=" hover:cursor-pointer hover:font-bold hover:text-blue-600">
@@ -206,8 +206,8 @@ const ProfilePage = () => {
           <div className="grid grid-cols-6 mx-7 py-8 ">
             <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
               <div className="flex justify-center">
-                <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh]  rounded-3xl" >
-                  <Image className="w-[80%] h-40 md:h-[45vh]  rounded-3xl " alt="Placeholder img/ User set profile picture" src={user.image || placehold} width={400} height={400}/>
+                <div className="lg:my-4 " >
+                  <Image className="  rounded-3xl " alt="Placeholder img/ User set profile picture" src={user.image || placehold} width={400} height={400}/>
                 </div>
               </div>
             </div>
@@ -301,7 +301,7 @@ const ProfilePage = () => {
                         <div className="mb-2 block">
                           <Label htmlFor="email" value="Edit Email" />
                         </div>
-                        <TextInput onChange={(e) => setEmail(e.target.value)} id="password" type="password"  />
+                        <TextInput onChange={(e) => setEmail(e.target.value)} id="email" type="email"  />
                     </div>
                     <div className="mb-2 block">
                       <div>
