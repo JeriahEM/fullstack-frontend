@@ -27,13 +27,11 @@ export const createAccount = async (createdUser: INewUser) => {
 
 
     const data = await res.json();
-    console.log(data);
     if (!data) {
         alert("username or email taken")
     } else {
         alert("Account created")
     }
-    console.log(res.ok)
 }
 
 export const login = async (LoginUser: IUserInfo) => {
@@ -67,11 +65,11 @@ export const checkForUserOnRefresh = async () => {
     const item = sessionStorage.getItem("user");
 
     if (item) {
-        console.log("user detected")
+        // console.log("user detected")
         await getLoggedInUserData(item)
     }
     else {
-        console.log("no user")
+        // console.log("no user")
     }
 }
 
@@ -87,8 +85,6 @@ export const getLoggedInUserData = async (username: string) => {
         sessionStorage.setItem('programs', "")
     }
 
-
-    console.log(userData)
 }
 
 export const loggedinData = () => {
@@ -123,7 +119,6 @@ export const updateUserProfile = async (user: IUpdateUser) => {
 
     }
     const data = await res.json();
-    console.log(data)
     return data
 }
 
@@ -145,14 +140,12 @@ export const createEvent = async (event: IEvent) => {
     }
 
     const data = await res.json();
-    console.log(data);
 }
 
 export const getAllEvents = async () => {
     const res = await fetch(url + '/Event/GetAllEvents');
     const data = await res.json();
 
-    console.log(data)
     return data
 }
 
@@ -198,7 +191,7 @@ export const getProgramBySport = async (sport: string | null) => {
     const res = await fetch(url + '/Program/GetProgramsBySport/' + sport);
     const data = await res.json();
 
-    console.log(data)
+
     return data
 }
 
@@ -206,7 +199,7 @@ export const getProgramByID = async (id: number) => {
     const res = await fetch(url + '/Program/GetProgramById/' + id);
     const data = await res.json();
 
-    console.log(data)
+  
     return data
 }
 
@@ -214,28 +207,27 @@ export const getAllPrograms = async () => {
     const res = await fetch(url + '/Program/GetAllPrograms');
     const data = await res.json();
 
-    console.log(data)
+   
     return data
 }
 export const getEventsByProgramId = async (id: number) => {
     const res = await fetch(url + '/Event/GetEventsByProgramID/' + id);
     const data = await res.json();
 
-    console.log(data)
+  
     return data
 }
 export const getEventsByProgramName = async (name: string) => {
     const res = await fetch(url + '/Event/GetEventsByProgramName/' + name);
     const data = await res.json();
 
-    console.log(data)
+ 
     return data
 }
 export const getProgramByName = async (name: string) => {
     const res = await fetch(url + '/Program/GetProgramByName/' + name);
     const data = await res.json();
 
-    console.log(data)
     return data
 }
 
@@ -263,7 +255,7 @@ export const getUsersByProgramName = async (name: string | null) => {
     const res = await fetch(url + '/Program/GetUsersByProgramName/' + name);
     const data = await res.json();
 
-    console.log(data)
+ 
     return data
 }
 
@@ -271,7 +263,6 @@ export const getUserByUsername = async (name: string | null) => {
     const res = await fetch(url + '/User/GetUserByUsername/' + name);
     const data = await res.json();
 
-    console.log(data)
     return data
 }
 
@@ -304,7 +295,7 @@ export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUser
             }
         }
     }
-    console.log(differences)
+    
     return differences;
 }
 //Takes date in "2024-04-24" and returns "April 24, 2024"

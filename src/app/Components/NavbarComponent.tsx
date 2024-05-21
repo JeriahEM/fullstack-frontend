@@ -14,12 +14,14 @@ import placehold from "../assets/images/Group13.png"
 
 import { checkForUserOnRefresh, checkToken, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
 import { useAppContext } from "@/Context/context";
+import { IUserdata } from "../Interfaces/Interfaces";
 const NavbarComponent = () => {
 
   const {currentProgramContext, setCurrentProgramContext} = useAppContext()
 
   const [username, setUsername] = useState<string>("")
   const [programArr, setProgramArr] = useState<string[]>()
+  const [user, setUser] = useState<IUserdata>({} as IUserdata)
   
 
   const handleProgramClick = (program:string) =>{
@@ -40,6 +42,7 @@ const NavbarComponent = () => {
     const getLoggedinData = async () => {
       await checkForUserOnRefresh()
       const loggedIn = await loggedinData();
+      setUser(loggedIn);
       setProgramArr(splitStringToArray(sessionStorage.getItem('programs')));
       if(programArr){
         setCurrentProgramContext(programArr[0])
@@ -89,7 +92,7 @@ const NavbarComponent = () => {
           arrowIcon={true}
           inline
           label={
-            <Avatar className='pb-2' alt="User settings" img="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" rounded />
+            <Avatar className='pb-2' alt="User settings" img={user.image} rounded />
             // <Image className="w-[80%] h-40 md:h-[45vh]  rounded-3xl " alt="Placeholder img" src={user.image || placehold} width={400} height={400}/>
           }
         >
