@@ -13,12 +13,8 @@ import { useAppContext } from "@/Context/context";
 
 //testing to see if i can push
 
-interface IGuestProfileProps {
-    userStatus: string
-}
 
-
-const GuestProfilepage = ({userStatus} : IGuestProfileProps) => {
+const GuestProfilepage = () => {
     const { currentProgramContext, setCurrentProgramContext, currentUserContext, setCurrentUserContext} = useAppContext()
     const router = useRouter();
     const defaultUserData: IUserdata = {
