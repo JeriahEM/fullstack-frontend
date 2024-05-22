@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import Image from "next/image";
-import image1 from "../assets/images/image1.png";
 import phUser from "../assets/images/Group13.png";
-import dummyUsers from "@/app/utils/DummyUser.json";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { checkForUserOnRefresh, getUsersByProgramName } from "@/app/utils/Dataservices";
 import { useRouter } from "next/navigation"

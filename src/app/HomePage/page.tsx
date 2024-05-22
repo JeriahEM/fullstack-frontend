@@ -1,22 +1,21 @@
 'use client'
 
 import { useRouter } from 'next/navigation';
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavbarComponent from '../Components/NavbarComponent';
 
 
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction'
+import interactionPlugin, {  } from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
 
 import { EventSourceInput } from '@fullcalendar/core/index.js'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddEventModal from '../Components/AddEventModal';
 import DeleteEventModal from '../Components/DeleteEventModal';
-import { AddUserToProgram, DeleteEventByID, checkForUserOnRefresh, createEvent, formatDate, formatTime, getAllEvents, getEventsByProgramId, getEventsByProgramName, getProgramByID, getProgramByName, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
+import { AddUserToProgram, DeleteEventByID, checkForUserOnRefresh, createEvent, formatDate, formatTime, getEventsByProgramName, getProgramByName, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
 
-import DummyEvents from '@/app/utils/DummyEvent.json'
 import { IAddUserToProgram, IDisplayProgram, IEvent, IUserdata } from '../Interfaces/Interfaces';
 import { Button, Modal } from 'flowbite-react';
 import { useAppContext } from '@/Context/context';

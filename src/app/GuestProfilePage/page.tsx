@@ -1,12 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
-import { Button, Checkbox, Datepicker, FileInput, Label, Modal, ModalBody, TextInput } from "flowbite-react";
-import React, { useEffect, useRef, useState } from "react";
-import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile, isValidEmailFunction, splitStringToArray, getUserByUsername, MoveUserToAnotherStatus } from "@/app/utils/Dataservices";
-import { IAddUserToProgram, IDisplayProgram, IResetPassword, IUserdata } from "../Interfaces/Interfaces";
-import { encode } from "punycode";
-import { ClassNames } from "@emotion/react";
+import { Button } from "flowbite-react";
+import React, { useEffect, useState } from "react";
+import { formatDate, splitStringToArray, getUserByUsername, MoveUserToAnotherStatus } from "@/app/utils/Dataservices";
+import { IAddUserToProgram, IUserdata } from "../Interfaces/Interfaces";
 
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import placehold from "../assets/images/Group13.png"
