@@ -8,6 +8,7 @@ import dummyUsers from "@/app/utils/DummyUser.json";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { checkForUserOnRefresh, getUsersByProgramName } from "@/app/utils/Dataservices";
 import { useRouter } from "next/navigation"
+import { useAppContext } from "@/Context/context";
 
 // For this page we will need to call users id, pfp, username, status
 
@@ -28,6 +29,7 @@ interface userObject {
 }
 const UserDirectoryPage = () => {
   const router = useRouter();
+  const { currentProgramContext, setCurrentProgramContext, currentUserContext, setCurrentUserContext} = useAppContext()
   useEffect(() =>{
     checkForUserOnRefresh()
     const program = sessionStorage.getItem('lastProgram')
@@ -49,9 +51,23 @@ const [admins, setAdmins] = useState<userReturn[]>([])
 const [coaches, setCoaches] = useState<userReturn[]>([])
 const [general, setGeneral] = useState<userReturn[]>([])
 
-const handleProfileChange = (user:string) =>{
-  router.push('/GuestProfilePage')
+const handleProfileAdminChange = (user:string) =>{
+  router.push(`/GuestProfilePage`)
   sessionStorage.setItem('viewing', user)
+  setCurrentUserContext("Admin")
+  console.log(currentProgramContext)
+}
+const handleProfileCoachChange = (user:string) =>{
+  router.push(`/GuestProfilePage`)
+  sessionStorage.setItem('viewing', user)
+  setCurrentUserContext("Coach")
+  console.log(currentProgramContext)
+}
+const handleProfileGeneralChange = (user:string) =>{
+  router.push(`/GuestProfilePage`)
+  sessionStorage.setItem('viewing', user)
+  setCurrentUserContext("General")
+  console.log(currentProgramContext)
 }
 
   const createAdmin = ()  => {
@@ -60,8 +76,8 @@ const handleProfileChange = (user:string) =>{
         key={idx}
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
-        <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileChange(user.userName)} src={user.image||phUser} alt={""} />
+        <div className="grow-0 hover:cursor-pointer ">
+          <Image className="rounded-lg" onClick={()=>handleProfileAdminChange(user.userName)} src={user.image||phUser} alt={""} width={150} height={20}/>
         </div>
         <div className="grow flex">
           
@@ -90,7 +106,7 @@ const handleProfileChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileChange(user.userName)}  src={user.image||phUser} alt={""} />
+          <Image onClick={()=>handleProfileCoachChange(user.userName)}  src={user.image||phUser} alt={""} />
         </div>
         <div className="grow">
           <p>{user.realName} ({user.userName})</p>
@@ -118,7 +134,7 @@ const handleProfileChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileChange(user.userName)}  src={user.image||phUser } alt={""} />
+          <Image onClick={()=>handleProfileGeneralChange(user.userName)}  src={user.image||phUser } alt={""} />
         </div>
         <div className="grow">
           <p>{user.realName} ({user.userName})</p>

@@ -15,9 +15,13 @@ import { useAppContext } from "@/Context/context";
 
 //testing to see if i can push
 
+interface IGuestProfileProps {
+    userStatus: string
+}
 
-const GuestProfilepage = () => {
-    const { currentProgramContext, setCurrentProgramContext } = useAppContext()
+
+const GuestProfilepage = ({userStatus} : IGuestProfileProps) => {
+    const { currentProgramContext, setCurrentProgramContext, currentUserContext, setCurrentUserContext} = useAppContext()
     const router = useRouter();
     const defaultUserData: IUserdata = {
         userID: 0,
@@ -104,7 +108,7 @@ const GuestProfilepage = () => {
                                 <li className="my-3">
                                     <div className="flex flex-row text-2xl font-titillium">
                                         <p className="pe-3 font-bold">Status:</p>
-                                        <p>{typeof window !== 'undefined' ?sessionStorage.getItem('userStatus'): null}</p>
+                                        <p>{currentUserContext}</p>
                                     </div>
                                 </li>
                                 <li className="my-3">
