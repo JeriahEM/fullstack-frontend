@@ -138,7 +138,7 @@ const GuestProfilepage = () => {
                                 </li>
                             </ul>
                         </div>
-                        {sessionStorage.getItem('userStatus') == "admin" ? 
+                        {typeof window !== 'undefined' ? sessionStorage.getItem('userStatus') == "admin" : null ? 
                         <div className="mt-auto flex justify-center">
                             <Button onClick={handleAdmin} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to Admin </Button>
                             <Button onClick={handleGeneral} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to General </Button>
