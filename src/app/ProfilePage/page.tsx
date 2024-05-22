@@ -196,6 +196,7 @@ const ProfilePage = () => {
   const handleProgramClick = (program:string) =>{
     setCurrentProgramContext(program)
     sessionStorage.setItem('lastProgram', program)
+   
     router.push('/HomePage')
   }
 

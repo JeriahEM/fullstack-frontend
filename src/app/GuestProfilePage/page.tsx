@@ -3,8 +3,8 @@ import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button, Checkbox, Datepicker, FileInput, Label, Modal, ModalBody, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
-import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile, isValidEmailFunction, splitStringToArray, getUserByUsername } from "@/app/utils/Dataservices";
-import { IDisplayProgram, IResetPassword, IUserdata } from "../Interfaces/Interfaces";
+import { checkForUserOnRefresh, findDifferences, formatDate, loggedinData, resetPassword, updateUserProfile, isValidEmailFunction, splitStringToArray, getUserByUsername, MoveUserToAnotherStatus } from "@/app/utils/Dataservices";
+import { IAddUserToProgram, IDisplayProgram, IResetPassword, IUserdata } from "../Interfaces/Interfaces";
 import { encode } from "punycode";
 import { ClassNames } from "@emotion/react";
 
@@ -57,6 +57,25 @@ const GuestProfilepage = ({userStatus} : IGuestProfileProps) => {
         sessionStorage.setItem('lastProgram', program)
         router.push('/HomePage')
     }
+
+    const handleAdmin = async () =>{
+        const body:IAddUserToProgram = {
+            programID: Number(sessionStorage.getItem('lastProgramID')) || 0,
+            userId: user.userID,
+            status: "admin"
+        }
+        await MoveUserToAnotherStatus(body)
+    }
+    const handleGeneral = async () =>{
+        const body:IAddUserToProgram = {
+            programID: Number(sessionStorage.getItem('lastProgramID')) || 0,
+            userId: user.userID,
+            status: "general"
+        }
+        await MoveUserToAnotherStatus(body)
+    }
+
+
     const makeDisplayPrograms = () => {
         const programArr = splitStringToArray(programs)
         if (programArr) {
@@ -84,7 +103,7 @@ const GuestProfilepage = ({userStatus} : IGuestProfileProps) => {
                     <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
                         <div className="flex justify-center">
                             <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl" >
-                                <Image className="w-[80%] h-40 md:h-[45vh]" alt="Placeholder img" src={placehold} />
+                                <Image className="w-[80%] h-40 md:h-[45vh]" alt={user.image} src={user.image || placehold} />
                             </div>
                         </div>
                     </div>
@@ -125,10 +144,14 @@ const GuestProfilepage = ({userStatus} : IGuestProfileProps) => {
                                 </li>
                             </ul>
                         </div>
-                        {/* <div className="mt-auto flex justify-center">
-                            <Button className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> EDIT </Button>
-
-                        </div> */}
+                        {sessionStorage.getItem('userStatus') == "admin" ? 
+                        <div className="mt-auto flex justify-center">
+                            <Button onClick={handleAdmin} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to Admin </Button>
+                            <Button onClick={handleGeneral} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to General </Button>
+                            <Button className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Remove User </Button>
+                        </div> 
+                        :
+                        <div> not admin </div>}
                     </div>
                 </div>
 

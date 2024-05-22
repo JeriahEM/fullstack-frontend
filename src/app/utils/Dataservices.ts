@@ -279,6 +279,22 @@ export const DeleteEventByID = async (id: number) => {
 
 }
 
+export const MoveUserToAnotherStatus = async (addInfo: IAddUserToProgram) => {
+    const res = await fetch(url + "/Program/MoveUserToAnotherStatus", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(addInfo)
+    });
+
+    if (!res.ok) {
+        const message = "An Error has occured" + res.status;
+        throw new Error(message);
+    } 
+
+}
+
 
 
 //Helper Functions

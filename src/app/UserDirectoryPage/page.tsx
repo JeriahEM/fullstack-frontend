@@ -77,7 +77,7 @@ const handleProfileGeneralChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer ">
-          <Image className="rounded-lg" onClick={()=>handleProfileAdminChange(user.userName)} src={user.image||phUser} alt={""} width={150} height={20}/>
+          <Image className="rounded-lg" onClick={()=>handleProfileAdminChange(user.userName)} src={user.image||phUser} alt={""} width={120} height={120}/>
         </div>
         <div className="grow flex">
           
@@ -106,7 +106,7 @@ const handleProfileGeneralChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileCoachChange(user.userName)}  src={user.image||phUser} alt={""} />
+          <Image className="rounded-lg" onClick={()=>handleProfileCoachChange(user.userName)}  src={user.image||phUser} alt={""} width={120} height={120}/>
         </div>
         <div className="grow">
           <p>{user.realName} ({user.userName})</p>
@@ -134,7 +134,7 @@ const handleProfileGeneralChange = (user:string) =>{
         className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9"
       >
         <div className="grow-0 hover:cursor-pointer">
-          <Image onClick={()=>handleProfileGeneralChange(user.userName)}  src={user.image||phUser } alt={""} />
+          <Image className="rounded-lg" onClick={()=>handleProfileGeneralChange(user.userName)}  src={user.image||phUser } alt={""} width={120} height={120}/>
         </div>
         <div className="grow">
           <p>{user.realName} ({user.userName})</p>

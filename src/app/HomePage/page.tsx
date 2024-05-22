@@ -45,6 +45,7 @@ const HomePage = () => {
       const currentProg: IDisplayProgram = await getProgramByName(currentProgramContext);
       checkForAdmin(currentProg);
       setProgramID(currentProg.programID);
+      sessionStorage.setItem('lastProgramID', currentProg.programID.toString())
       // setNewEvent({ ...newEvent, programID: currentProg.programID.toString() });
       setProgramDes(currentProg.description);
       const fetchedEvents = await getEventsByProgramName(currentProgramContext)
@@ -101,6 +102,7 @@ const HomePage = () => {
           checkForAdmin(currentProg);
           console.log(currentProg.programID)
           setProgramID(currentProg.programID)
+          sessionStorage.setItem('lastProgramID', currentProg.programID.toString())
           setNewEvent({ ...newEvent, programID: currentProg.programID.toString() })
           setProgramDes(currentProg.description)
           //set the program id and the description and fetch events 
