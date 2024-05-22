@@ -187,7 +187,7 @@ export default function Home() {
                     <p>Email:</p>
                   </div>
                 </div>
-                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" minLength={10} required onChange={handleEmailChange} />
+                <input id="email" type="text" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-45" required onChange={handleEmailChange} />
               </div>
               <br />
               <div className=" flex justify-between gap-3">
@@ -245,29 +245,20 @@ export default function Home() {
                 </div>
                 <input id="password1" type="password" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" maxLength={24} required onChange={(e) => setPassword(e.target.value)} />
               </div>
-              <p onClick={() => setOpenModal(true)} className=" hover:text-blue-400 text-blue-600 text-md min-h-7">{switchBool ? '' : 'Forgot password?'} </p>
+              <p onClick={() => !switchBool? setOpenModal(true) : (setOpenModal(false))} className=" hover:text-blue-400 text-blue-600 text-md min-h-7">{switchBool ? '' : 'Forgot password?'} </p>
               <Modal show={openModal} size="md">
                 <Modal.Body className=" min-h-72">
                 <div className=" text-center min-h-11 my-3">
                         <p className="text-2xl">Forgot Password?</p>
                 </div>
-                <p className="text-sm pb-1 hidden md:block">Enter Email of the account you need the password for</p>
+                <p className="text-sm pb-1 hidden md:block">Enter Email of the account you need the password for <br /> And enter the new password you would like to have</p>
                   <div className="min-h-11 my-3">
                     <div className=" block ">
                       <Label htmlFor="email" value="Email" />
                     </div>
-                    <TextInput minLength={4} required maxLength={24} />
+                    <TextInput  />
                   </div>
-                  <div className="w-full flex flex-row justify-between min-h-11 my-3">
-                    <Button className="!bg-red-500 min-w-24 "  onClick={() => setOpenModal(false)}>Cancel</Button>
-                    <Button className="!bg-green-500 min-w-24" onClick={() => setRPModal(true)}>Confirm</Button>
-                  </div>
-                  <Modal show={rpModal} size="md">
-                    <Modal.Body className=" min-h-72">
-                      {/* <div className=" text-center">
-                        <p className="text-2xl">Reset Password</p>
-                      </div> */}
-                    <div className=" min-h-11 my-3">
+                  <div className=" min-h-11 my-3">
                     <div className="mb-2 block">
                       <Label htmlFor="password" value="Password" />
                     </div>
@@ -280,11 +271,9 @@ export default function Home() {
                     <TextInput minLength={4} required maxLength={24} />
                   </div>
                   <div className="w-full flex flex-row justify-between min-h-11 my-3">
-                    <Button className="!bg-red-500 min-w-24" onClick={() => setRPModal(false)}>Back</Button>
-                    <Button className="!bg-green-500 min-w-24" onClick={() => handleCloseModals()}>Confirm</Button>
+                    <Button className="!bg-red-500 min-w-24 "  onClick={() => setOpenModal(false)}>Cancel</Button>
+                    <Button className="!bg-green-500 min-w-24" onClick={() => setOpenModal(false)}>Confirm</Button>
                   </div>
-                    </Modal.Body>
-                  </Modal>
                 </Modal.Body>
               </Modal>
               <Button onClick={handleSubmit} className=" text-black font-titillium bg-lime-300">

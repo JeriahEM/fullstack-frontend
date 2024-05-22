@@ -197,7 +197,7 @@ const AllProgramsPage = () => {
   }
   const makeDisplayPrograms = () => {
     return displayPrograms.map((program: IDisplayProgram, index) => (
-      <div key={index} className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+      <div key={index} className="flex flex-row mt-6 md:text-2xl font-titillium items-center gap-3 md:gap-x-9">
         <div className="grow-0">
           <LocationOnOutlinedIcon />
         </div>
@@ -207,9 +207,9 @@ const AllProgramsPage = () => {
         <div className="grow-0 grid grid-cols-2 font-titillium">
           <p># {countUsersInProgram(program)}</p>
           {programArr.includes(program.programName) ?
-            <Button onClick={() => handleLeaveBtn(program.programID, typeof window !== 'undefined' ? sessionStorage.getItem('userID'): null)} className='border-2 border-black bg-red-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Leave Program</Button>
+            <Button onClick={() => handleLeaveBtn(program.programID, typeof window !== 'undefined' ? sessionStorage.getItem('userID'): null)} className='border-2 border-black bg-red-500  rounded-lg min-w-24 md:min-w-36 md:h-14 font-titillium bg-none w-14 text-lg hover:text-white'>Leave Program</Button>
             :
-            <Button onClick={() => handleViewBtn(program.programName)} className='border-2 border-black bg-green-500  rounded-lg min-w-36 h-14 font-titillium bg-none w-14 text-lg hover:text-white'>View</Button>
+            <Button onClick={() => handleViewBtn(program.programName)} className='border-2 border-black bg-green-500  rounded-lg md:min-w-36 md:h-14 font-titillium bg-none w-14 text-lg hover:text-white'>View</Button>
           }
 
         </div>
@@ -236,17 +236,17 @@ const AllProgramsPage = () => {
       </div>
       <div className="grid grid-cols-1 mx-7">
         <hr className="h-px mt-2 bg-black border-0 dark:bg-gray-700" />
-        <div className="flex flex-row mt-6 text-2xl font-titillium items-center gap-x-9">
+        <div className="flex flex-row mt-6 text-xl md:text-2xl font-titillium items-center gap-2  md:gap-x-9">
           <div className="grow-0">
-            <LocationOnOutlinedIcon className='invisible' />
+            <LocationOnOutlinedIcon className='invisible hidden lg:block' />
           </div>
           <div className="grow">
             <p className=' cursor-pointer lg:pl-16 font-bold' onClick={() => setOpenModal(true)}>Add Program</p>
           </div>
 
-          <div className="grow-0 grid grid-cols-2 font-titillium ">
-            <p className=' md:pt-3 lg:pt-2 font-bold'>Members</p>
-            <Button className='border-2 border-black bg-neutral-100 rounded-lg font-titillium bg-none w-[4rem] text-black hover:text-white min-w-36 h-14' onClick={() => setOpenModal(true)}>Create Program</Button>
+          <div className="grow-0 grid grid-cols-2 font-titillium">
+            <p className=' pt-3 lg:pt-2 font-bold '>Members</p>
+            <Button className='border-2 border-black bg-neutral-100 rounded-lg font-titillium bg-none w-[4rem] text-black hover:text-white md:min-w-36 h-14 min-w-24' onClick={() => setOpenModal(true)}>Create Program</Button>
             <Modal size="xl" popup onClose={() => setOpenModal(false)} show={openModal}>
               <Modal.Header>
                 <p className='text-gray-900 dark:text-white font-titillium'>Create New Program</p>
