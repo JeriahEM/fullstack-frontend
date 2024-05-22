@@ -147,15 +147,22 @@ const HomePage = () => {
   }, []);
 
   const checkForAdmin = (check: IDisplayProgram) => {
-    if (check.adminID === sessionStorage.getItem('userID')) {
+    const adminArr = splitStringToArray(sessionStorage.getItem('userID'))
+    console.log(adminArr)
+    
+    const checkArr = splitStringToArray(check.adminID)
+    console.log(checkArr)
+
+    const isSimilar = adminArr?.some(e => checkArr?.includes(e))
+    if (isSimilar) {
       setIsAdmin(true)
       sessionStorage.setItem("userStatus", "admin")
-      console.log('this goes off')
+      console.log('you ARE THE ADMIN')
     }
     else {
       setIsAdmin(false)
       sessionStorage.setItem("userStatus", "general")
-      console.log("this 2nd one goes off")
+      console.log("no admins")
     }
   }
 

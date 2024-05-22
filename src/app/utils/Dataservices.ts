@@ -199,7 +199,7 @@ export const getProgramByID = async (id: number) => {
     const res = await fetch(url + '/Program/GetProgramById/' + id);
     const data = await res.json();
 
-  
+
     return data
 }
 
@@ -207,27 +207,27 @@ export const getAllPrograms = async () => {
     const res = await fetch(url + '/Program/GetAllPrograms');
     const data = await res.json();
 
-   
+
     return data
 }
 export const getEventsByProgramId = async (id: number) => {
     const res = await fetch(url + '/Event/GetEventsByProgramID/' + id);
     const data = await res.json();
 
-  
+
     return data
 }
 export const getEventsByProgramName = async (name: string) => {
     const res = await fetch(url + '/Event/GetEventsByProgramName/' + name);
     const data = await res.json();
 
- 
+
     return data
 }
 export const getProgramByName = async (name: string) => {
     const res = await fetch(url + '/Program/GetProgramByName/' + name);
     const data = await res.json();
-
+    console.log(data)
     return data
 }
 
@@ -255,7 +255,7 @@ export const getUsersByProgramName = async (name: string | null) => {
     const res = await fetch(url + '/Program/GetUsersByProgramName/' + name);
     const data = await res.json();
 
- 
+
     return data
 }
 
@@ -271,10 +271,10 @@ export const DeleteEventByID = async (id: number) => {
         method: 'DELETE'
     })
 
-if (!res.ok) {
-    const error = await res.text();
-    throw new Error(`Error deleting event: ${error}`);
-}
+    if (!res.ok) {
+        const error = await res.text();
+        throw new Error(`Error deleting event: ${error}`);
+    }
 
 
 }
@@ -295,7 +295,7 @@ export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUser
             }
         }
     }
-    
+
     return differences;
 }
 //Takes date in "2024-04-24" and returns "April 24, 2024"

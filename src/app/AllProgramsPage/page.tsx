@@ -38,6 +38,7 @@ const AllProgramsPage = () => {
     const tempArr = splitStringToArray(typeof window !== 'undefined' ? sessionStorage.getItem('programs') : null)
     if (tempArr) {
       setProgramArr(tempArr);
+      console.log(tempArr)
     }
     const grabPrograms = async () => {
       setDisplayPrograms(await getProgramBySport(typeof window !== 'undefined' ? sessionStorage.getItem("sport"): "Tennis"))
@@ -70,7 +71,7 @@ const AllProgramsPage = () => {
   const handleNewProgram = async () => {
 
     const newProgram: ICreateProgram = {
-      id: 2,
+      id: 0,
       programName: newProgramTitle,
       programSport: typeof window !== 'undefined' ? sessionStorage.getItem('sport') : 'Tennis',
       description: newProgramDescription,
@@ -94,7 +95,6 @@ const AllProgramsPage = () => {
     // }
     const addProgram = async () => {
       await createProgram(newProgram);
-      
 
      
     }
@@ -202,6 +202,7 @@ const AllProgramsPage = () => {
           <LocationOnOutlinedIcon />
         </div>
         <div className="grow">{program.programName}</div>
+        
 
         <div className="grow-0 grid grid-cols-2 font-titillium">
           <p># {countUsersInProgram(program)}</p>
