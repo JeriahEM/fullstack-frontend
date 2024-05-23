@@ -1,11 +1,10 @@
 'use client'
 
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { checkForUserOnRefresh, createAccount, getLoggedInUserData, isValidEmailFunction, login, resetPassword } from "@/app/utils/Dataservices";
 import { IResetPassword, IToken } from "./Interfaces/Interfaces";
-import NavbarComponent from "./Components/NavbarComponent";
 import { useAppContext } from "@/Context/context";
 
 
@@ -24,8 +23,8 @@ export default function Home() {
 
   useEffect(() => {
     checkForUserOnRefresh()
-    
-    
+
+
   }, [])
 
   const [username, setUsername] = useState<string>("");
@@ -100,6 +99,18 @@ export default function Home() {
 
   }
 
+  const handleKeyDown1 = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
+  }
+  
+  const handleKeyDown2 = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      handleNewUserSubmit();
+    }
+  }
+
   const handleNewUserSubmit = async () => {
     console.log(newUserBool)
     if (isValidEmail) {
@@ -132,20 +143,20 @@ export default function Home() {
   }
 
 
-//   updateDummy()
-//   const newPasswordDummy: IResetPassword = {
-//     email: email,
-//     newPassword: password
-//   }
-//   newPassword(newPasswordDummy)
-//   setUser(dummy)
-//   const urlString = createString()
-//   updateUserProfile(trueusername, urlString)
+  //   updateDummy()
+  //   const newPasswordDummy: IResetPassword = {
+  //     email: email,
+  //     newPassword: password
+  //   }
+  //   newPassword(newPasswordDummy)
+  //   setUser(dummy)
+  //   const urlString = createString()
+  //   updateUserProfile(trueusername, urlString)
 
-//   setOpenModal(false);
-//   setRPModal(false);
+  //   setOpenModal(false);
+  //   setRPModal(false);
 
-// }
+  // }
 
 
   return (
@@ -174,7 +185,7 @@ export default function Home() {
             <div className="items-center pb-7">
               <h1 className="text-center text-4xl font-bebas text-black ">Fill out your information</h1>
             </div>
-            <div className="flex max-w-md flex-col gap-4">
+            <div onKeyDown={handleKeyDown2} className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-black">
                   <p>Full Name:</p>
@@ -194,9 +205,12 @@ export default function Home() {
                 <Button onClick={() => handleNewUserBool()} className=" bg-red-700 text-white font-titillium w-full">
                   <p className="text-3xl">Back</p>
                 </Button>
+
                 <Button onClick={handleNewUserSubmit} className="bg-lime-300 text-black font-titillium w-full">
                   <p className="text-3xl">Enter</p>
                 </Button>
+
+
               </div>
 
 
@@ -230,7 +244,7 @@ export default function Home() {
             <div className="items-center pb-8">
               <h1 className="text-center text-5xl font-bebas text-black ">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
-            <div className="flex max-w-md flex-col gap-4">
+            <div onKeyDown={handleKeyDown1}className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-black ">
                   <p>Username:</p>
@@ -245,18 +259,18 @@ export default function Home() {
                 </div>
                 <input id="password1" type="password" className="inputbg border-t-transparent border-l-transparent border-r-transparent !border-b-black ring-transparent focus-within:border-r-0 focus-within:border-l-0 focus-within:border-t-0 focus-within:border-b-black w-44" maxLength={24} required onChange={(e) => setPassword(e.target.value)} />
               </div>
-              <p onClick={() => !switchBool? setOpenModal(true) : (setOpenModal(false))} className=" hover:text-blue-400 text-blue-600 text-md min-h-7">{switchBool ? '' : 'Forgot password?'} </p>
+              <p onClick={() => !switchBool ? setOpenModal(true) : (setOpenModal(false))} className=" hover:text-blue-400 text-blue-600 text-md min-h-7 hover:cursor-pointer">{switchBool ? '' : 'Forgot password?'} </p>
               <Modal show={openModal} size="md">
                 <Modal.Body className=" min-h-72">
-                <div className=" text-center min-h-11 my-3">
-                        <p className="text-2xl">Forgot Password?</p>
-                </div>
-                <p className="text-sm pb-1 hidden md:block">Enter Email of the account you need the password for <br /> And enter the new password you would like to have</p>
+                  <div className=" text-center min-h-11 my-3">
+                    <p className="text-2xl">Forgot Password?</p>
+                  </div>
+                  <p className="text-sm pb-1 hidden md:block">Enter Email of the account you need the password for <br /> And enter the new password you would like to have</p>
                   <div className="min-h-11 my-3">
                     <div className=" block ">
                       <Label htmlFor="email" value="Email" />
                     </div>
-                    <TextInput  />
+                    <TextInput />
                   </div>
                   <div className=" min-h-11 my-3">
                     <div className="mb-2 block">
@@ -271,12 +285,12 @@ export default function Home() {
                     <TextInput minLength={4} required maxLength={24} />
                   </div>
                   <div className="w-full flex flex-row justify-between min-h-11 my-3">
-                    <Button className="!bg-red-500 min-w-24 "  onClick={() => setOpenModal(false)}>Cancel</Button>
+                    <Button className="!bg-red-500 min-w-24 " onClick={() => setOpenModal(false)}>Cancel</Button>
                     <Button className="!bg-green-500 min-w-24" onClick={() => setOpenModal(false)}>Confirm</Button>
                   </div>
                 </Modal.Body>
               </Modal>
-              <Button onClick={handleSubmit} className=" text-black font-titillium bg-lime-300">
+              <Button  onClick={handleSubmit} className=" text-black font-titillium bg-lime-300">
                 <p className="text-3xl">{switchBool ? 'Next' : 'Enter'}</p>
               </Button>
 
