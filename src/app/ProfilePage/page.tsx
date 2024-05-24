@@ -206,7 +206,7 @@ const ProfilePage = () => {
             <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
               <div className="flex justify-center">
                 <div className="lg:my-4 " >
-                  <Image className="  rounded-3xl " alt="Placeholder img/ User set profile picture" src={user.image || placehold} width={400} height={400}/>
+                  <Image className="w-[100%] h-40 md:h-[45vh] lg:border-2 border-black rounded-3xl" alt="Placeholder img/ User set profile picture" src={user.image || placehold} width={270} height={270}/>
                 </div>
               </div>
             </div>

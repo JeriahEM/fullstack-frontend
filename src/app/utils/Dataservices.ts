@@ -1,5 +1,5 @@
 import { useAppContext } from "@/Context/context";
-import { IAddUserToProgram, ICreateProgram, IDisplayProgram, IEvent, INewUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
+import { IAddUserToProgram, ICreateProgram, IDisplayProgram, IEvent, INewUser, IRemoveUser, IResetPassword, IToken, IUpdateUser, IUserInfo, IUserdata } from "@/app/Interfaces/Interfaces"
 import { unescape } from "querystring";
 import { createContext } from "react";
 import validator from 'validator';
@@ -295,7 +295,22 @@ export const MoveUserToAnotherStatus = async (addInfo: IAddUserToProgram) => {
 
 }
 
+export const RemoveUserFromProgram = async (user:IRemoveUser) => {
+    const res = await fetch(url + 'Program/RemoveUserFromProgram', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(user)
+    })
 
+    if (!res.ok) {
+        const error = await res.text();
+        throw new Error(`Error removing user: ${error}`);
+    }
+
+
+}
 
 //Helper Functions
 export const findDifferences = (obj1: IUserdata, obj2: IUserdata): Partial<IUserdata> => {

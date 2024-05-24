@@ -77,3 +77,8 @@ export interface IAddUserToProgram{
     userId : number,
     status: string
 }
+
+export interface IRemoveUser{
+    ProgramName: string,
+    UserId: number
+}

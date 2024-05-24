@@ -3,8 +3,8 @@ import { useRouter } from "next/navigation";
 import NavbarComponent from "../Components/NavbarComponent";
 import { Button } from "flowbite-react";
 import React, { useEffect, useState } from "react";
-import { formatDate, splitStringToArray, getUserByUsername, MoveUserToAnotherStatus } from "@/app/utils/Dataservices";
-import { IAddUserToProgram, IUserdata } from "../Interfaces/Interfaces";
+import { formatDate, splitStringToArray, getUserByUsername, MoveUserToAnotherStatus, RemoveUserFromProgram } from "@/app/utils/Dataservices";
+import { IAddUserToProgram, IRemoveUser, IUserdata } from "../Interfaces/Interfaces";
 
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import placehold from "../assets/images/Group13.png"
@@ -60,6 +60,7 @@ const GuestProfilepage = () => {
         }
         await MoveUserToAnotherStatus(body)
     }
+
     const handleGeneral = async () =>{
         const body:IAddUserToProgram = {
             programID: Number(sessionStorage.getItem('lastProgramID')) || 0,
@@ -67,6 +68,13 @@ const GuestProfilepage = () => {
             status: "general"
         }
         await MoveUserToAnotherStatus(body)
+    }
+    const handleRemoveUser = async () =>{
+        const body:IRemoveUser = {
+            ProgramName: sessionStorage.getItem('lastProgram') || '0',
+            UserId: user.userID,
+        }
+        await RemoveUserFromProgram(body)
     }
 
 
@@ -96,8 +104,8 @@ const GuestProfilepage = () => {
                 <div className="grid grid-cols-6 mx-7 py-8 ">
                     <div className=" col-span-6 md:col-span-3 lg:col-span-2  md:w-full w-48 ml-20 md:ml-0">
                         <div className="flex justify-center">
-                            <div className="lg:my-4 lg:border-2 border-black  w-[80%] h-40 md:h-[45vh] rounded-3xl" >
-                                <Image className="w-[80%] h-40 md:h-[45vh]" alt={user.image} src={user.image || placehold} />
+                            <div className="lg:my-4 " >
+                                <Image className="w-[100%] h-40 md:h-[45vh] lg:border-2 border-black rounded-3xl" alt={user.image} src={user.image || placehold} width={270} height={270}/>
                             </div>
                         </div>
                     </div>
@@ -144,7 +152,7 @@ const GuestProfilepage = () => {
                         <div className="mt-auto flex justify-center">
                             <Button onClick={handleAdmin} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to Admin </Button>
                             <Button onClick={handleGeneral} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to General </Button>
-                            <Button className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Remove User </Button>
+                            <Button onClick={handleRemoveUser} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Remove User </Button>
                         </div> 
                        :
                         <div> not admin </div> 
