@@ -70,11 +70,10 @@ const GuestProfilepage = () => {
         await MoveUserToAnotherStatus(body)
     }
     const handleRemoveUser = async () =>{
-        const body:IRemoveUser = {
-            ProgramName: sessionStorage.getItem('lastProgram') || '0',
-            UserId: user.userID,
-        }
-        await RemoveUserFromProgram(body)
+        const ProgramName = sessionStorage.getItem('lastProgram') || '0';
+        const UserId = user.userID;
+        
+        await RemoveUserFromProgram(ProgramName, UserId)
     }
 
 
@@ -155,7 +154,7 @@ const GuestProfilepage = () => {
                             <Button onClick={handleRemoveUser} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Remove User </Button>
                         </div> 
                        :
-                        <div> not admin </div> 
+                        <div>  </div> 
                         } 
                     </div>
                 </div>

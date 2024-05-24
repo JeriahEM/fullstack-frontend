@@ -295,13 +295,10 @@ export const MoveUserToAnotherStatus = async (addInfo: IAddUserToProgram) => {
 
 }
 
-export const RemoveUserFromProgram = async (user:IRemoveUser) => {
-    const res = await fetch(url + 'Program/RemoveUserFromProgram', {
+export const RemoveUserFromProgram = async (ProgramName: string, UserId: number) => {
+    const res = await fetch(url + `/Program/RemoveUserFromProgram/${ProgramName}/${UserId}`, {
         method: 'DELETE',
-        headers: {
-            'Content-Type': "application/json"
-        },
-        body: JSON.stringify(user)
+       
     })
 
     if (!res.ok) {
