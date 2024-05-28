@@ -394,7 +394,7 @@ const HomePage = () => {
           <div className="py-3 lg:py-8">
             <div className='flex justify-center'>
               <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
-              <div className='flex  items-center ps-2'>
+              <div className='flex  items-center ps-2 hover:cursor-pointer'>
                 <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
 
               </div>
