@@ -4,6 +4,8 @@ import React, { createContext, useContext, useEffect } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import golf from "../assets/images/golf.jpg";
 import { useRouter } from "next/navigation";
+import { checkForUserOnRefresh } from "../utils/Dataservices";
+import { useAppContext } from "@/Context/context";
 // import basketball from "../assets/images/basketball.jpg";
 // import football from "../assets/images/football.jpg";
 // import baseball from "../assets/images/baseball.jpg";
