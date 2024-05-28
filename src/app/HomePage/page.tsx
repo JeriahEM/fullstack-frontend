@@ -62,6 +62,12 @@ const HomePage = () => {
       //setting display events on load
       const currentEvents = fetchedEvents.filter((obj: { start: string | string[]; }) => obj.start.includes(dateStr))
       setDisplayEvents(currentEvents)
+
+      
+    }
+    const programArrTemp = splitStringToArray(sessionStorage.getItem('programs'))
+    if(programArrTemp){
+      setProgramArr(programArrTemp)
     }
     getEvents()
 
@@ -88,6 +94,7 @@ const HomePage = () => {
     const getEvents = async () => {
       if (sessionStorage.getItem('firstLoad') === "true") {
         const programArrTemp = splitStringToArray(sessionStorage.getItem('programs'))
+        
 
         if (programArrTemp) {
           setProgramArr(programArrTemp);
@@ -133,8 +140,14 @@ const HomePage = () => {
       else if (sessionStorage.getItem('firstLoad') === "false") {
 
         const programArrTemp = sessionStorage.getItem('lastProgram')
+        const checkForPrograms = splitStringToArray(sessionStorage.getItem('programs'))
         if(programArrTemp){
           setCurrentProgramContext(programArrTemp)
+          if(checkForPrograms){
+           setProgramArr(checkForPrograms) 
+          }
+          
+          
         }
       
 
@@ -324,6 +337,11 @@ const HomePage = () => {
 
   const [descriptionModal, setDescriptionModal] = useState(false)
 
+  const tempFunction = ()=>{
+    setDescriptionModal(true)
+    console.log(programArr)  
+  }
+
   return (
     <div className='bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%'>
       <NavbarComponent />
@@ -373,6 +391,7 @@ const HomePage = () => {
               newEvent={newEvent}
               handleCloseModal={handleCloseModal}
               handleColorChange={handleColorChange}
+              
             />
             <DeleteEventModal
               showDeleteModal={showDeleteModal}
@@ -380,6 +399,7 @@ const HomePage = () => {
               handleDelete={handleDelete}
               handleCloseModal={handleCloseModal}
               eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
+              isAdmin = {isAdmin}
             />
 
 
@@ -395,7 +415,7 @@ const HomePage = () => {
             <div className='flex justify-center'>
               <h1 className="text-center text-3xl font-titillium font-bold">{formatDate(clickedDate)}</h1>
               <div className='flex  items-center ps-2 hover:cursor-pointer'>
-                <InfoOutlinedIcon onClick={() => setDescriptionModal(true)} />
+                <InfoOutlinedIcon onClick={() => tempFunction()} />
 
               </div>
 

@@ -83,7 +83,7 @@ const handleProfileGeneralChange = (user:string) =>{
           
         </div>
         <div className="grow-0">
-          <MoreVertOutlinedIcon />
+       
         </div>
       </div>
     ));
@@ -110,7 +110,7 @@ const handleProfileGeneralChange = (user:string) =>{
           <p>{user.realName} ({user.userName})</p>
         </div>
         <div className="grow-0">
-          <MoreVertOutlinedIcon />
+          
         </div>
       </div>
     ));
@@ -138,7 +138,7 @@ const handleProfileGeneralChange = (user:string) =>{
           <p>{user.realName} ({user.userName})</p>
         </div>
         <div className="grow-0">
-          <MoreVertOutlinedIcon />
+          
         </div>
       </div>
     ));

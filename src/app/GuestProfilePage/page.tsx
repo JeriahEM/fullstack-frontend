@@ -59,6 +59,7 @@ const GuestProfilepage = () => {
             status: "admin"
         }
         await MoveUserToAnotherStatus(body)
+        router.push(`/UserDirectoryPage`)
     }
 
     const handleGeneral = async () =>{
@@ -68,13 +69,23 @@ const GuestProfilepage = () => {
             status: "general"
         }
         await MoveUserToAnotherStatus(body)
+        router.push(`/UserDirectoryPage`)
+    }
+    const handleCoach = async () =>{
+        const body:IAddUserToProgram = {
+            programID: Number(sessionStorage.getItem('lastProgramID')) || 0,
+            userId: user.userID,
+            status: "coach"
+        }
+        await MoveUserToAnotherStatus(body)
+        router.push(`/UserDirectoryPage`)
     }
     const handleRemoveUser = async () =>{
-        const body:IRemoveUser = {
-            ProgramName: sessionStorage.getItem('lastProgram') || '0',
-            UserId: user.userID,
-        }
-        await RemoveUserFromProgram(body)
+        const ProgramName = sessionStorage.getItem('lastProgram') || '0';
+        const UserId = user.userID;
+        router.push(`/UserDirectoryPage`)
+        
+        await RemoveUserFromProgram(ProgramName, UserId)
     }
 
 
@@ -149,13 +160,14 @@ const GuestProfilepage = () => {
 
                         {typeof window !== 'undefined' && sessionStorage.getItem('userStatus') == "admin"? 
 
-                        <div className="mt-auto flex justify-center">
+                        <div className="mt-auto flex justify-evenly">
                             <Button onClick={handleAdmin} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to Admin </Button>
+                            <Button onClick={handleCoach} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to Coach </Button>
                             <Button onClick={handleGeneral} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Set to General </Button>
-                            <Button onClick={handleRemoveUser} className="border-2 border-black  rounded-lg min-w-36 h-14 font-titillium bg-none"> Remove User </Button>
+                            <button onClick={handleRemoveUser} className="border-2 text-white border-black bg-red-600 hover:bg-red-400 rounded-lg min-w-36 h-14 font-titillium bg-none"> Remove User </button>
                         </div> 
                        :
-                        <div> not admin </div> 
+                        <div>  </div> 
                         } 
                     </div>
                 </div>
