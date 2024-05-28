@@ -8,20 +8,47 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import SportsBaseballOutlinedIcon from '@mui/icons-material/SportsBaseballOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+import placehold from "../assets/images/Group13.png"
 
 
 
-import { checkToken, loggedinData } from '@/utils/Dataservices';
+import { checkForUserOnRefresh, checkToken, loggedinData, splitStringToArray } from '@/app/utils/Dataservices';
+import { useAppContext } from "@/Context/context";
+import { IUserdata } from "../Interfaces/Interfaces";
 const NavbarComponent = () => {
 
+  const { currentProgramContext, setCurrentProgramContext } = useAppContext()
+
   const [username, setUsername] = useState<string>("")
+  const [programArr, setProgramArr] = useState<string[]>()
+  const [user, setUser] = useState<IUserdata>({} as IUserdata)
+  
+
+  const handleProgramClick = (program: string) => {
+    setCurrentProgramContext(program)
+    sessionStorage.setItem('lastProgram', program)
+    router.push('/HomePage')
+  }
+  const createDropDown = () => {
+    return programArr?.map((program, idx) => (
+      <Dropdown.Item key={idx} onClick={() => handleProgramClick(program)}>{program}</Dropdown.Item>
+    ))
+  }
+
+
 
   useEffect(() => {
 
     const getLoggedinData = async () => {
+      await checkForUserOnRefresh()
       const loggedIn = await loggedinData();
-      console.log(loggedIn.userID)
-      console.log(loggedIn.username)
+      setUser(loggedIn);
+      setProgramArr(splitStringToArray(sessionStorage.getItem('programs')));
+      if (programArr) {
+        setCurrentProgramContext(programArr[0])
+        sessionStorage.setItem('lastProgram', programArr[0])
+      }
+
       setUsername(loggedIn.username)
       // let userBlogItems: IBlogItems[] = await getBlogItemsByUserId(loggedIn.userId)
 
@@ -42,81 +69,87 @@ const NavbarComponent = () => {
   }, [])
 
 
+  const logout = () => {
+    router.push('/');
+    sessionStorage.clear();
+  }
 
 
-    const router = useRouter();
-    return (
-        <Navbar fluid rounded>
-          <Navbar.Brand>
-            <div className="sm:hidden">
-            <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={()=> router.push('/HomePage')}>CM</span>
+  const router = useRouter();
+  return (
+    <Navbar fluid rounded>
+      <Navbar.Brand>
+        <div className="sm:hidden">
+          <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={() => router.push('/HomePage')}>CM</span>
+        </div>
+        <div className="hidden md:block">
+          <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={() => router.push('/HomePage')}>Court Monitor</span>
+        </div>
+      </Navbar.Brand>
+    
+      <Dropdown className='font-bebas text-6xl' label={currentProgramContext} inline>
+        {/* <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
+        <Dropdown.Item>US Open</Dropdown.Item> */}
+        {createDropDown()}
+      </Dropdown>
+      <div className="flex md:order-2">
+        <p className='pt-2 pr-2 hidden md:block'>{username}</p>
+        <Dropdown
+          arrowIcon={true}
+          inline
+          label={
+            <Avatar className='pb-2' alt="User settings" img={user.image} rounded />
+            // <Image className="w-[80%] h-40 md:h-[45vh]  rounded-3xl " alt="Placeholder img" src={user.image || placehold} width={400} height={400}/>
+          }
+        >
+          <Dropdown.Item onClick={() => router.push('/HomePage')}>
+            <div className='flex flex-row items-center'>
+              <HomeOutlinedIcon />
+              <p className='pl-2'>Home</p>
+            </div >
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => router.push('/ProfilePage')}>
+            <div className='flex flex-row items-center'>
+              <PersonOutlineOutlinedIcon />
+              <p className='pl-2'>Profile</p>
             </div>
-            <div className="hidden lg:block">
-            <span className="self-center whitespace-nowrap text-2xl font-bebas font-semibold dark:text-white tracking-[0.5rem]" onClick={()=> router.push('/HomePage')}>Court Monitor</span>
+          </Dropdown.Item>
+          {/* <Dropdown.Item onClick={() => router.push('/NotificationsPage')}>
+            <div className='flex flex-row items-center'>
+              <EmailOutlinedIcon />
+              <p className='pl-2'>Notifications</p>
             </div>
-          </Navbar.Brand>
-          <div className="flex md:order-2">
-            <p className='pt-2 pr-2'>{username}</p>
-            <Dropdown
-              arrowIcon={true}
-              inline
-              label={
-                <Avatar className='pb-2' alt="User settings" img="https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg" rounded />
-              }
-            >
-              <Dropdown.Item onClick={()=> router.push('/HomePage')}>
-                <div className='flex flex-row items-center'>
-                    <HomeOutlinedIcon/>
-                    <p className='pl-2'>Home</p>
-                </div >
-              </Dropdown.Item>
-              <Dropdown.Item onClick={()=> router.push('/ProfilePage')}>
-                <div className='flex flex-row items-center'>
-                    <PersonOutlineOutlinedIcon/>
-                    <p className='pl-2'>Profile</p>
-                </div>
-              </Dropdown.Item>
-              <Dropdown.Item onClick={()=> router.push('/NotificationsPage')}>
-              <div className='flex flex-row items-center'>
-                    <EmailOutlinedIcon/>
-                    <p className='pl-2'>Notifications</p>
-                </div>
-              </Dropdown.Item>
-              <Dropdown.Item onClick={()=> router.push('/UserDirectoryPage')}>
-              <div className='flex flex-row items-center'>
-                    <PersonSearchOutlinedIcon/>
-                    <p className='pl-2'>User Directory</p>
-                </div>
-              </Dropdown.Item>
-              <Dropdown.Item onClick={()=> router.push('/AllProgramsPage')}>
-              <div className='flex flex-row items-center'>
-                    <ListOutlinedIcon/>
-                    <p className='pl-2 font-titillium'>All Programs</p>
-                </div>
-              </Dropdown.Item>
-              <Dropdown.Item onClick={()=> router.push('/SportsSelectionPage')}>
-              <div className='flex flex-row items-center'>
-                    <SportsBaseballOutlinedIcon/>
-                    <p className='pl-2'>Sports Selection</p>
-                </div>
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item onClick={()=> router.push('/')}>
-              <div className='flex flex-row items-center'>
-                    <LogoutOutlinedIcon/>
-                    <p className='pl-2'>Sign out</p>
-                </div>
-              </Dropdown.Item>
-            </Dropdown>
-            <Navbar.Toggle />
-          </div>
-          {/* <Dropdown className='font-bebas' label="Manteca Future Stars" inline>
-      <Dropdown.Item>Manteca Future Stars</Dropdown.Item>
-      <Dropdown.Item>US Open</Dropdown.Item>
-    </Dropdown> */}
-
-        </Navbar>
-      );
-    }
+          </Dropdown.Item> */}
+          <Dropdown.Item onClick={() => router.push('/UserDirectoryPage')}>
+            <div className='flex flex-row items-center'>
+              <PersonSearchOutlinedIcon />
+              <p className='pl-2'>User Directory</p>
+            </div>
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => router.push('/AllProgramsPage')}>
+            <div className='flex flex-row items-center'>
+              <ListOutlinedIcon />
+              <p className='pl-2 font-titillium'>All Programs</p>
+            </div>
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => router.push('/SportsSelectionPage')}>
+            <div className='flex flex-row items-center'>
+              <SportsBaseballOutlinedIcon />
+              <p className='pl-2'>Sports Selection</p>
+            </div>
+          </Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item onClick={() => logout()}>
+            <div className='flex flex-row items-center'>
+              <LogoutOutlinedIcon />
+              <p className='pl-2'>Sign out</p>
+            </div>
+          </Dropdown.Item>
+        </Dropdown>
+        {/* <Navbar.Toggle /> */}
+      </div>
+    </Navbar>
+  );
+}
 
 export default NavbarComponent

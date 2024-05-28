@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import NavbarComponent from "../Components/NavbarComponent";
 import golf from "../assets/images/golf.jpg";
 import { useRouter } from "next/navigation";
-import { useAppContext } from "@/Context/Context";
 // import basketball from "../assets/images/basketball.jpg";
 // import football from "../assets/images/football.jpg";
 // import baseball from "../assets/images/baseball.jpg";
 // import gymnastics from "../assets/images/gymnastics.jpg";
-// import hockconst [sport, setSport] = useState<string>("")ey from "../assets/images/hockey.jpg";
+// import hockey from "../assets/images/hockey.jpg";
 // import soccer from "../assets/images/soccer.jpg";
 // import swimming from "../assets/images/swimming.jpg";
 // import track from "../assets/images/trackandfield.jpg";
@@ -19,6 +18,9 @@ import { useAppContext } from "@/Context/Context";
 // import tennis from "../assets/images/marianna-smiley-Y4YeUSYLFsw-unsplash 1.png";
 
 const SportsSelectionPage = () => {
+  useEffect(() =>{
+    checkForUserOnRefresh()
+  },[])
   //const [sportName, setSportName] = useState<string>('')
   const router = useRouter();
 
@@ -39,20 +41,17 @@ const SportsSelectionPage = () => {
     "Track-and-Field",
     "Water-Polo",
   ];
-const [test, setTest] = useState('')
-  const handleClick = (sport: any) => {
-    console.log(data.sportName, sport)
 
-    data.setSportName(test);
-    router.push("../AllProgramsPage");
-  };
+  const handleBtn = (sport:string) =>{
+    router.push('/AllProgramsPage')
+    sessionStorage.setItem("sport", sport)
+  }
 
   const SportsList = ({ sports: [] }) => {
     return sports.map((sport, index) => (
       <div key={index} className=" flex justify-center py-4">
-        <button className={`${sport} h-44 w-[90%] rounded-lg text-6xl font-bold `} 
+        <button className={`${sport} h-32 lg:h-44 w-[90%] rounded-lg text-6xl font-bold `} 
         onClick={()=> router.push('/AllProgramsPage')}>
->>>>>>> 437c6edcd20b521848f01ee3095aa996fcbca9cd
           <p className="textShadow">{sport}</p>
         </button>
       </div>
@@ -60,15 +59,11 @@ const [test, setTest] = useState('')
   };
 
   return (
-<<<<<<< HEAD
-    <div className="font-titillium">
-=======
     <div className=" font-titillium bg-gradient-to-b from-lime-200 from-10% via-lime-100 via-70% to-white to-100%">
->>>>>>> 437c6edcd20b521848f01ee3095aa996fcbca9cd
       <NavbarComponent />
-      <h1 className="text-center text-6xl font-bold py-4">Select a Sport</h1>
+      <h1 className="text-center text-6xl font-bold py-4 font-titillium">Select a Sport</h1>
       <div className="mx-7">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 font-titillium">
           <SportsList sports={sports} />
         </div>
       </div>

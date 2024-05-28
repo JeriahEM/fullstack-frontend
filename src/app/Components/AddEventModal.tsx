@@ -5,15 +5,9 @@ import { Dialog, Transition } from '@headlessui/react'
 
 import TimeSelector from './TimeSelector'
 import ColorSelector from './ColorSelector'
+import { IEvent } from '../Interfaces/Interfaces'
 
-interface Event {
-  title: string;
-  start: Date | string;
-  end: Date | string;
-  allDay: boolean;
-  id: number;
-  color: string;
-}
+
 interface AddEventModalProps {
   showModal: boolean
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -21,7 +15,7 @@ interface AddEventModalProps {
   handleTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleEndTimeChange: (time: string) => void
   handleStartTimeChange: (time: string) => void
-  newEvent: Event
+  newEvent: IEvent
   handleCloseModal: () => void
   handleColorChange: (color:string) => void
 }

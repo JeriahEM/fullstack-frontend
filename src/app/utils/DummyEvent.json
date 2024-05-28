@@ -1,11 +1,13 @@
 [
   {
     "title": "Event 1",
-    "start": "2024-04-24 17:00",
-    "end": "2024-04-24 20:00",
-    "allDay": false,
+    "start": "2024-04-24",
+    "end": "",
+    "allDay": true,
     "id": 1,
-    "color": "red"
+    "color": "red",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 2",
@@ -13,7 +15,9 @@
     "end": "2024-04-25 14:30",
     "allDay": false,
     "id": 2,
-    "color": "blue"
+    "color": "blue",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 3",
@@ -21,7 +25,9 @@
     "end": "2024-04-26 11:30",
     "allDay": false,
     "id": 3,
-    "color": "purple"
+    "color": "purple",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 4",
@@ -29,7 +35,9 @@
     "end": "2024-04-27 19:45",
     "allDay": false,
     "id": 4,
-    "color": "red"
+    "color": "red",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 5",
@@ -37,7 +45,9 @@
     "end": "2024-04-28 17:00",
     "allDay": false,
     "id": 5,
-    "color": "blue"
+    "color": "blue",
+    "programID":"0",
+    "date": ""
   },
   {
     "title": "Event 6",
@@ -45,7 +55,9 @@
     "end": "2024-04-29 12:30",
     "allDay": false,
     "id": 6,
-    "color": "purple"
+    "color": "purple",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 7",
@@ -53,7 +65,9 @@
     "end": "2024-04-30 17:15",
     "allDay": false,
     "id": 7,
-    "color": "red"
+    "color": "red",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 8",
@@ -61,7 +75,9 @@
     "end": "2024-05-01 22:30",
     "allDay": false,
     "id": 8,
-    "color": "blue"
+    "color": "blue",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 9",
@@ -69,7 +85,9 @@
     "end": "2024-05-02 14:45",
     "allDay": false,
     "id": 9,
-    "color": "purple"
+    "color": "purple",
+    "programID": "0",
+    "date": ""
   },
   {
     "title": "Event 10",
@@ -77,6 +95,8 @@
     "end": "2024-05-03 19:00",
     "allDay": false,
     "id": 10,
-    "color": "red"
+    "color": "red",
+    "programID": "0",
+    "date": ""
   }
 ]
