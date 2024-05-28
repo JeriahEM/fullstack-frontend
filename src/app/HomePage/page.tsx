@@ -391,6 +391,7 @@ const HomePage = () => {
               newEvent={newEvent}
               handleCloseModal={handleCloseModal}
               handleColorChange={handleColorChange}
+              
             />
             <DeleteEventModal
               showDeleteModal={showDeleteModal}
@@ -398,6 +399,7 @@ const HomePage = () => {
               handleDelete={handleDelete}
               handleCloseModal={handleCloseModal}
               eventData={allEvents.filter(obj => obj.id === idToDelete)[0]}
+              isAdmin = {isAdmin}
             />
 
 
