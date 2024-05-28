@@ -296,7 +296,7 @@ export default function Home() {
 
                     <TextInput type="password" onChange={(e) => setResetPasswordConfirm(e.target.value)} minLength={3} required maxLength={24} />
                     {resetPasswordInput !== resetPasswordInputConfirm ?
-                      <p className="text-red-600">Passwords don't match ! </p>
+                      <p className="text-red-600">Passwords do not match ! </p>
                       :
                       <p></p>
                     }
