@@ -104,7 +104,7 @@ export default function Home() {
       handleSubmit();
     }
   }
-  
+
   const handleKeyDown2 = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter') {
       handleNewUserSubmit();
@@ -137,10 +137,21 @@ export default function Home() {
 
   }
 
-  const newPassword = async (newPassword: IResetPassword) => {
-    const fetchData = resetPassword(newPassword);
+  const newPassword = async () => {
+    setOpenModal(false)
+    const newPassword:IResetPassword = {
+      email: emailInput,
+      newPassword: resetPasswordInput,
+    }
+    resetPassword(newPassword);
+    alert(`Password for account with the email: ${emailInput} has been reset!`)
+
 
   }
+
+  const [resetPasswordInput, setResetPasswordInput] = useState<string>("-")
+  const [resetPasswordInputConfirm, setResetPasswordConfirm] = useState<string>("+")
+  const [emailInput, setEmailInput] = useState<string>("")
 
 
   //   updateDummy()
@@ -244,7 +255,7 @@ export default function Home() {
             <div className="items-center pb-8">
               <h1 className="text-center text-5xl font-bebas text-black ">{switchBool ? 'New User' : 'Login'}</h1>
             </div>
-            <div onKeyDown={handleKeyDown1}className="flex max-w-md flex-col gap-4">
+            <div onKeyDown={handleKeyDown1} className="flex max-w-md flex-col gap-4">
               <div className="flex flex-row gap-3">
                 <div className="mb-2 block pt-2 text-3xl font-titillium text-black ">
                   <p>Username:</p>
@@ -270,27 +281,38 @@ export default function Home() {
                     <div className=" block ">
                       <Label htmlFor="email" value="Email" />
                     </div>
-                    <TextInput />
+                    <TextInput onChange={(e) => setEmailInput(e.target.value)} />
                   </div>
                   <div className=" min-h-11 my-3">
                     <div className="mb-2 block">
-                      <Label htmlFor="password" value="Password" />
+                      <Label htmlFor="password" value="New Password" />
                     </div>
-                    <TextInput minLength={4} required maxLength={24} />
+                    <TextInput type="password" onChange={(e) => setResetPasswordInput(e.target.value)} minLength={3} required maxLength={24} />
                   </div>
                   <div className=" min-h-11 my-3">
                     <div className="mb-2 block">
-                      <Label htmlFor="cpassword" value="Confirm Password" />
+                      <Label htmlFor="cpassword" value="Confirm New Password" />
                     </div>
-                    <TextInput minLength={4} required maxLength={24} />
+
+                    <TextInput type="password" onChange={(e) => setResetPasswordConfirm(e.target.value)} minLength={3} required maxLength={24} />
+                    {resetPasswordInput !== resetPasswordInputConfirm ?
+                      <p className="text-red-600">Passwords do not match ! </p>
+                      :
+                      <p></p>
+                    }
+
                   </div>
                   <div className="w-full flex flex-row justify-between min-h-11 my-3">
                     <Button className="!bg-red-500 min-w-24 " onClick={() => setOpenModal(false)}>Cancel</Button>
-                    <Button className="!bg-green-500 min-w-24" onClick={() => setOpenModal(false)}>Confirm</Button>
+                    {resetPasswordInput !== resetPasswordInputConfirm ?
+                      <div></div> 
+                      :
+                      <Button className="!bg-green-500 min-w-24" onClick={() => newPassword()}>Confirm</Button>
+                    }
                   </div>
                 </Modal.Body>
               </Modal>
-              <Button  onClick={handleSubmit} className=" text-black font-titillium bg-lime-300">
+              <Button onClick={handleSubmit} className=" text-black font-titillium bg-lime-300">
                 <p className="text-3xl">{switchBool ? 'Next' : 'Enter'}</p>
               </Button>
 
